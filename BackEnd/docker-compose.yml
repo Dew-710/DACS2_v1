@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: restaurant-postgres
+    environment:
+      POSTGRES_DB: restaurant
+      POSTGRES_USER: dew_x_phatdev
+      POSTGRES_PASSWORD: 123456789
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database_schema.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - restaurant-network
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: restaurant-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@restaurant.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "8085:80"
+    depends_on:
+      - postgres
+    networks:
+      - restaurant-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  restaurant-network:
+    driver: bridge

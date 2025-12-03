@@ -1,0 +1,31 @@
+[00:00:00.975] Server  LOG      ✓ Ready in 648ms
+[00:00:28.873] Browser ERROR   Registration error: {}
+[00:09:26.736] Browser ERROR   Registration error: {}
+[00:09:27.738] Browser ERROR   Registration error: {}
+[00:09:42.753] Browser ERROR   Registration error: {}
+[00:35:18.399] Browser ERROR   Registration error: {}
+[00:35:36.990] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:36:37.310] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:36:37.682] Server  LOG      ✓ Compiled in 246ms
+[00:36:37.831] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:36:38.387] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:36:42.067] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:36:53.095] Browser ERROR   Registration error: {}
+[00:41:51.945] Browser ERROR   Registration error: {}
+[00:42:43.582] Browser ERROR   Registration error: {}
+[00:43:33.608] Browser ERROR   Registration error: {}
+[00:43:34.575] Browser ERROR   Registration error: {}
+[00:45:18.290] Browser ERROR   Registration error: {}
+[00:45:35.238] Browser ERROR   Registration error: {}
+[00:49:59.329] Browser ERROR   Login error: {}
+[00:52:24.134] Server  LOG      ✓ Compiled in 141ms
+[00:52:32.945] Browser ERROR   Login error: {}
+[00:52:47.350] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:52:51.991] Browser ERROR   Login error: {}
+[00:55:12.055] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:55:12.096] Server  LOG      ✓ Compiled in 79ms
+[00:55:12.737] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:55:13.220] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:55:19.157] Browser ERROR   Login error: {}
+[00:55:46.695] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:55:50.472] Browser ERROR   Login error: {}
