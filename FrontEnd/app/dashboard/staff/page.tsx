@@ -18,7 +18,9 @@ import {
   updateTableStatus,
   checkOutTable,
   getTableCurrentOrder,
-  createOrderWithCustomer
+  createOrderWithCustomer,
+  sendQRCodeToESP32,
+  getQRCodeImageUrl
 } from '@/lib/api';
 import type {
   RestaurantTable,
@@ -34,7 +36,10 @@ import {
   Clock,
   CheckCircle,
   UserPlus,
-  Phone
+  Phone,
+  QrCode,
+  Printer,
+  Download
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -146,6 +151,16 @@ function StaffDashboardContent() {
     }
   };
 
+  const handleSendQRToESP32 = async (tableId: number) => {
+    try {
+      await sendQRCodeToESP32(tableId);
+      toast.success('QR code đã được gửi tới ESP32');
+    } catch (error) {
+      console.error('Error sending QR code to ESP32:', error);
+      toast.error('Gửi QR code tới ESP32 thất bại');
+    }
+  };
+
   // Calculate statistics
   const availableTables = tables.filter(table => table.status === 'AVAILABLE');
   const occupiedTables = tables.filter(table => table.status === 'OCCUPIED');
@@ -182,11 +197,12 @@ function StaffDashboardContent() {
 
       <div className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8">
+          <TabsList className="grid w-full grid-cols-5 mb-8">
             <TabsTrigger value="tables">Quản lý bàn</TabsTrigger>
             <TabsTrigger value="orders">Đơn hàng</TabsTrigger>
             <TabsTrigger value="bookings">Đặt bàn</TabsTrigger>
             <TabsTrigger value="checkin">Check-in</TabsTrigger>
+            <TabsTrigger value="qrcodes">QR Codes</TabsTrigger>
           </TabsList>
 
           {/* Tables Management Tab */}
@@ -304,10 +320,10 @@ function StaffDashboardContent() {
                       <div>
                         <p className="font-medium mb-2">Món đã gọi:</p>
                         <div className="space-y-1">
-                          {order.items.map((item, idx) => (
+                          {order.orderItems?.map((item, idx) => (
                             <div key={idx} className="flex justify-between text-sm">
                               <span>{item.menuItem.name} x{item.quantity}</span>
-                              <span>{(item.unitPrice * item.quantity).toLocaleString('vi-VN')}đ</span>
+                              <span>{(item.price * item.quantity).toLocaleString('vi-VN')}đ</span>
                             </div>
                           ))}
                         </div>
@@ -466,6 +482,113 @@ function StaffDashboardContent() {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          {/* QR Codes Tab */}
+          <TabsContent value="qrcodes" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">QR Codes bàn ăn</h2>
+              <Button onClick={() => window.print()}>
+                <Printer className="w-4 h-4 mr-2" />
+                In QR Codes
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {tables.map((table) => (
+                <Card key={table.id} className="p-6 text-center">
+                  {table.qrCode ? (
+                    <>
+                      <div className="w-48 h-48 mx-auto mb-4 bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center p-2">
+                        <img
+                          src={getQRCodeImageUrl(table.id)}
+                          alt={`QR Code for ${table.tableName}`}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+
+                      <h3 className="font-semibold text-lg mb-2">{table.tableName}</h3>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        {table.capacity} người • {table.tableType}
+                      </p>
+                      <p className="text-xs text-muted-foreground mb-4 font-mono">
+                        {table.qrCode}
+                      </p>
+
+                      <div className="space-y-2">
+                        <Button
+                          size="sm"
+                          className="w-full"
+                          onClick={() => handleSendQRToESP32(table.id)}
+                        >
+                          <QrCode className="w-4 h-4 mr-2" />
+                          Gửi tới ESP32
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full"
+                          onClick={() => navigator.clipboard.writeText(table.qrCode || '')}
+                        >
+                          <Download className="w-4 h-4 mr-2" />
+                          Copy Code
+                        </Button>
+                        <p className="text-xs text-muted-foreground">
+                          URL: {typeof window !== 'undefined' ? window.location.origin : ''}/menu/{table.qrCode}
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="w-32 h-32 mx-auto mb-4 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center">
+                        <div className="text-center">
+                          <QrCode className="w-12 h-12 mx-auto mb-2 text-gray-400" />
+                          <p className="text-xs text-gray-500">Chưa có QR</p>
+                        </div>
+                      </div>
+                      <h3 className="font-semibold text-lg mb-2">{table.tableName}</h3>
+                      <Button
+                        size="sm"
+                        className="w-full"
+                        onClick={async () => {
+                          try {
+                            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"}/api/tables/${table.id}/generate-qr`, {
+                              method: 'POST',
+                            });
+                            if (response.ok) {
+                              toast.success('Đã tạo QR code');
+                              loadDashboardData();
+                            }
+                          } catch (error) {
+                            toast.error('Tạo QR code thất bại');
+                          }
+                        }}
+                      >
+                        Tạo QR Code
+                      </Button>
+                    </>
+                  )}
+                </Card>
+              ))}
+            </div>
+
+            <Card className="p-6">
+              <h3 className="font-semibold mb-4">Hướng dẫn sử dụng QR Codes</h3>
+              <div className="space-y-3 text-sm text-muted-foreground">
+                <p>
+                  <strong>1. In QR Codes:</strong> Sử dụng nút "In QR Codes" để in tất cả mã QR cho các bàn.
+                </p>
+                <p>
+                  <strong>2. Dán lên bàn:</strong> Dán mã QR lên mỗi bàn tương ứng.
+                </p>
+                <p>
+                  <strong>3. Khách hàng quét:</strong> Khách quét QR để truy cập menu và gọi món trực tiếp.
+                </p>
+                <p>
+                  <strong>4. URL format:</strong> {window.location.origin}/menu/[QR_CODE]
+                </p>
+              </div>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>

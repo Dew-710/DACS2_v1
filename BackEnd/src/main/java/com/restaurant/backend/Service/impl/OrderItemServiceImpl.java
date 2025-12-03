@@ -44,9 +44,7 @@ public class OrderItemServiceImpl implements OrderItemService {
         existingItem.setPrice(item.getPrice());
         existingItem.setNotes(item.getNotes());
         existingItem.setStatus(item.getStatus());
-        // Recalculate subtotal
-        existingItem.setSubtotal(existingItem.getPrice().multiply(
-                java.math.BigDecimal.valueOf(existingItem.getQuantity())));
+        // Subtotal is calculated automatically via getter method
         return orderItemRepository.save(existingItem);
     }
 

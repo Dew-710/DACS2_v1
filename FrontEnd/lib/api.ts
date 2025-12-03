@@ -184,6 +184,20 @@ export async function getTableCurrentOrder(tableId: number) {
   return fetchData<{ message: string; hasActiveOrder: boolean; order?: Order }>(`/api/tables/${tableId}/current-order`);
 }
 
+export async function sendQRCodeToESP32(tableId: number) {
+  return fetchData<{ message: string; tableId: number; tableName: string; qrCode: string; qrUrl: string }>(`/api/send-qr-code/${tableId}`, {
+    method: 'POST',
+  });
+}
+
+export function getQRCodeImageUrl(tableId: number) {
+  return `${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"}/api/qr-code/${tableId}/image`;
+}
+
+export async function getTableByQr(qrCode: string) {
+  return fetchData<{ message: string; table: RestaurantTable }>(`/api/tables/qr/${qrCode}`);
+}
+
 // ===== ORDERS API =====
 export interface OrderItem {
   id: number;
