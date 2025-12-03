@@ -17,7 +17,8 @@ import {
   getBookings,
   updateTableStatus,
   checkOutTable,
-  getTableCurrentOrder
+  getTableCurrentOrder,
+  createOrderWithCustomer
 } from '@/lib/api';
 import type {
   RestaurantTable,
@@ -95,12 +96,20 @@ function StaffDashboardContent() {
     }
 
     try {
-      // For demo purposes, we'll create a simple check-in without QR code
-      // In a real implementation, this would involve QR code scanning
-      toast.info('Check-in thành công cho khách hàng: ' + customerName);
+      // Create a new order for the table
+      const newOrder = {
+        items: [], // Start with empty items
+        status: 'PLACED', // Initial status
+        totalAmount: 0, // Initial amount
+        notes: `Khách hàng: ${customerName}${customerPhone ? ` - ${customerPhone}` : ''}`
+      };
+
+      await createOrderWithCustomer(3, selectedTableForCheckIn, newOrder); // Use customer ID 3 (Alice Customer) as default
 
       // Update table status to OCCUPIED
       await updateTableStatus(selectedTableForCheckIn, 'OCCUPIED');
+
+      toast.success(`Check-in thành công cho khách hàng: ${customerName}`);
 
       // Reset form
       setShowCheckInForm(false);

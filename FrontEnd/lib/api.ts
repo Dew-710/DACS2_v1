@@ -227,6 +227,13 @@ export async function createOrder(order: Omit<Order, 'id' | 'createdAt' | 'updat
   });
 }
 
+export async function createOrderWithCustomer(customerId: number, tableId: number, order: Omit<Order, 'id' | 'customer' | 'table' | 'createdAt' | 'updatedAt'>) {
+  return fetchData<{ message: string; order: Order }>(`/api/orders/create-with-customer/${customerId}/table/${tableId}`, {
+    method: 'POST',
+    body: JSON.stringify(order),
+  });
+}
+
 export async function addItemsToOrder(orderId: number, items: Omit<OrderItem, 'id'>[]) {
   return fetchData<{ message: string; order: Order }>(`/api/orders/${orderId}/add-items`, {
     method: 'POST',

@@ -2,7 +2,11 @@ package com.restaurant.backend.Controller;
 
 import com.restaurant.backend.Entity.Order;
 import com.restaurant.backend.Entity.OrderItem;
+import com.restaurant.backend.Entity.User;
+import com.restaurant.backend.Entity.RestaurantTable;
 import com.restaurant.backend.Service.OrderService;
+import com.restaurant.backend.Service.UserService;
+import com.restaurant.backend.Service.RestaurantTableService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,14 +18,42 @@ import java.util.Map;
 public class OrderController {
 
     private final OrderService orderService;
+    private final UserService userService;
+    private final RestaurantTableService tableService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, UserService userService, RestaurantTableService tableService) {
         this.orderService = orderService;
+        this.userService = userService;
+        this.tableService = tableService;
     }
 
     // Create new order for a table
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Order order) {
+        Order created = orderService.create(order);
+        return ResponseEntity.ok(
+                Map.of(
+                        "message", "Order created successfully",
+                        "order", created
+                )
+        );
+    }
+
+    // Create new order with customer ID and table ID (for check-in)
+    @PostMapping("/create-with-customer/{customerId}/table/{tableId}")
+    public ResponseEntity<?> createWithCustomerId(@PathVariable Long customerId, @PathVariable Long tableId, @RequestBody Order order) {
+        User customer = userService.findById(customerId);
+        if (customer == null) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Customer not found"));
+        }
+
+        RestaurantTable table = tableService.findById(tableId);
+        if (table == null) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Table not found"));
+        }
+
+        order.setCustomer(customer);
+        order.setTable(table);
         Order created = orderService.create(order);
         return ResponseEntity.ok(
                 Map.of(
