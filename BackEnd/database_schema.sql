@@ -76,7 +76,7 @@ CREATE TABLE tables (
     id BIGSERIAL PRIMARY KEY,
     table_name VARCHAR(50) NOT NULL UNIQUE,
     capacity INTEGER NOT NULL CHECK (capacity > 0),
-    status VARCHAR(20) DEFAULT 'VACANT' CHECK (status IN ('VACANT', 'RESERVED', 'OCCUPIED', 'CLEANING', 'MAINTENANCE')),
+    status VARCHAR(20) DEFAULT 'AVAILABLE' CHECK (status IN ('AVAILABLE', 'RESERVED', 'OCCUPIED', 'CLEANING', 'MAINTENANCE')),
     qr_code VARCHAR(100) UNIQUE,
     table_type VARCHAR(20) DEFAULT 'STANDARD' CHECK (table_type IN ('STANDARD', 'VIP', 'WINDOW', 'OUTDOOR', 'BAR')),
     location VARCHAR(50), -- e.g., "Floor 1", "Near Window"
