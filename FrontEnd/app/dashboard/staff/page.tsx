@@ -151,7 +151,7 @@ function StaffDashboardContent() {
   const occupiedTables = tables.filter(table => table.status === 'OCCUPIED');
   const maintenanceTables = tables.filter(table => table.status === 'MAINTENANCE');
   const reservedTables = tables.filter(table => table.status === 'RESERVED');
-  const activeOrders = orders.filter(order => order.status === 'ACTIVE');
+  const activeOrders = orders.filter(order => order.status === 'ACTIVE' || order.status === 'PLACED');
   const pendingBookings = bookings.filter(booking => booking.status === 'PENDING');
 
   return (
@@ -291,7 +291,7 @@ function StaffDashboardContent() {
                       <div>
                         <CardTitle className="text-lg">Đơn hàng #{order.id}</CardTitle>
                         <p className="text-sm text-muted-foreground">
-                          Bàn {order.table?.tableNumber || order.tableId}
+                          Bàn {order.table?.tableName || 'N/A'}
                         </p>
                       </div>
                       <Badge variant="secondary">
