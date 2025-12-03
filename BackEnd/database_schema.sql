@@ -81,7 +81,8 @@ CREATE TABLE tables (
     table_type VARCHAR(20) DEFAULT 'STANDARD' CHECK (table_type IN ('STANDARD', 'VIP', 'WINDOW', 'OUTDOOR', 'BAR')),
     location VARCHAR(50), -- e.g., "Floor 1", "Near Window"
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Indexes for tables table
