@@ -18,22 +18,35 @@ import type {
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"; // Backend URL
 
-// Generic fetch function with error handling
-async function fetchData<T>(endpoint: string, options?: RequestInit): Promise<T> {
+async function fetchData<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    ...options,
     headers: {
       'Content-Type': 'application/json',
-      ...options?.headers,
+      ...(options.headers || {}),
     },
-    ...options,
   });
 
+  // Xử lý lỗi trước
   if (!response.ok) {
-    const error = await response.json().catch(() => ({ message: response.statusText }));
-    throw new Error(error.message || `API error: ${response.statusText}`);
+    let errMsg = response.statusText;
+
+    try {
+      const errorBody = await response.json();
+      errMsg = errorBody.message || errorBody.error || errMsg;
+    } catch (_) {}
+
+    throw new Error(errMsg);
   }
 
-  return response.json();
+  // Server có thể không trả JSON (ví dụ DELETE 204)
+  const contentType = response.headers.get("content-type");
+  if (contentType && contentType.includes("application/json")) {
+    return response.json();
+  }
+
+  // @ts-ignore
+  return null; // hoặc return undefined
 }
 
 export async function login(loginRequest: LoginRequest) {
@@ -141,6 +154,36 @@ export async function getTablesList() {
   return fetchData<{ message: string; tables: RestaurantTable[] }>("/api/tables/list");
 }
 
+export async function getAllTables() {
+  return fetchData<{ message: string; tables: RestaurantTable[] }>("/api/tables/all");
+}
+
+export async function getAvailableTables() {
+  return fetchData<{ message: string; tables: RestaurantTable[] }>("/api/tables/available");
+}
+
+export async function updateTableStatus(tableId: number, status: string) {
+  return fetchData<{ message: string; table: RestaurantTable }>(`/api/tables/${tableId}/status-update/${status}`, {
+    method: 'PUT',
+  });
+}
+
+export async function checkInTable(qrCode: string, customerId: number) {
+  return fetchData<{ message: string; table: RestaurantTable; order: Order }>(`/api/tables/checkin/${qrCode}?customerId=${customerId}`, {
+    method: 'POST',
+  });
+}
+
+export async function checkOutTable(tableId: number) {
+  return fetchData<{ message: string; table: RestaurantTable }>(`/api/tables/${tableId}/checkout`, {
+    method: 'POST',
+  });
+}
+
+export async function getTableCurrentOrder(tableId: number) {
+  return fetchData<{ message: string; hasActiveOrder: boolean; order?: Order }>(`/api/tables/${tableId}/current-order`);
+}
+
 // ===== ORDERS API =====
 export interface OrderItem {
   id: number;
@@ -205,6 +248,12 @@ export async function updateOrderStatus(id: number, status: string) {
 
 export async function checkoutOrder(orderId: number) {
   return fetchData<{ message: string; order: Order }>(`/api/orders/${orderId}/checkout`, {
+    method: 'PUT',
+  });
+}
+
+export async function updateOrderItemStatus(orderId: number, itemId: number, status: string) {
+  return fetchData<{ message: string; order: Order }>(`/api/orders/${orderId}/item/${itemId}/status/${status}`, {
     method: 'PUT',
   });
 }
