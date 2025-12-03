@@ -1,5 +1,6 @@
 package com.restaurant.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -40,5 +41,6 @@ public class Category {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<MenuItem> menuItems;
 }

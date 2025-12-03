@@ -1,5 +1,6 @@
 package com.restaurant.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -42,8 +43,10 @@ public class RestaurantTable {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "table")
+    @JsonIgnore
     private List<Booking> bookings;
 
     @OneToMany(mappedBy = "table")
+    @JsonIgnore
     private List<Order> orders;
 }
