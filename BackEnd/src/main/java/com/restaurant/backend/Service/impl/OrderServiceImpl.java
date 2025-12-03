@@ -1,8 +1,11 @@
 package com.restaurant.backend.Service.impl;
 
+import com.restaurant.backend.Entity.MenuItem;
 import com.restaurant.backend.Entity.Order;
 import com.restaurant.backend.Entity.OrderItem;
+import com.restaurant.backend.Repository.MenuItemRepository;
 import com.restaurant.backend.Repository.OrderRepository;
+import com.restaurant.backend.Service.MenuItemService;
 import com.restaurant.backend.Service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
+    private final MenuItemService menuItemService;
     private final com.restaurant.backend.websocket.IoTWebSocketHandler webSocketHandler;
 
     @Override
@@ -69,10 +73,14 @@ public class OrderServiceImpl implements OrderService {
     public Order addItem(Long orderId, List<OrderItem> items) {
         Order order = getById(orderId);
         for (OrderItem item : items) {
+            // Load menuItem if not already set but menuItemId is provided
+            if (item.getMenuItem() == null) {
+                // For now, we'll assume menuItem is provided in the request
+                // In a real implementation, you might need to add menuItemId field to OrderItem
+                throw new IllegalArgumentException("MenuItem must be provided");
+            }
             item.setOrder(order);
             item.setStatus("PENDING");
-            // Calculate subtotal
-            item.setSubtotal(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
         }
         order.getOrderItems().addAll(items);
         calculateTotalAmount(order);
@@ -166,7 +174,14 @@ public class OrderServiceImpl implements OrderService {
     private void calculateTotalAmount(Order order) {
         BigDecimal total = order.getOrderItems().stream()
                 .filter(item -> !"CANCELLED".equals(item.getStatus()))
-                .map(OrderItem::getSubtotal)
+                .map(item -> {
+                    // Calculate subtotal as quantity * price since it's a generated column
+                    if (item.getSubtotal() != null) {
+                        return item.getSubtotal();
+                    } else {
+                        return item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
+                    }
+                })
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         order.setTotalAmount(total);
     }

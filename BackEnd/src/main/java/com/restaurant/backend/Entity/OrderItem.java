@@ -1,5 +1,6 @@
 package com.restaurant.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,7 +22,7 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
-    @JsonIgnore
+    @JsonBackReference
     private Order order;
 
     @ManyToOne
@@ -32,8 +33,6 @@ public class OrderItem {
 
     private BigDecimal price;
 
-    @Column(name = "subtotal")
-    private BigDecimal subtotal;
 
     private String notes;
 
@@ -44,4 +43,12 @@ public class OrderItem {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    // Getter for subtotal (calculated field)
+    public BigDecimal getSubtotal() {
+        if (price != null && quantity > 0) {
+            return price.multiply(BigDecimal.valueOf(quantity));
+        }
+        return BigDecimal.ZERO;
+    }
 }
