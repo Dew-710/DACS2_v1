@@ -99,7 +99,7 @@ __turbopack_context__.s([
     "updateOrderStatus",
     ()=>updateOrderStatus
 ]);
-const API_BASE_URL = "http://127.0.0.1:8080"; // Backend URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"; // Backend URL
 // Generic fetch function with error handling
 async function fetchData(endpoint, options) {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {

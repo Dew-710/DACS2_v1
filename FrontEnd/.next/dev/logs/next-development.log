@@ -1,31 +1,189 @@
-[00:00:00.975] Server  LOG      ✓ Ready in 648ms
-[00:00:28.873] Browser ERROR   Registration error: {}
-[00:09:26.736] Browser ERROR   Registration error: {}
-[00:09:27.738] Browser ERROR   Registration error: {}
-[00:09:42.753] Browser ERROR   Registration error: {}
-[00:35:18.399] Browser ERROR   Registration error: {}
-[00:35:36.990] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:36:37.310] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:36:37.682] Server  LOG      ✓ Compiled in 246ms
-[00:36:37.831] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:36:38.387] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:36:42.067] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:36:53.095] Browser ERROR   Registration error: {}
-[00:41:51.945] Browser ERROR   Registration error: {}
-[00:42:43.582] Browser ERROR   Registration error: {}
-[00:43:33.608] Browser ERROR   Registration error: {}
-[00:43:34.575] Browser ERROR   Registration error: {}
-[00:45:18.290] Browser ERROR   Registration error: {}
-[00:45:35.238] Browser ERROR   Registration error: {}
-[00:49:59.329] Browser ERROR   Login error: {}
-[00:52:24.134] Server  LOG      ✓ Compiled in 141ms
-[00:52:32.945] Browser ERROR   Login error: {}
-[00:52:47.350] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:52:51.991] Browser ERROR   Login error: {}
-[00:55:12.055] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:55:12.096] Server  LOG      ✓ Compiled in 79ms
-[00:55:12.737] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:55:13.220] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:55:19.157] Browser ERROR   Login error: {}
-[00:55:46.695] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:55:50.472] Browser ERROR   Login error: {}
+[00:00:01.418] Server  LOG      ✓ Ready in 844ms
+[00:01:14.597] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:18.961] Browser ERROR   Login error: {}
+[00:04:01.687] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:04:01.705] Server  LOG      ✓ Compiled in 90ms
+[00:04:02.477] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:04:03.418] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:07.734] Browser ERROR   Login error: {}
+[00:07:49.118] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:07:55.716] Browser ERROR   Login error: {}
+[00:08:42.808] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:45.811] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/context/auth-context.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:16:46.189] Server  LOG      ✓ Compiled in 98ms
+[00:16:46.566] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:47.185] Browser ERROR   Error loading dashboard data: {}
+[00:16:52.057] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/context/auth-context.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:16:52.244] Server  LOG      ✓ Compiled in 75ms
+[00:16:52.583] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:17:05.636] Server  LOG      ✓ Compiled in 144ms
+[00:17:22.515] Server  LOG      ✓ Compiled in 212ms
+[00:17:38.893] Server  LOG      ✓ Compiled in 252ms
+[00:17:58.227] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/context/auth-context.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:17:58.236] Server  LOG      ✓ Compiled in 127ms
+[00:17:58.319] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/context/auth-context.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:17:58.522] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/context/auth-context.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:17:58.523] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/context/auth-context.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:17:58.910] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/context/auth-context.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:17:58.960] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/context/auth-context.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:18:20.523] Server  LOG      ✓ Compiled in 116ms
+[00:18:37.648] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/context/auth-context.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:18:37.837] Server  LOG      ✓ Compiled in 53ms
+[00:18:38.183] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:22:18.220] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:22:51.370] Browser ERROR   Login error: {}
+[00:23:07.986] Browser ERROR   Login error: {}
+[00:23:17.737] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:23:24.756] Browser ERROR   Login error: {}
+[00:29:54.479] Server  LOG      ✓ Compiled in 63ms
+[00:33:53.501] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/context/auth-context.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:33:53.505] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/context/auth-context.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   unhandledRejection: undefined
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.618] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.622] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:33:53.622] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[00:34:06.789] Browser ERROR   Login error: {}
+[00:34:14.050] Browser ERROR   Login error: {}
+[00:34:28.229] Browser ERROR   Login error: {}
+[00:34:32.991] Browser ERROR   Login error: {}
+[00:34:38.166] Browser ERROR   Login error: {}
+[00:34:54.870] Browser ERROR   Login error: {}
+[00:35:00.904] Browser ERROR   Error loading dashboard data: {}
+[00:35:00.904] Browser ERROR   Error loading dashboard data: {}
+[00:36:58.580] Browser ERROR   Error loading dashboard data: {"column":0,"line":0}
+[00:36:58.580] Browser ERROR   Error loading dashboard data: {"column":0,"line":0}
+[00:37:10.818] Browser ERROR   Error loading dashboard data: {}
+[00:37:10.818] Browser ERROR   Error loading dashboard data: {}
+[00:37:32.058] Browser ERROR   Login error: {}
+[00:37:36.596] Browser ERROR   Error loading dashboard data: {}
+[00:37:36.596] Browser ERROR   Error loading dashboard data: {}
+[00:38:05.180] Browser ERROR   Error loading dashboard data: {}
+[00:38:05.180] Browser ERROR   Error loading dashboard data: {}
+[00:38:25.142] Browser ERROR   Error loading dashboard data: {}
+[00:38:25.142] Browser ERROR   Error loading dashboard data: {}
+[00:39:17.161] Browser ERROR   Login error: {}
+[00:39:25.260] Browser ERROR   Login error: {}
+[00:39:25.922] Browser ERROR   Login error: {}
+[00:39:38.757] Browser ERROR   Login error: {}
+[00:39:50.791] Browser ERROR   Login error: {}
+[00:39:51.988] Browser ERROR   Login error: {}
+[00:41:26.267] Browser ERROR   Error loading dashboard data: {}
+[00:41:26.267] Browser ERROR   Error loading dashboard data: {}
+[00:41:41.463] Browser ERROR   Error loading dashboard data: {}
+[00:41:41.463] Browser ERROR   Error loading dashboard data: {}
+[00:42:00.115] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:42:00.590] Browser ERROR   Error loading dashboard data: {}
+[00:42:00.590] Browser ERROR   Error loading dashboard data: {}
+[00:43:18.881] Browser ERROR   Error loading dashboard data: {}
+[00:43:18.881] Browser ERROR   Error loading dashboard data: {}
+[00:43:21.570] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:43:22.067] Browser ERROR   Error loading dashboard data: {}
+[00:43:22.067] Browser ERROR   Error loading dashboard data: {}
+[00:45:46.498] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:46:29.465] Browser ERROR   Login error: {}
+[00:48:15.210] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:48:15.284] Server  LOG      ✓ Compiled in 219ms
+[00:48:17.113] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:48:21.517] Server  LOG      ✓ Compiled in 91ms
+[00:48:24.987] Server  LOG      ✓ Compiled in 122ms
+[00:48:29.167] Server  LOG      ✓ Compiled in 77ms
+[00:48:33.040] Server  LOG      ✓ Compiled in 63ms
+[00:48:36.825] Server  LOG      ✓ Compiled in 52ms
+[00:48:40.081] Server  LOG      ✓ Compiled in 56ms
+[00:48:42.802] Server  LOG      ✓ Compiled in 63ms
+[00:48:48.500] Server  LOG      ✓ Compiled in 325ms
+[00:48:50.990] Server  LOG      ✓ Compiled in 68ms
+[00:48:54.157] Server  LOG      ✓ Compiled in 63ms
+[00:48:57.398] Server  LOG      ✓ Compiled in 191ms
+[00:49:22.441] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:49:22.461] Server  LOG      ✓ Compiled in 72ms
+[00:49:23.462] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:49:29.933] Browser ERROR   Error during check-out: {}
+[00:49:31.495] Browser ERROR   Error during check-out: {}
+[00:51:28.896] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:51:43.647] Browser ERROR   Error during check-out: {}
+[00:51:54.841] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:51:57.351] Browser ERROR   Error during check-out: {}
+[00:52:03.822] Browser ERROR   Error updating table status: {}
+[00:54:03.943] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:54:12.001] Browser ERROR   Error updating table status: {}
+[00:54:22.531] Browser ERROR   Error updating table status: {}
+[00:54:26.578] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:54:33.181] Browser ERROR   Error updating table status: {}
+[00:56:19.957] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:56:26.638] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:56:26.638] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:56:44.558] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:59:50.702] Server  LOG      ✓ Compiled in 224ms
+[00:59:55.440] Server  LOG      ✓ Compiled in 203ms
+[01:00:23.820] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:00:23.843] Server  LOG      ✓ Compiled in 79ms
+[01:00:26.433] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:00:32.869] Server  LOG      ✓ Compiled in 101ms
+[01:00:39.683] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[01:00:39.684] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[01:00:43.845] Server  LOG      ✓ Compiled in 82ms
+[01:00:47.103] Browser ERROR   Error during check-in: {}
+[01:00:54.837] Browser ERROR   Error during check-in: {}
+[01:01:08.939] Browser ERROR   Error during check-in: {}
+[01:03:20.928] Server  LOG      ✓ Compiled in 381ms
+[01:03:20.932] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[01:03:22.856] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:03:23.961] Server  LOG      ✓ Compiled in 240ms
+[01:03:27.475] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[01:03:27.475] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[01:04:31.889] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:04:42.531] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[01:04:42.531] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[01:05:51.344] Server  LOG      ✓ Compiled in 127ms
+[01:06:19.162] Server  LOG      ✓ Compiled in 87ms
+[01:06:19.351] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'map')
+[01:07:31.219] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:07:31.677] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'map')
+[01:07:47.580] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:07:48.327] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'map')
+[01:08:39.213] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:08:40.093] Browser ERROR   Error loading dashboard data: {}
+[01:08:40.094] Browser ERROR   Error loading dashboard data: {}
+[01:09:31.048] Server  LOG      ✓ Compiled in 129ms
+[01:51:30.077] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:59:27.850] Server  LOG      ✓ Compiled in 229ms
+[01:59:46.876] Server  LOG      ✓ Compiled in 112ms
+[01:59:58.972] Server  LOG      ✓ Compiled in 961ms
+[02:07:11.829] Server  LOG      ✓ Compiled in 2.4s
+[02:07:12.220] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[02:07:26.490] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:07:26.626] Server  LOG      ✓ Compiled in 46ms
+[02:07:28.979] Browser ERROR   Error loading dashboard data: {}
+[02:07:28.979] Browser ERROR   Error loading dashboard data: {}
+[02:07:35.806] Server  LOG      ✓ Compiled in 1094ms
+[02:07:50.326] Server  LOG      ✓ Compiled in 1425ms
+[02:08:29.739] Server  LOG      ✓ Compiled in 0ms
+[02:08:33.873] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./DACS2/FrontEnd/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[02:08:34.192] Server  LOG      ✓ Compiled in 294ms
+[02:08:35.194] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:08:35.993] Browser ERROR   Error loading dashboard data: {}
+[02:08:35.994] Browser ERROR   Error loading dashboard data: {}
+[02:12:56.037] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:12:56.873] Browser ERROR   Error loading dashboard data: {}
+[02:12:56.873] Browser ERROR   Error loading dashboard data: {}
+[02:14:43.050] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:15:11.909] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[02:15:11.909] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.

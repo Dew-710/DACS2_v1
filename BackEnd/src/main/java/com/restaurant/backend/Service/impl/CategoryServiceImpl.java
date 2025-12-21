@@ -17,36 +17,43 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findAll() {
-        return List.of();
+        return categoryRepository.findAll();
     }
 
     @Override
     public Category findById(Long id) {
-        return null;
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
     }
 
     @Override
     public Category create(Category category) {
-        return null;
+        return categoryRepository.save(category);
     }
 
     @Override
     public Category update(Long id, Category category) {
-        return null;
+        Category existing = findById(id);
+        existing.setName(category.getName());
+        existing.setDescription(category.getDescription());
+        existing.setImageUrl(category.getImageUrl());
+        existing.setDisplayOrder(category.getDisplayOrder());
+        existing.setIsActive(category.getIsActive());
+        return categoryRepository.save(existing);
     }
 
     @Override
     public void delete(Long id) {
-
+        categoryRepository.deleteById(id);
     }
 
     @Override
     public Category GetCategoryById(long id) {
-        return null;
+        return findById(id);
     }
 
     @Override
     public List<Category> getAll() {
-        return List.of();
+        return categoryRepository.findAll();
     }
 }

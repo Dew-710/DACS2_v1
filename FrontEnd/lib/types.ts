@@ -43,7 +43,10 @@ export interface MenuItem {
   categoryId: number;
   category?: Category;
   imageUrl?: string;
-  available: boolean;
+  isAvailable: boolean;
+  preparationTime?: number;
+  calories?: number;
+  allergens?: string[];
   createdAt?: string;
   updatedAt?: string;
 }
@@ -51,13 +54,14 @@ export interface MenuItem {
 // Table types
 export interface RestaurantTable {
   id: number;
-  tableNumber: string;
+  tableName: string;
   capacity: number;
-  status: string; // 'AVAILABLE', 'OCCUPIED', 'RESERVED', 'MAINTENANCE'
+  status: string; // 'VACANT', 'OCCUPIED', 'RESERVED', 'CLEANING', 'MAINTENANCE'
   qrCode?: string;
-  currentOrderId?: number;
+  tableType?: string;
+  location?: string;
+  lastUpdated?: string;
   createdAt?: string;
-  updatedAt?: string;
 }
 
 // Order types
@@ -66,7 +70,7 @@ export interface OrderItem {
   menuItem: MenuItem;
   menuItemId: number;
   quantity: number;
-  unitPrice: number;
+  price: number;
   status: string; // 'PENDING', 'PREPARING', 'READY', 'SERVED', 'CANCELLED'
   notes?: string;
   createdAt?: string;
@@ -79,7 +83,7 @@ export interface Order {
   table?: RestaurantTable;
   customerId?: number;
   customer?: User;
-  items: OrderItem[];
+  orderItems?: OrderItem[];
   status: string; // 'ACTIVE', 'COMPLETED', 'CANCELLED', 'PAID'
   totalAmount: number;
   subtotal?: number;

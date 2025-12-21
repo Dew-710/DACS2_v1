@@ -1,0 +1,13 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/dashboard/admin/page": "app/dashboard/admin/page.js",
+  "/dashboard/customer/page": "app/dashboard/customer/page.js",
+  "/dashboard/kitchen/page": "app/dashboard/kitchen/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/staff/page": "app/dashboard/staff/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/register/page": "app/register/page.js",
+  "/unauthorized/page": "app/unauthorized/page.js"
+}

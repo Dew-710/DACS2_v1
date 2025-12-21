@@ -37,7 +37,7 @@ public class UserController {
 
     @PostMapping("/login")
     @Operation(summary = "User login", description = "Authenticate user and return JWT token")
-    public ResponseEntity<?> login(@RequestParam LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
 
         User user = userService.login(loginRequest);
 

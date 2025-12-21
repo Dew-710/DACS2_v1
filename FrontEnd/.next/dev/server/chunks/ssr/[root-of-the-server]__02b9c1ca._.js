@@ -46,6 +46,10 @@ function ThemeProvider({ children, ...props }) {
 __turbopack_context__.s([
     "addItemsToOrder",
     ()=>addItemsToOrder,
+    "checkInTable",
+    ()=>checkInTable,
+    "checkOutTable",
+    ()=>checkOutTable,
     "checkoutOrder",
     ()=>checkoutOrder,
     "createBooking",
@@ -56,6 +60,8 @@ __turbopack_context__.s([
     ()=>createMenuItem,
     "createOrder",
     ()=>createOrder,
+    "createOrderWithCustomer",
+    ()=>createOrderWithCustomer,
     "deleteCategory",
     ()=>deleteCategory,
     "deleteMenuItem",
@@ -64,6 +70,10 @@ __turbopack_context__.s([
     ()=>deleteOrder,
     "getActiveOrdersByTable",
     ()=>getActiveOrdersByTable,
+    "getAllTables",
+    ()=>getAllTables,
+    "getAvailableTables",
+    ()=>getAvailableTables,
     "getBookings",
     ()=>getBookings,
     "getCategories",
@@ -80,6 +90,12 @@ __turbopack_context__.s([
     ()=>getOrders,
     "getOrdersByTable",
     ()=>getOrdersByTable,
+    "getQRCodeImageUrl",
+    ()=>getQRCodeImageUrl,
+    "getTableByQr",
+    ()=>getTableByQr,
+    "getTableCurrentOrder",
+    ()=>getTableCurrentOrder,
     "getTablesList",
     ()=>getTablesList,
     "getUsersList",
@@ -92,30 +108,44 @@ __turbopack_context__.s([
     ()=>register,
     "removeItemFromOrder",
     ()=>removeItemFromOrder,
+    "sendQRCodeToESP32",
+    ()=>sendQRCodeToESP32,
     "updateCategory",
     ()=>updateCategory,
     "updateMenuItem",
     ()=>updateMenuItem,
+    "updateOrderItemStatus",
+    ()=>updateOrderItemStatus,
     "updateOrderStatus",
-    ()=>updateOrderStatus
+    ()=>updateOrderStatus,
+    "updateTableStatus",
+    ()=>updateTableStatus
 ]);
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"; // Backend URL
-// Generic fetch function with error handling
-async function fetchData(endpoint, options) {
+async function fetchData(endpoint, options = {}) {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        ...options,
         headers: {
             'Content-Type': 'application/json',
-            ...options?.headers
-        },
-        ...options
+            ...options.headers || {}
+        }
     });
+    // Xử lý lỗi trước
     if (!response.ok) {
-        const error = await response.json().catch(()=>({
-                message: response.statusText
-            }));
-        throw new Error(error.message || `API error: ${response.statusText}`);
+        let errMsg = response.statusText;
+        try {
+            const errorBody = await response.json();
+            errMsg = errorBody.message || errorBody.error || errMsg;
+        } catch (_) {}
+        throw new Error(errMsg);
     }
-    return response.json();
+    // Server có thể không trả JSON (ví dụ DELETE 204)
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+        return response.json();
+    }
+    // @ts-ignore
+    return null; // hoặc return undefined
 }
 async function login(loginRequest) {
     return fetchData("/api/users/login", {
@@ -181,6 +211,41 @@ async function deleteCategory(id) {
 async function getTablesList() {
     return fetchData("/api/tables/list");
 }
+async function getAllTables() {
+    return fetchData("/api/tables/all");
+}
+async function getAvailableTables() {
+    return fetchData("/api/tables/available");
+}
+async function updateTableStatus(tableId, status) {
+    return fetchData(`/api/tables/${tableId}/status-update/${status}`, {
+        method: 'PUT'
+    });
+}
+async function checkInTable(qrCode, customerId) {
+    return fetchData(`/api/tables/checkin/${qrCode}?customerId=${customerId}`, {
+        method: 'POST'
+    });
+}
+async function checkOutTable(tableId) {
+    return fetchData(`/api/tables/${tableId}/checkout`, {
+        method: 'POST'
+    });
+}
+async function getTableCurrentOrder(tableId) {
+    return fetchData(`/api/tables/${tableId}/current-order`);
+}
+async function sendQRCodeToESP32(tableId) {
+    return fetchData(`/api/send-qr-code/${tableId}`, {
+        method: 'POST'
+    });
+}
+function getQRCodeImageUrl(tableId) {
+    return `${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"}/api/qr-code/${tableId}/image`;
+}
+async function getTableByQr(qrCode) {
+    return fetchData(`/api/tables/qr/${qrCode}`);
+}
 async function getOrders() {
     return fetchData("/api/orders/list");
 }
@@ -195,6 +260,12 @@ async function getActiveOrdersByTable(tableId) {
 }
 async function createOrder(order) {
     return fetchData("/api/orders/create", {
+        method: 'POST',
+        body: JSON.stringify(order)
+    });
+}
+async function createOrderWithCustomer(customerId, tableId, order) {
+    return fetchData(`/api/orders/create-with-customer/${customerId}/table/${tableId}`, {
         method: 'POST',
         body: JSON.stringify(order)
     });
@@ -217,6 +288,11 @@ async function updateOrderStatus(id, status) {
 }
 async function checkoutOrder(orderId) {
     return fetchData(`/api/orders/${orderId}/checkout`, {
+        method: 'PUT'
+    });
+}
+async function updateOrderItemStatus(orderId, itemId, status) {
+    return fetchData(`/api/orders/${orderId}/item/${itemId}/status/${status}`, {
         method: 'PUT'
     });
 }
@@ -280,6 +356,8 @@ function AuthProvider({ children }) {
             const userData = response.user;
             setUser(userData);
             localStorage.setItem('user', JSON.stringify(userData));
+            // Return the user data so the component can handle navigation
+            return userData;
         } catch (error) {
             throw error;
         } finally{
@@ -307,20 +385,39 @@ function AuthProvider({ children }) {
         setUser(null);
         localStorage.removeItem('user');
     };
+    const role = user?.role || null;
+    const hasRole = (roles)=>{
+        if (!role) return false;
+        const roleArray = Array.isArray(roles) ? roles : [
+            roles
+        ];
+        return roleArray.includes(role);
+    };
+    const hasAnyRole = (roles)=>{
+        if (!role) return false;
+        return roles.includes(role);
+    };
     const value = {
         user,
         login,
         register,
         logout,
         isLoading,
-        isAuthenticated: !!user
+        isAuthenticated: !!user,
+        role,
+        hasRole,
+        hasAnyRole,
+        isAdmin: role === 'ADMIN',
+        isStaff: role === 'STAFF',
+        isKitchen: role === 'KITCHEN',
+        isCustomer: role === 'CUSTOMER'
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(AuthContext.Provider, {
         value: value,
         children: children
     }, void 0, false, {
         fileName: "[project]/DACS2/FrontEnd/lib/context/auth-context.tsx",
-        lineNumber: 84,
+        lineNumber: 116,
         columnNumber: 10
     }, this);
 }

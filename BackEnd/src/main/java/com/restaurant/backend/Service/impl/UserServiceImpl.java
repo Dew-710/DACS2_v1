@@ -6,6 +6,7 @@ import com.restaurant.backend.Entity.User;
 import com.restaurant.backend.Repository.UserRepository;
 import com.restaurant.backend.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
@@ -33,7 +34,11 @@ public class UserServiceImpl implements UserService {
     public User create(RegisterRequest orderDTO) {
         User user = new User();
         user.setUsername(orderDTO.getUsername());
-        user.setPassword(orderDTO.getPassword());
+
+        // Hash password using BCrypt
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(passwordEncoder.encode(orderDTO.getPassword()));
+
         user.setFullName(orderDTO.getFullName());
         user.setPhone(orderDTO.getPhone());
         user.setEmail(orderDTO.getEmail());
@@ -63,7 +68,8 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(loginDTO.getUsername())
                 .orElseThrow(() -> new RuntimeException("Tài khoản không tồn tại"));
 
-        if (!user.getPassword().equals(loginDTO.getPassword())) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
             throw new RuntimeException("Mật khẩu không đúng");
         }
 
