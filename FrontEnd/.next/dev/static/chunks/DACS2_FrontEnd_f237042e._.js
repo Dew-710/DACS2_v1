@@ -588,7 +588,10 @@ function KitchenOnly({ children }) {
 _c3 = KitchenOnly;
 function CustomerOnly({ children }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ProtectedRoute, {
-        requiredRoles: "CUSTOMER",
+        requiredRoles: [
+            "CUSTOMER",
+            "ADMIN"
+        ],
         children: children
     }, void 0, false, {
         fileName: "[project]/DACS2/FrontEnd/lib/components/protected-route.tsx",
@@ -644,6 +647,7 @@ __turbopack_context__.s([
     "default",
     ()=>StaffDashboard
 ]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/components/ui/card.tsx [app-client] (ecmascript)");
@@ -658,9 +662,15 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_mo
 var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$cart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingCart$3e$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/lucide-react/dist/esm/icons/shopping-cart.js [app-client] (ecmascript) <export default as ShoppingCart>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$table$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Table$3e$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/lucide-react/dist/esm/icons/table.js [app-client] (ecmascript) <export default as Table>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/lucide-react/dist/esm/icons/calendar.js [app-client] (ecmascript) <export default as Calendar>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/lucide-react/dist/esm/icons/clock.js [app-client] (ecmascript) <export default as Clock>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/lucide-react/dist/esm/icons/circle-check-big.js [app-client] (ecmascript) <export default as CheckCircle>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__XCircle$3e$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/lucide-react/dist/esm/icons/circle-x.js [app-client] (ecmascript) <export default as XCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2d$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__UserPlus$3e$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/lucide-react/dist/esm/icons/user-plus.js [app-client] (ecmascript) <export default as UserPlus>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$phone$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Phone$3e$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/lucide-react/dist/esm/icons/phone.js [app-client] (ecmascript) <export default as Phone>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$qr$2d$code$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__QrCode$3e$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/lucide-react/dist/esm/icons/qr-code.js [app-client] (ecmascript) <export default as QrCode>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$printer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Printer$3e$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/lucide-react/dist/esm/icons/printer.js [app-client] (ecmascript) <export default as Printer>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$download$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Download$3e$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/lucide-react/dist/esm/icons/download.js [app-client] (ecmascript) <export default as Download>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/lucide-react/dist/esm/icons/map-pin.js [app-client] (ecmascript) <export default as MapPin>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/DACS2/FrontEnd/node_modules/sonner/dist/index.mjs [app-client] (ecmascript)");
 ;
@@ -682,15 +692,14 @@ function StaffDashboardContent() {
     const { user, logout } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$context$2f$auth$2d$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [activeTab, setActiveTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("tables");
-    // State for dashboard data
+    // State cho dữ liệu dashboard
     const [tables, setTables] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [orders, setOrders] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [bookings, setBookings] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [pendingTables, setPendingTables] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
-    const [showCheckInForm, setShowCheckInForm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [selectedTableForCheckIn, setSelectedTableForCheckIn] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [customerName, setCustomerName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
-    const [customerPhone, setCustomerPhone] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [availableTablesForStaff, setAvailableTablesForStaff] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [tableFilter, setTableFilter] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('all');
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "StaffDashboardContent.useEffect": ()=>{
             loadDashboardData();
@@ -707,6 +716,9 @@ function StaffDashboardContent() {
             setTables(tablesRes.tables || []);
             setOrders(ordersRes.orders || []);
             setBookings(bookingsRes.bookings || []);
+            // Lọc bàn có trạng thái PENDING_CHECKIN để check-in
+            const pendingTables = (tablesRes.tables || []).filter((table)=>table && table.status === 'PENDING_CHECKIN');
+            setPendingTables(pendingTables);
         } catch (error) {
             console.error('Error loading dashboard data:', error);
             __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Không thể tải dữ liệu dashboard');
@@ -719,40 +731,63 @@ function StaffDashboardContent() {
         __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Đã đăng xuất');
         router.push('/');
     };
-    const handleCheckIn = (tableId)=>{
-        setSelectedTableForCheckIn(tableId);
-        setShowCheckInForm(true);
-    };
-    const handleSubmitCheckIn = async ()=>{
-        if (!selectedTableForCheckIn || !customerName.trim()) {
-            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Vui lòng nhập tên khách hàng');
-            return;
-        }
+    const handleCheckIn = async (tableId)=>{
         try {
-            // For demo purposes, we'll create a simple check-in without QR code
-            // In a real implementation, this would involve QR code scanning
-            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].info('Check-in thành công cho khách hàng: ' + customerName);
-            // Update table status to OCCUPIED
-            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateTableStatus"])(selectedTableForCheckIn, 'OCCUPIED');
-            // Reset form
-            setShowCheckInForm(false);
-            setSelectedTableForCheckIn(null);
-            setCustomerName('');
-            setCustomerPhone('');
-            loadDashboardData(); // Refresh data
+            // Tìm bàn
+            const table = pendingTables.find((t)=>t.id === tableId);
+            if (!table) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Không tìm thấy bàn để check-in');
+                return;
+            }
+            // Tìm booking tương ứng cho bàn này
+            const booking = bookings.find((b)=>b.tableId === tableId && b.status === 'CONFIRMED');
+            if (!booking) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Không tìm thấy booking tương ứng');
+                return;
+            }
+            // Check-in booking (đặt bàn thành OCCUPIED)
+            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["checkInBooking"])(booking.id);
+            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success(`Check-in thành công cho bàn ${table.tableName}`);
+            // Xóa bàn này khỏi danh sách pending ngay lập tức
+            setPendingTables((prev)=>prev.filter((t)=>t.id !== tableId));
+            // Làm mới dữ liệu sau một khoảng delay ngắn để đảm bảo UI cập nhật trước
+            setTimeout(()=>loadDashboardData(), 100);
         } catch (error) {
             console.error('Error during check-in:', error);
             __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Check-in thất bại');
         }
     };
-    const handleTableStatusChange = async (tableId, newStatus)=>{
+    const handleWalkInCheckIn = async (tableId)=>{
         try {
-            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateTableStatus"])(tableId, newStatus);
-            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success(`Trạng thái bàn đã được cập nhật thành ${newStatus}`);
-            loadDashboardData(); // Refresh data
+            // Tạo khách vãng lai
+            const timestamp = Date.now();
+            const randomSuffix = Math.random().toString(36).substring(2, 8);
+            const customerData = {
+                username: `walkin_${timestamp}_${randomSuffix}`,
+                email: `walkin_${timestamp}_${randomSuffix}@restaurant.com`,
+                password: 'password123',
+                fullName: 'Khách vãng lai',
+                phone: '',
+                role: 'CUSTOMER'
+            };
+            const customerResponse = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["register"])(customerData);
+            const customerId = customerResponse.user.id;
+            // Tạo order mới cho bàn
+            const newOrder = {
+                items: [],
+                status: 'PLACED',
+                totalAmount: 0,
+                notes: 'Khách vãng lai - Check-in trực tiếp'
+            };
+            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createOrderWithCustomer"])(customerId, tableId, newOrder);
+            // Cập nhật trạng thái bàn thành OCCUPIED
+            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateTableStatus"])(tableId, 'OCCUPIED');
+            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success(`Check-in khách vãng lai thành công cho bàn ${tableId}`);
+            // Làm mới dữ liệu
+            loadDashboardData();
         } catch (error) {
-            console.error('Error updating table status:', error);
-            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Cập nhật trạng thái bàn thất bại');
+            console.error('Error during walk-in check-in:', error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Check-in thất bại. Vui lòng thử lại.');
         }
     };
     const handleCheckOut = async (tableId)=>{
@@ -765,11 +800,72 @@ function StaffDashboardContent() {
             __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Check-out thất bại');
         }
     };
-    // Calculate statistics
+    const handleTableStatusChange = async (tableId, newStatus)=>{
+        try {
+            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateTableStatus"])(tableId, newStatus);
+            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success(`Trạng thái bàn đã được cập nhật thành ${newStatus}`);
+            loadDashboardData();
+        } catch (error) {
+            console.error('Error updating table status:', error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Cập nhật trạng thái bàn thất bại');
+        }
+    };
+    const handleBookingAction = async (bookingId, action)=>{
+        try {
+            if (action === 'approve') {
+                await (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["confirmBooking"])(bookingId);
+                __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Đặt bàn đã được duyệt - khách có thể check-in từ trang Check-in');
+            } else {
+                await (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cancelBooking"])(bookingId);
+                __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Đặt bàn đã bị từ chối');
+            }
+            loadDashboardData();
+        } catch (error) {
+            console.error('Error handling booking:', error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error(`Thao tác thất bại: ${error.message || 'Unknown error'}`);
+        }
+    };
+    const handleOrderStatusUpdate = async (orderId, newStatus)=>{
+        try {
+            await fetch(`http://localhost:8080/api/orders/${orderId}/status/${newStatus}`, {
+                method: 'PUT'
+            });
+            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Trạng thái đơn hàng đã được cập nhật');
+            loadDashboardData();
+        } catch (error) {
+            console.error('Error updating order status:', error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Cập nhật trạng thái thất bại');
+        }
+    };
+    const handleProcessPayment = async (orderId, amount)=>{
+        try {
+            await fetch('http://localhost:8080/api/payments/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    orderId,
+                    amount,
+                    paymentMethod: 'CASH'
+                })
+            });
+            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Thanh toán thành công');
+            loadDashboardData();
+        } catch (error) {
+            console.error('Error processing payment:', error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Thanh toán thất bại');
+        }
+    };
+    // Tính toán thống kê
     const availableTables = tables.filter((table)=>table.status === 'AVAILABLE');
     const occupiedTables = tables.filter((table)=>table.status === 'OCCUPIED');
-    const activeOrders = orders.filter((order)=>order.status === 'ACTIVE');
-    const pendingBookings = bookings.filter((booking)=>booking.status === 'PENDING');
+    const maintenanceTables = tables.filter((table)=>table.status === 'MAINTENANCE');
+    const reservedTables = tables.filter((table)=>table.status === 'RESERVED');
+    const pendingCheckInTables = tables.filter((table)=>table.status === 'PENDING_CHECKIN');
+    const activeOrders = orders.filter((order)=>order.status === 'ACTIVE' || order.status === 'PLACED');
+    // Lọc bàn dựa trên bộ lọc đã chọn
+    const filteredTables = tableFilter === 'all' ? tables : tableFilter === 'available' ? availableTables : tableFilter === 'occupied' ? occupiedTables : tableFilter === 'maintenance' ? maintenanceTables : tableFilter === 'reserved' ? reservedTables : tableFilter === 'pending' ? pendingCheckInTables : tables;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "min-h-screen bg-gradient-to-b from-background to-muted",
         children: [
@@ -786,7 +882,7 @@ function StaffDashboardContent() {
                                     children: "👨‍💼"
                                 }, void 0, false, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 152,
+                                    lineNumber: 268,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -796,7 +892,7 @@ function StaffDashboardContent() {
                                             children: "Staff Dashboard"
                                         }, void 0, false, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 156,
+                                            lineNumber: 272,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -807,19 +903,19 @@ function StaffDashboardContent() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 157,
+                                            lineNumber: 273,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 155,
+                                    lineNumber: 271,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                            lineNumber: 151,
+                            lineNumber: 267,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -831,7 +927,7 @@ function StaffDashboardContent() {
                                     children: "STAFF"
                                 }, void 0, false, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 161,
+                                    lineNumber: 277,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -843,31 +939,31 @@ function StaffDashboardContent() {
                                             className: "w-4 h-4"
                                         }, void 0, false, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 165,
+                                            lineNumber: 281,
                                             columnNumber: 15
                                         }, this),
                                         "Đăng xuất"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 164,
+                                    lineNumber: 280,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                            lineNumber: 160,
+                            lineNumber: 276,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                    lineNumber: 150,
+                    lineNumber: 266,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                lineNumber: 149,
+                lineNumber: 265,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -878,14 +974,14 @@ function StaffDashboardContent() {
                     className: "w-full",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsList"], {
-                            className: "grid w-full grid-cols-4 mb-8",
+                            className: "grid w-full grid-cols-5 mb-8",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsTrigger"], {
                                     value: "tables",
                                     children: "Quản lý bàn"
                                 }, void 0, false, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 175,
+                                    lineNumber: 291,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsTrigger"], {
@@ -893,7 +989,7 @@ function StaffDashboardContent() {
                                     children: "Đơn hàng"
                                 }, void 0, false, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 176,
+                                    lineNumber: 292,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsTrigger"], {
@@ -901,7 +997,7 @@ function StaffDashboardContent() {
                                     children: "Đặt bàn"
                                 }, void 0, false, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 177,
+                                    lineNumber: 293,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsTrigger"], {
@@ -909,13 +1005,21 @@ function StaffDashboardContent() {
                                     children: "Check-in"
                                 }, void 0, false, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 178,
+                                    lineNumber: 294,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsTrigger"], {
+                                    value: "qrcodes",
+                                    children: "QR Codes"
+                                }, void 0, false, {
+                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                    lineNumber: 295,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                            lineNumber: 174,
+                            lineNumber: 290,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsContent"], {
@@ -930,50 +1034,103 @@ function StaffDashboardContent() {
                                             children: "Quản lý bàn ăn"
                                         }, void 0, false, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 184,
+                                            lineNumber: 301,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "flex gap-2",
+                                            className: "flex gap-2 flex-wrap",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
                                                     variant: "outline",
+                                                    className: "cursor-pointer hover:bg-green-100",
+                                                    onClick: ()=>setTableFilter('available'),
                                                     children: [
                                                         availableTables.length,
                                                         " bàn trống"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                    lineNumber: 186,
+                                                    lineNumber: 303,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
-                                                    variant: "secondary",
+                                                    variant: "destructive",
+                                                    className: "cursor-pointer hover:bg-red-100",
+                                                    onClick: ()=>setTableFilter('occupied'),
                                                     children: [
                                                         occupiedTables.length,
                                                         " bàn đang dùng"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                    lineNumber: 189,
+                                                    lineNumber: 307,
+                                                    columnNumber: 17
+                                                }, this),
+                                                maintenanceTables.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
+                                                    variant: "secondary",
+                                                    className: "cursor-pointer hover:bg-yellow-100",
+                                                    onClick: ()=>setTableFilter('maintenance'),
+                                                    children: [
+                                                        maintenanceTables.length,
+                                                        " bàn bảo trì"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                    lineNumber: 312,
+                                                    columnNumber: 19
+                                                }, this),
+                                                reservedTables.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
+                                                    variant: "secondary",
+                                                    className: "cursor-pointer hover:bg-blue-100",
+                                                    onClick: ()=>setTableFilter('reserved'),
+                                                    children: [
+                                                        reservedTables.length,
+                                                        " bàn đã đặt"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                    lineNumber: 318,
+                                                    columnNumber: 19
+                                                }, this),
+                                                pendingCheckInTables.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
+                                                    variant: "outline",
+                                                    className: "cursor-pointer hover:bg-orange-100",
+                                                    onClick: ()=>setTableFilter('pending'),
+                                                    children: [
+                                                        pendingCheckInTables.length,
+                                                        " bàn chờ check-in"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                    lineNumber: 324,
+                                                    columnNumber: 19
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                    variant: "outline",
+                                                    size: "sm",
+                                                    onClick: ()=>setTableFilter('all'),
+                                                    children: "Xem tất cả"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                    lineNumber: 329,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 185,
+                                            lineNumber: 302,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 183,
+                                    lineNumber: 300,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4",
-                                    children: tables.map((table)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
-                                            className: `cursor-pointer transition-all hover:shadow-lg ${table.status === 'AVAILABLE' ? 'border-green-200 bg-green-50 dark:bg-green-900/20' : table.status === 'OCCUPIED' ? 'border-red-200 bg-red-50 dark:bg-red-900/20' : table.status === 'RESERVED' ? 'border-blue-200 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-200'}`,
+                                    children: filteredTables.map((table)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
+                                            className: `cursor-pointer transition-all hover:shadow-lg ${table.status === 'AVAILABLE' ? 'border-green-200 bg-green-50 dark:bg-green-900/20' : table.status === 'OCCUPIED' ? 'border-red-200 bg-red-50 dark:bg-red-900/20' : table.status === 'RESERVED' ? 'border-blue-200 bg-blue-50 dark:bg-blue-900/20' : table.status === 'MAINTENANCE' ? 'border-yellow-200 bg-yellow-50 dark:bg-yellow-900/20' : 'border-gray-200'}`,
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
                                                 className: "p-4 text-center",
                                                 children: [
@@ -983,12 +1140,12 @@ function StaffDashboardContent() {
                                                             className: "w-6 h-6"
                                                         }, void 0, false, {
                                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                            lineNumber: 205,
+                                                            lineNumber: 346,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                        lineNumber: 204,
+                                                        lineNumber: 345,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -999,7 +1156,7 @@ function StaffDashboardContent() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                        lineNumber: 207,
+                                                        lineNumber: 348,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1010,16 +1167,16 @@ function StaffDashboardContent() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                        lineNumber: 208,
+                                                        lineNumber: 349,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
-                                                        variant: table.status === 'AVAILABLE' ? 'default' : table.status === 'OCCUPIED' ? 'destructive' : table.status === 'RESERVED' ? 'secondary' : table.status === 'MAINTENANCE' ? 'outline' : 'outline',
+                                                        variant: table.status === 'AVAILABLE' ? 'default' : table.status === 'OCCUPIED' ? 'destructive' : table.status === 'RESERVED' ? 'secondary' : table.status === 'PENDING_CHECKIN' ? 'outline' : table.status === 'MAINTENANCE' ? 'outline' : 'outline',
                                                         className: "mt-2",
-                                                        children: table.status === 'AVAILABLE' ? 'Trống' : table.status === 'OCCUPIED' ? 'Đang dùng' : table.status === 'RESERVED' ? 'Đã đặt' : table.status === 'MAINTENANCE' ? 'Bảo trì' : table.status
+                                                        children: table.status === 'AVAILABLE' ? 'Trống' : table.status === 'OCCUPIED' ? 'Đang dùng' : table.status === 'RESERVED' ? 'Đã đặt' : table.status === 'PENDING_CHECKIN' ? 'Chờ check-in' : table.status === 'MAINTENANCE' ? 'Bảo trì' : table.status
                                                     }, void 0, false, {
                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                        lineNumber: 209,
+                                                        lineNumber: 350,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1028,11 +1185,20 @@ function StaffDashboardContent() {
                                                             table.status === 'AVAILABLE' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                                                 size: "sm",
                                                                 className: "flex-1",
-                                                                onClick: ()=>handleCheckIn(table.id),
-                                                                children: "Check-in"
-                                                            }, void 0, false, {
+                                                                onClick: ()=>handleWalkInCheckIn(table.id),
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2d$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__UserPlus$3e$__["UserPlus"], {
+                                                                        className: "w-4 h-4 mr-2"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                        lineNumber: 370,
+                                                                        columnNumber: 27
+                                                                    }, this),
+                                                                    "Check-in"
+                                                                ]
+                                                            }, void 0, true, {
                                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                lineNumber: 222,
+                                                                lineNumber: 365,
                                                                 columnNumber: 25
                                                             }, this),
                                                             table.status === 'OCCUPIED' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1043,7 +1209,7 @@ function StaffDashboardContent() {
                                                                 children: "Check-out"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                lineNumber: 231,
+                                                                lineNumber: 375,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1054,35 +1220,35 @@ function StaffDashboardContent() {
                                                                 children: table.status === 'MAINTENANCE' ? 'Hoạt động' : 'Bảo trì'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                lineNumber: 240,
+                                                                lineNumber: 384,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                        lineNumber: 220,
+                                                        lineNumber: 363,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                lineNumber: 203,
+                                                lineNumber: 344,
                                                 columnNumber: 19
                                             }, this)
                                         }, table.id, false, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 197,
+                                            lineNumber: 337,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 195,
+                                    lineNumber: 335,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                            lineNumber: 182,
+                            lineNumber: 299,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsContent"], {
@@ -1097,7 +1263,7 @@ function StaffDashboardContent() {
                                             children: "Đơn hàng đang phục vụ"
                                         }, void 0, false, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 258,
+                                            lineNumber: 402,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -1108,13 +1274,13 @@ function StaffDashboardContent() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 259,
+                                            lineNumber: 403,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 257,
+                                    lineNumber: 401,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1135,24 +1301,24 @@ function StaffDashboardContent() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 270,
+                                                                        lineNumber: 414,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                                         className: "text-sm text-muted-foreground",
                                                                         children: [
                                                                             "Bàn ",
-                                                                            order.table?.tableNumber || order.tableId
+                                                                            order.table?.tableName || 'N/A'
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 271,
+                                                                        lineNumber: 415,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                lineNumber: 269,
+                                                                lineNumber: 413,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -1160,18 +1326,18 @@ function StaffDashboardContent() {
                                                                 children: order.status
                                                             }, void 0, false, {
                                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                lineNumber: 275,
+                                                                lineNumber: 419,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                        lineNumber: 268,
+                                                        lineNumber: 412,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                    lineNumber: 267,
+                                                    lineNumber: 411,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1185,12 +1351,12 @@ function StaffDashboardContent() {
                                                                         children: "Món đã gọi:"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 283,
+                                                                        lineNumber: 427,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         className: "space-y-1",
-                                                                        children: order.items.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        children: order.orderItems?.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                 className: "flex justify-between text-sm",
                                                                                 children: [
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1201,34 +1367,34 @@ function StaffDashboardContent() {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                                        lineNumber: 287,
+                                                                                        lineNumber: 431,
                                                                                         columnNumber: 31
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                                         children: [
-                                                                                            (item.unitPrice * item.quantity).toLocaleString('vi-VN'),
+                                                                                            (item.price * item.quantity).toLocaleString('vi-VN'),
                                                                                             "đ"
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                                        lineNumber: 288,
+                                                                                        lineNumber: 432,
                                                                                         columnNumber: 31
                                                                                     }, this)
                                                                                 ]
                                                                             }, idx, true, {
                                                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                                lineNumber: 286,
+                                                                                lineNumber: 430,
                                                                                 columnNumber: 29
                                                                             }, this))
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 284,
+                                                                        lineNumber: 428,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                lineNumber: 282,
+                                                                lineNumber: 426,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1238,23 +1404,23 @@ function StaffDashboardContent() {
                                                                         children: "Tổng cộng:"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 294,
+                                                                        lineNumber: 438,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         children: [
-                                                                            order.totalAmount.toLocaleString('vi-VN'),
+                                                                            (order.totalAmount || 0).toLocaleString('vi-VN'),
                                                                             "đ"
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 295,
+                                                                        lineNumber: 439,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                lineNumber: 293,
+                                                                lineNumber: 437,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1264,47 +1430,49 @@ function StaffDashboardContent() {
                                                                         size: "sm",
                                                                         variant: "outline",
                                                                         className: "flex-1",
-                                                                        children: "Cập nhật trạng thái"
+                                                                        onClick: ()=>handleOrderStatusUpdate(order.id, 'COMPLETED'),
+                                                                        children: "Hoàn thành"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 298,
+                                                                        lineNumber: 442,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                                                         size: "sm",
                                                                         className: "flex-1",
+                                                                        onClick: ()=>handleProcessPayment(order.id, order.totalAmount || 0),
                                                                         children: "Thanh toán"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 301,
+                                                                        lineNumber: 450,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                lineNumber: 297,
+                                                                lineNumber: 441,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                        lineNumber: 281,
+                                                        lineNumber: 425,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                    lineNumber: 280,
+                                                    lineNumber: 424,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, order.id, true, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 266,
+                                            lineNumber: 410,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 264,
+                                    lineNumber: 408,
                                     columnNumber: 13
                                 }, this),
                                 activeOrders.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
@@ -1315,7 +1483,7 @@ function StaffDashboardContent() {
                                                 className: "w-16 h-16 text-muted-foreground mb-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                lineNumber: 314,
+                                                lineNumber: 467,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1323,7 +1491,7 @@ function StaffDashboardContent() {
                                                 children: "Không có đơn hàng nào"
                                             }, void 0, false, {
                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                lineNumber: 315,
+                                                lineNumber: 468,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1331,24 +1499,24 @@ function StaffDashboardContent() {
                                                 children: "Hiện tại không có đơn hàng nào đang hoạt động."
                                             }, void 0, false, {
                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                lineNumber: 316,
+                                                lineNumber: 469,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                        lineNumber: 313,
+                                        lineNumber: 466,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 312,
+                                    lineNumber: 465,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                            lineNumber: 256,
+                            lineNumber: 400,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsContent"], {
@@ -1363,24 +1531,24 @@ function StaffDashboardContent() {
                                             children: "Đặt bàn hôm nay"
                                         }, void 0, false, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 327,
+                                            lineNumber: 480,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
                                             variant: "outline",
                                             children: [
-                                                pendingBookings.length,
+                                                bookings.filter((b)=>b.status === 'PENDING').length,
                                                 " đặt bàn chờ duyệt"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 328,
+                                            lineNumber: 481,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 326,
+                                    lineNumber: 479,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
@@ -1392,21 +1560,21 @@ function StaffDashboardContent() {
                                                 className: "animate-spin rounded-full h-8 w-8 border-b-2 border-primary"
                                             }, void 0, false, {
                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                lineNumber: 337,
+                                                lineNumber: 490,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 336,
+                                            lineNumber: 489,
                                             columnNumber: 19
-                                        }, this) : pendingBookings.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        }, this) : bookings.filter((b)=>b.status === 'PENDING').length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "flex flex-col items-center justify-center py-12",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__["Calendar"], {
                                                     className: "w-16 h-16 text-muted-foreground mb-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                    lineNumber: 341,
+                                                    lineNumber: 494,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1414,7 +1582,7 @@ function StaffDashboardContent() {
                                                     children: "Không có đặt bàn nào"
                                                 }, void 0, false, {
                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                    lineNumber: 342,
+                                                    lineNumber: 495,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1422,17 +1590,17 @@ function StaffDashboardContent() {
                                                     children: "Hiện tại không có yêu cầu đặt bàn nào chờ xử lý."
                                                 }, void 0, false, {
                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                    lineNumber: 343,
+                                                    lineNumber: 496,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 340,
+                                            lineNumber: 493,
                                             columnNumber: 19
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "divide-y",
-                                            children: pendingBookings.map((booking)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            children: bookings.filter((b)=>b.status === 'PENDING').map((booking)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "flex items-center justify-between p-4",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1444,22 +1612,22 @@ function StaffDashboardContent() {
                                                                         className: "w-5 h-5"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 353,
+                                                                        lineNumber: 506,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                    lineNumber: 352,
+                                                                    lineNumber: 505,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     children: [
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                                             className: "font-medium",
-                                                                            children: booking.customer?.username || 'Khách'
+                                                                            children: booking?.customer?.username || booking?.customer?.fullName || 'Khách'
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                            lineNumber: 356,
+                                                                            lineNumber: 509,
                                                                             columnNumber: 29
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1474,7 +1642,7 @@ function StaffDashboardContent() {
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                            lineNumber: 357,
+                                                                            lineNumber: 510,
                                                                             columnNumber: 29
                                                                         }, this),
                                                                         booking.notes && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1485,19 +1653,19 @@ function StaffDashboardContent() {
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                            lineNumber: 361,
+                                                                            lineNumber: 514,
                                                                             columnNumber: 31
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                    lineNumber: 355,
+                                                                    lineNumber: 508,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                            lineNumber: 351,
+                                                            lineNumber: 504,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1511,64 +1679,242 @@ function StaffDashboardContent() {
                                                                             className: "w-4 h-4 mr-1"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                            lineNumber: 369,
+                                                                            lineNumber: 522,
                                                                             columnNumber: 29
                                                                         }, this),
                                                                         "Liên hệ"
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                    lineNumber: 368,
+                                                                    lineNumber: 521,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                                                     size: "sm",
+                                                                    variant: "outline",
+                                                                    onClick: ()=>handleBookingAction(booking.id, 'reject'),
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__XCircle$3e$__["XCircle"], {
+                                                                            className: "w-4 h-4 mr-1"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                            lineNumber: 530,
+                                                                            columnNumber: 29
+                                                                        }, this),
+                                                                        "Từ chối"
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                    lineNumber: 525,
+                                                                    columnNumber: 27
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                                    size: "sm",
+                                                                    onClick: ()=>handleBookingAction(booking.id, 'approve'),
                                                                     children: [
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
                                                                             className: "w-4 h-4 mr-1"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                            lineNumber: 373,
+                                                                            lineNumber: 537,
                                                                             columnNumber: 29
                                                                         }, this),
                                                                         "Duyệt"
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                    lineNumber: 372,
+                                                                    lineNumber: 533,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                            lineNumber: 367,
+                                                            lineNumber: 520,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, booking.id, true, {
                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                    lineNumber: 350,
+                                                    lineNumber: 503,
                                                     columnNumber: 23
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 348,
+                                            lineNumber: 501,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                        lineNumber: 334,
+                                        lineNumber: 487,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 333,
+                                    lineNumber: 486,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardHeader"], {
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardTitle"], {
+                                                className: "flex items-center gap-2",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$table$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Table$3e$__["Table"], {
+                                                        className: "w-5 h-5"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 552,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    "Tổng quan bàn ăn",
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
+                                                        variant: "secondary",
+                                                        className: "ml-auto",
+                                                        children: [
+                                                            availableTables.length,
+                                                            " bàn trống"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 554,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                lineNumber: 551,
+                                                columnNumber: 17
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                            lineNumber: 550,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "grid grid-cols-2 md:grid-cols-4 gap-4",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "text-center",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "text-2xl font-bold text-green-600",
+                                                                children: availableTables.length
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                lineNumber: 562,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "text-sm text-muted-foreground",
+                                                                children: "Trống"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                lineNumber: 563,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 561,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "text-center",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "text-2xl font-bold text-red-600",
+                                                                children: occupiedTables.length
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                lineNumber: 566,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "text-sm text-muted-foreground",
+                                                                children: "Đang dùng"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                lineNumber: 567,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 565,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "text-center",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "text-2xl font-bold text-blue-600",
+                                                                children: reservedTables.length
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                lineNumber: 570,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "text-sm text-muted-foreground",
+                                                                children: "Đã đặt"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                lineNumber: 571,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 569,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "text-center",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "text-2xl font-bold text-orange-600",
+                                                                children: pendingCheckInTables.length
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                lineNumber: 574,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "text-sm text-muted-foreground",
+                                                                children: "Chờ check-in"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                lineNumber: 575,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 573,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                lineNumber: 560,
+                                                columnNumber: 17
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                            lineNumber: 559,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                    lineNumber: 549,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                            lineNumber: 325,
+                            lineNumber: 478,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsContent"], {
@@ -1577,283 +1923,605 @@ function StaffDashboardContent() {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex items-center justify-between",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                        className: "text-2xl font-bold",
-                                        children: "Check-in khách hàng"
-                                    }, void 0, false, {
-                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                        lineNumber: 388,
-                                        columnNumber: 15
-                                    }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 387,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "grid grid-cols-1 lg:grid-cols-2 gap-6",
                                     children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardHeader"], {
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardTitle"], {
-                                                        children: "Check-in nhanh"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                        lineNumber: 394,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                    lineNumber: 393,
-                                                    columnNumber: 17
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
-                                                    className: "space-y-4",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                    className: "text-sm font-medium",
-                                                                    children: "Tên khách hàng"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                    lineNumber: 398,
-                                                                    columnNumber: 21
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                    type: "text",
-                                                                    placeholder: "Nhập tên khách hàng",
-                                                                    className: "w-full px-3 py-2 bg-input border border-border rounded-md text-foreground mt-1 focus:outline-none focus:ring-2 focus:ring-primary"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                    lineNumber: 399,
-                                                                    columnNumber: 21
-                                                                }, this)
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                            lineNumber: 397,
-                                                            columnNumber: 19
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                    className: "text-sm font-medium",
-                                                                    children: "Số người"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                    lineNumber: 406,
-                                                                    columnNumber: 21
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                    type: "number",
-                                                                    placeholder: "4",
-                                                                    min: "1",
-                                                                    className: "w-full px-3 py-2 bg-input border border-border rounded-md text-foreground mt-1 focus:outline-none focus:ring-2 focus:ring-primary"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                    lineNumber: 407,
-                                                                    columnNumber: 21
-                                                                }, this)
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                            lineNumber: 405,
-                                                            columnNumber: 19
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                                            className: "w-full",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2d$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__UserPlus$3e$__["UserPlus"], {
-                                                                    className: "w-4 h-4 mr-2"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                    lineNumber: 415,
-                                                                    columnNumber: 21
-                                                                }, this),
-                                                                "Check-in khách"
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                            lineNumber: 414,
-                                                            columnNumber: 19
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                    lineNumber: 396,
-                                                    columnNumber: 17
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                            className: "text-2xl font-bold",
+                                            children: "Check-in khách hàng đã được duyệt"
+                                        }, void 0, false, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 392,
+                                            lineNumber: 585,
                                             columnNumber: 15
                                         }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
+                                            variant: "outline",
                                             children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardHeader"], {
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardTitle"], {
-                                                        children: "Hướng dẫn check-in"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                        lineNumber: 423,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                    lineNumber: 422,
-                                                    columnNumber: 17
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "space-y-3 text-sm text-muted-foreground",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "flex items-start gap-3",
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-xs font-bold",
-                                                                        children: "1"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 428,
-                                                                        columnNumber: 23
-                                                                    }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                        children: "Xác nhận thông tin khách hàng và số lượng người"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 429,
-                                                                        columnNumber: 23
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                lineNumber: 427,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "flex items-start gap-3",
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-xs font-bold",
-                                                                        children: "2"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 432,
-                                                                        columnNumber: 23
-                                                                    }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                        children: "Chọn bàn trống phù hợp với số lượng khách"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 433,
-                                                                        columnNumber: 23
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                lineNumber: 431,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "flex items-start gap-3",
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-xs font-bold",
-                                                                        children: "3"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 436,
-                                                                        columnNumber: 23
-                                                                    }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                        children: 'Cập nhật trạng thái bàn thành "Đang sử dụng"'
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 437,
-                                                                        columnNumber: 23
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                lineNumber: 435,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "flex items-start gap-3",
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-xs font-bold",
-                                                                        children: "4"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 440,
-                                                                        columnNumber: 23
-                                                                    }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                        children: "Hướng dẫn khách đến bàn và bắt đầu phục vụ"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                        lineNumber: 441,
-                                                                        columnNumber: 23
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                                lineNumber: 439,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                        lineNumber: 426,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                                    lineNumber: 425,
-                                                    columnNumber: 17
-                                                }, this)
+                                                pendingCheckInTables.length,
+                                                " bàn chờ check-in"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                            lineNumber: 421,
+                                            lineNumber: 586,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                                    lineNumber: 391,
+                                    lineNumber: 584,
+                                    columnNumber: 13
+                                }, this),
+                                pendingCheckInTables.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
+                                        className: "flex flex-col items-center justify-center py-12",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__["Calendar"], {
+                                                className: "w-12 h-12 text-muted-foreground mb-4"
+                                            }, void 0, false, {
+                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                lineNumber: 592,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                className: "text-lg font-semibold mb-2",
+                                                children: "Không có booking nào đã duyệt chờ check-in"
+                                            }, void 0, false, {
+                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                lineNumber: 593,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-muted-foreground text-center",
+                                                children: "Tất cả booking đã duyệt hôm nay đã được check-in hoặc chưa có booking nào được duyệt."
+                                            }, void 0, false, {
+                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                lineNumber: 594,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                        lineNumber: 591,
+                                        columnNumber: 17
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                    lineNumber: 590,
+                                    columnNumber: 15
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4",
+                                    children: pendingCheckInTables.map((table)=>{
+                                        // Tìm booking tương ứng cho bàn này
+                                        const booking = bookings.find((b)=>b.tableId === table.id && b.status === 'CONFIRMED');
+                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
+                                            className: "hover:shadow-md transition-shadow",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardHeader"], {
+                                                    className: "pb-3",
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "flex items-center justify-between",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardTitle"], {
+                                                                className: "text-lg",
+                                                                children: table.tableName
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                lineNumber: 608,
+                                                                columnNumber: 27
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
+                                                                variant: "secondary",
+                                                                children: "Chờ check-in"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                lineNumber: 609,
+                                                                columnNumber: 27
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 607,
+                                                        columnNumber: 25
+                                                    }, this)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                    lineNumber: 606,
+                                                    columnNumber: 23
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
+                                                    className: "space-y-3",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex items-center gap-2 text-sm",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$users$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Users$3e$__["Users"], {
+                                                                    className: "w-4 h-4 text-muted-foreground"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                    lineNumber: 614,
+                                                                    columnNumber: 27
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    children: [
+                                                                        "Khách hàng: ",
+                                                                        booking?.customer?.fullName || 'N/A'
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                    lineNumber: 615,
+                                                                    columnNumber: 27
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                            lineNumber: 613,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex items-center gap-2 text-sm",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
+                                                                    className: "w-4 h-4 text-muted-foreground"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                    lineNumber: 618,
+                                                                    columnNumber: 27
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    children: [
+                                                                        "Thời gian: ",
+                                                                        booking?.time || 'N/A'
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                    lineNumber: 619,
+                                                                    columnNumber: 27
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                            lineNumber: 617,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex items-center gap-2 text-sm",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2d$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__UserPlus$3e$__["UserPlus"], {
+                                                                    className: "w-4 h-4 text-muted-foreground"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                    lineNumber: 622,
+                                                                    columnNumber: 27
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    children: [
+                                                                        booking?.guests || table.capacity,
+                                                                        " người"
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                    lineNumber: 623,
+                                                                    columnNumber: 27
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                            lineNumber: 621,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex items-center gap-2 text-sm",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$map$2d$pin$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MapPin$3e$__["MapPin"], {
+                                                                    className: "w-4 h-4 text-muted-foreground"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                    lineNumber: 626,
+                                                                    columnNumber: 27
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    children: table.location || 'Chưa xác định'
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                    lineNumber: 627,
+                                                                    columnNumber: 27
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                            lineNumber: 625,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        booking?.notes && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "text-sm text-muted-foreground bg-muted/50 p-2 rounded",
+                                                            children: booking.notes
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                            lineNumber: 630,
+                                                            columnNumber: 27
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                            className: "w-full",
+                                                            onClick: ()=>handleCheckIn(table.id),
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
+                                                                    className: "w-4 h-4 mr-2"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                    lineNumber: 638,
+                                                                    columnNumber: 27
+                                                                }, this),
+                                                                "Check-in bàn này"
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                            lineNumber: 634,
+                                                            columnNumber: 25
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                    lineNumber: 612,
+                                                    columnNumber: 23
+                                                }, this)
+                                            ]
+                                        }, table.id, true, {
+                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                            lineNumber: 605,
+                                            columnNumber: 21
+                                        }, this);
+                                    })
+                                }, void 0, false, {
+                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                    lineNumber: 600,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                            lineNumber: 583,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsContent"], {
+                            value: "qrcodes",
+                            className: "space-y-6",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center justify-between",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                            className: "text-2xl font-bold",
+                                            children: "QR Codes bàn ăn"
+                                        }, void 0, false, {
+                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                            lineNumber: 652,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                            onClick: ()=>window.print(),
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$printer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Printer$3e$__["Printer"], {
+                                                    className: "w-4 h-4 mr-2"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                    lineNumber: 654,
+                                                    columnNumber: 17
+                                                }, this),
+                                                "In QR Codes"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                            lineNumber: 653,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                    lineNumber: 651,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
+                                    children: tables.map((table)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
+                                            className: "p-6 text-center",
+                                            children: table.qrCode ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "w-48 h-48 mx-auto mb-4 bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center p-2",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                                            src: (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getQRCodeImageUrl"])(table.id),
+                                                            alt: `QR Code for ${table.tableName}`,
+                                                            className: "w-full h-full object-contain"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                            lineNumber: 665,
+                                                            columnNumber: 25
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 664,
+                                                        columnNumber: 23
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                        className: "font-semibold text-lg mb-2",
+                                                        children: table.tableName
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 672,
+                                                        columnNumber: 23
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                        className: "text-sm text-muted-foreground mb-2",
+                                                        children: [
+                                                            table.capacity,
+                                                            " người • ",
+                                                            table.tableType
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 673,
+                                                        columnNumber: 23
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                        className: "text-xs text-muted-foreground mb-4 font-mono",
+                                                        children: table.qrCode
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 676,
+                                                        columnNumber: 23
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "space-y-2",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                                size: "sm",
+                                                                className: "w-full",
+                                                                onClick: ()=>handleSendQRToESP32(table.id),
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$qr$2d$code$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__QrCode$3e$__["QrCode"], {
+                                                                        className: "w-4 h-4 mr-2"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                        lineNumber: 686,
+                                                                        columnNumber: 27
+                                                                    }, this),
+                                                                    "Gửi tới ESP32"
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                lineNumber: 681,
+                                                                columnNumber: 25
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                                variant: "outline",
+                                                                size: "sm",
+                                                                className: "w-full",
+                                                                onClick: ()=>navigator.clipboard.writeText(table.qrCode || ''),
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$download$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Download$3e$__["Download"], {
+                                                                        className: "w-4 h-4 mr-2"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                        lineNumber: 695,
+                                                                        columnNumber: 27
+                                                                    }, this),
+                                                                    "Copy Code"
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                lineNumber: 689,
+                                                                columnNumber: 25
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                className: "text-xs text-muted-foreground",
+                                                                children: [
+                                                                    "URL: ",
+                                                                    ("TURBOPACK compile-time truthy", 1) ? window.location.origin : "TURBOPACK unreachable",
+                                                                    "/menu/",
+                                                                    table.qrCode
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                lineNumber: 698,
+                                                                columnNumber: 25
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 680,
+                                                        columnNumber: 23
+                                                    }, this)
+                                                ]
+                                            }, void 0, true) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "w-32 h-32 mx-auto mb-4 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "text-center",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$qr$2d$code$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__QrCode$3e$__["QrCode"], {
+                                                                    className: "w-12 h-12 mx-auto mb-2 text-gray-400"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                    lineNumber: 707,
+                                                                    columnNumber: 27
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                    className: "text-xs text-gray-500",
+                                                                    children: "Chưa có QR"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                                    lineNumber: 708,
+                                                                    columnNumber: 27
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                            lineNumber: 706,
+                                                            columnNumber: 25
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 705,
+                                                        columnNumber: 23
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                        className: "font-semibold text-lg mb-2",
+                                                        children: table.tableName
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 711,
+                                                        columnNumber: 23
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                        size: "sm",
+                                                        className: "w-full",
+                                                        onClick: async ()=>{
+                                                            try {
+                                                                const response = await fetch(`${__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"}/api/tables/${table.id}/generate-qr`, {
+                                                                    method: 'POST'
+                                                                });
+                                                                if (response.ok) {
+                                                                    __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Đã tạo QR code');
+                                                                    loadDashboardData();
+                                                                }
+                                                            } catch (error) {
+                                                                __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Tạo QR code thất bại');
+                                                            }
+                                                        },
+                                                        children: "Tạo QR Code"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                        lineNumber: 712,
+                                                        columnNumber: 23
+                                                    }, this)
+                                                ]
+                                            }, void 0, true)
+                                        }, table.id, false, {
+                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                            lineNumber: 661,
+                                            columnNumber: 17
+                                        }, this))
+                                }, void 0, false, {
+                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                    lineNumber: 659,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
+                                    className: "p-6",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                            className: "font-semibold mb-4",
+                                            children: "Hướng dẫn sử dụng QR Codes"
+                                        }, void 0, false, {
+                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                            lineNumber: 738,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "space-y-3 text-sm text-muted-foreground",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                                            children: "1. In QR Codes:"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                            lineNumber: 741,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        ' Sử dụng nút "In QR Codes" để in tất cả mã QR cho các bàn.'
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                    lineNumber: 740,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                                            children: "2. Dán lên bàn:"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                            lineNumber: 744,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        " Dán mã QR lên mỗi bàn tương ứng."
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                    lineNumber: 743,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                                            children: "3. Khách hàng quét:"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                            lineNumber: 747,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        " Khách quét QR để truy cập menu và gọi món trực tiếp."
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                    lineNumber: 746,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                                            children: "4. URL format:"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                            lineNumber: 750,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        " ",
+                                                        window.location.origin,
+                                                        "/menu/[QR_CODE]"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                                    lineNumber: 749,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                            lineNumber: 739,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
+                                    lineNumber: 737,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                            lineNumber: 386,
+                            lineNumber: 650,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                    lineNumber: 173,
+                    lineNumber: 289,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-                lineNumber: 172,
+                lineNumber: 288,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-        lineNumber: 147,
+        lineNumber: 263,
         columnNumber: 5
     }, this);
 }
-_s(StaffDashboardContent, "GhY8Sp1CJBQ8+e5mk7Imcmv6q3c=", false, function() {
+_s(StaffDashboardContent, "o+iaULsmM4BOB16L+RTjyYo/P7g=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$context$2f$auth$2d$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"],
         __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
@@ -1864,12 +2532,12 @@ function StaffDashboard() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$components$2f$protected$2d$route$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["StaffOnly"], {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StaffDashboardContent, {}, void 0, false, {
             fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-            lineNumber: 457,
+            lineNumber: 765,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/DACS2/FrontEnd/app/dashboard/staff/page.tsx",
-        lineNumber: 456,
+        lineNumber: 764,
         columnNumber: 5
     }, this);
 }

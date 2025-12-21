@@ -1,5 +1,7 @@
 package com.restaurant.backend.Controller;
 
+import com.restaurant.backend.Dto.Request.PayosWebhookRequest;
+import com.restaurant.backend.Dto.Response.PaymentLinkResponse;
 import com.restaurant.backend.Entity.Payment;
 import com.restaurant.backend.Service.PaymentService;
 import org.springframework.http.ResponseEntity;
@@ -134,5 +136,20 @@ public class PaymentController {
         return ResponseEntity.ok(
                 Map.of("message", "Payment deleted successfully")
         );
+    }
+
+    // Create payment link for multiple orders (simple implementation)
+    @PostMapping("/link")
+    public ResponseEntity<?> createPaymentLink(@RequestHeader("Authorization") String token,
+                                               @RequestBody List<Long> orderIds) {
+        PaymentLinkResponse response = paymentService.createPaymentLink(token, orderIds);
+        return ResponseEntity.ok(Map.of("message", "Payment link created", "data", response));
+    }
+
+    // Webhook endpoint for PayOS (simple implementation)
+    @PostMapping("/webhook")
+    public ResponseEntity<?> handleWebhook(@RequestBody PayosWebhookRequest webhook) throws Exception {
+        paymentService.handleWebhook(webhook);
+        return ResponseEntity.ok(Map.of("message", "Webhook processed"));
     }
 }

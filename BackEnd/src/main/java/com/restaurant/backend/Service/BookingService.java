@@ -30,4 +30,10 @@ public interface BookingService {
     void deleteBooking(Long id);
 
     Booking updateStatus(Long id, String confirmed);
+
+    Booking checkInBooking(Long id);
+
+    List<Booking> getBookingsByCustomer(Long customerId);
+
+    List<Booking> getBookingsByTable(Long tableId);
 }

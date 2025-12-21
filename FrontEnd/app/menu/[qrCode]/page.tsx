@@ -5,16 +5,19 @@ import { useParams } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { getTableByQr, getMenuItems, getCategories, createOrderWithCustomer, addItemsToOrder } from '@/lib/api';
-import type { RestaurantTable, MenuItem, Category } from '@/lib/types';
+import { getTableByQr, getMenuItems, getCategories, createOrderFromRequest, addItemsToOrder, getActiveBookingByTable } from '@/lib/api';
+import { useAuth } from '@/lib/context/auth-context';
+import type { RestaurantTable, MenuItem, Category, Booking } from '@/lib/types';
 import { ShoppingCart, Loader2, Utensils } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function CustomerMenuPage() {
   const params = useParams();
   const qrCode = params?.qrCode as string;
+  const { user } = useAuth();
   
   const [table, setTable] = useState<RestaurantTable | null>(null);
+  const [booking, setBooking] = useState<Booking | null>(null);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [cart, setCart] = useState<{ menuItem: MenuItem; quantity: number }[]>([]);
@@ -40,8 +43,20 @@ export default function CustomerMenuPage() {
       setTable(tableRes.table);
       setMenuItems(menuRes.menuItems || []);
       setCategories(categoriesRes.categories || []);
+
+      // Load active booking for this table
+      if (tableRes.table?.id) {
+        try {
+          const bookingRes = await getActiveBookingByTable(tableRes.table.id);
+          if (bookingRes.hasActiveBooking && bookingRes.booking) {
+            setBooking(bookingRes.booking);
+          }
+        } catch (error) {
+          // No booking found, that's okay
+          setBooking(null);
+        }
+      }
     } catch (error) {
-      console.error('Error loading data:', error);
       toast.error('Không thể tải dữ liệu');
     } finally {
       setLoading(false);
@@ -83,15 +98,20 @@ export default function CustomerMenuPage() {
     try {
       setSubmitting(true);
       
-      // Create order with default customer (ID 3)
-      const newOrder = {
-        items: [],
+      // Customer ID: từ booking nếu có, hoặc null nếu không đặt bàn
+      const customerId = booking?.customerId || null;
+      const bookingId = booking?.id || null;
+
+      // Create order
+      const orderRequest = {
+        tableId: table.id,
+        customerId: customerId,
+        bookingId: bookingId,
         status: 'PLACED',
-        totalAmount: 0,
-        notes: `Đơn hàng từ QR code - Bàn ${table.tableName}`
+        items: []
       };
 
-      const orderResult = await createOrderWithCustomer(3, table.id, newOrder);
+      const orderResult = await createOrderFromRequest(orderRequest);
       const orderId = orderResult.order.id;
 
       // Add items to order - need to send full menuItem objects
@@ -117,7 +137,6 @@ export default function CustomerMenuPage() {
       toast.success('Đặt món thành công! Nhân viên sẽ phục vụ bạn sớm nhất có thể.');
       setCart([]);
     } catch (error) {
-      console.error('Error submitting order:', error);
       toast.error('Đặt món thất bại. Vui lòng thử lại.');
     } finally {
       setSubmitting(false);

@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
         if (order.getStatus() == null) {
             order.setStatus("PLACED");
         }
-
+        
         Order savedOrder = orderRepository.save(order);
 
         // Notify kitchen and staff about new order
@@ -127,7 +127,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<Order> getOrdersByTable(Long tableId) {
-        return orderRepository.findByTableId(tableId);
+        return orderRepository.findByTable_Id(tableId);
     }
 
     @Override

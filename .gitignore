@@ -1,0 +1,6 @@
+FrontEnd/node_modules/
+
+FrontEnd/dist/
+FrontEnd/build/
+FrontEnd/.next/
+FrontEnd/out/

@@ -25,25 +25,43 @@ public class IoTWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
+        // Log connection details for debugging
+        System.out.println("🔌 New WebSocket connection attempt:");
+        System.out.println("   URI: " + session.getUri());
+        System.out.println("   Remote Address: " + session.getRemoteAddress());
+        System.out.println("   Session ID: " + session.getId());
+        
         // Determine client type based on query parameters
         String clientType = getClientType(session);
+        System.out.println("   Detected client type: " + clientType);
 
         switch (clientType) {
             case "esp32":
                 readySessions.add(session);
-                System.out.println("🔗 ESP32 connected: " + session.getId());
+                System.out.println("✅ ESP32 connected successfully: " + session.getId());
+                // Send welcome message
+                try {
+                    session.sendMessage(new TextMessage("CONNECTED|ESP32"));
+                } catch (IOException e) {
+                    System.err.println("Failed to send welcome message: " + e.getMessage());
+                }
                 break;
             case "kitchen":
                 kitchenSessions.add(session);
-                System.out.println("👨‍🍳 Kitchen display connected: " + session.getId());
+                System.out.println("✅ Kitchen display connected: " + session.getId());
                 break;
             case "staff":
                 staffSessions.add(session);
-                System.out.println("👤 Staff app connected: " + session.getId());
+                System.out.println("✅ Staff app connected: " + session.getId());
                 break;
             default:
                 readySessions.add(session); // Default to ESP32
-                System.out.println("🔗 Unknown client connected: " + session.getId());
+                System.out.println("⚠️ Unknown client type, defaulting to ESP32: " + session.getId());
+                try {
+                    session.sendMessage(new TextMessage("CONNECTED|UNKNOWN"));
+                } catch (IOException e) {
+                    System.err.println("Failed to send welcome message: " + e.getMessage());
+                }
         }
     }
 
@@ -52,7 +70,27 @@ public class IoTWebSocketHandler extends TextWebSocketHandler {
         readySessions.remove(session);
         kitchenSessions.remove(session);
         staffSessions.remove(session);
-        System.out.println("🔌 Client disconnected: " + session.getId());
+        System.out.println("🔌 Client disconnected:");
+        System.out.println("   Session ID: " + session.getId());
+        System.out.println("   Close Code: " + status.getCode());
+        System.out.println("   Close Reason: " + status.getReason());
+        System.out.println("   Remote Address: " + session.getRemoteAddress());
+        
+        if (status.getCode() == 1006) {
+            System.err.println("   ⚠️ Abnormal closure (1006) - Connection closed without close frame");
+            System.err.println("   This usually means:");
+            System.err.println("   - Network connection lost");
+            System.err.println("   - Client crashed or reset");
+            System.err.println("   - Firewall/network issue");
+        }
+    }
+    
+    @Override
+    public void handleTransportError(WebSocketSession session, Throwable exception) {
+        System.err.println("❌ WebSocket Transport Error:");
+        System.err.println("   Session ID: " + session.getId());
+        System.err.println("   Error: " + exception.getMessage());
+        exception.printStackTrace();
     }
 
     @Override
@@ -126,13 +164,39 @@ public class IoTWebSocketHandler extends TextWebSocketHandler {
 
     private String getClientType(WebSocketSession session) {
         String query = session.getUri().getQuery();
-        if (query != null && query.contains("client=kitchen")) {
-            return "kitchen";
-        } else if (query != null && query.contains("client=staff")) {
-            return "staff";
-        } else if (query != null && query.contains("client=esp32")) {
-            return "esp32";
+        if (query == null || query.isEmpty()) {
+            System.out.println("   ⚠️ No query parameters found");
+            return "unknown";
         }
+        
+        System.out.println("   Query string: " + query);
+        
+        // Support both clientType=esp32 and client=esp32 formats
+        if (query.contains("clientType=esp32") || query.contains("client=esp32")) {
+            return "esp32";
+        } else if (query.contains("clientType=kitchen") || query.contains("client=kitchen")) {
+            return "kitchen";
+        } else if (query.contains("clientType=staff") || query.contains("client=staff")) {
+            return "staff";
+        }
+        
+        // Try parsing query parameters more carefully
+        String[] params = query.split("&");
+        for (String param : params) {
+            String[] keyValue = param.split("=");
+            if (keyValue.length == 2) {
+                String key = keyValue[0].toLowerCase();
+                String value = keyValue[1].toLowerCase();
+                if ((key.equals("clienttype") || key.equals("client")) && value.equals("esp32")) {
+                    return "esp32";
+                } else if ((key.equals("clienttype") || key.equals("client")) && value.equals("kitchen")) {
+                    return "kitchen";
+                } else if ((key.equals("clienttype") || key.equals("client")) && value.equals("staff")) {
+                    return "staff";
+                }
+            }
+        }
+        
         return "unknown";
     }
 

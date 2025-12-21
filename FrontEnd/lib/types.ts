@@ -3,6 +3,8 @@ export interface User {
   id: number;
   username: string;
   email: string;
+  phone?: string;
+  fullName?: string;
   role?: string;
   createdAt?: string;
   updatedAt?: string;
@@ -18,6 +20,9 @@ export interface RegisterRequest {
   username: string;
   email: string;
   password: string;
+  fullName: string;
+  phone: string;
+  role?: string;
 }
 
 export interface AuthResponse {
@@ -92,12 +97,14 @@ export interface Order {
   notes?: string;
   createdAt: string;
   updatedAt: string;
+  bookingId?: number | null; // <-- thêm dòng này
 }
 
 export interface CreateOrderRequest {
   tableId: number;
   customerId?: number;
   items?: CreateOrderItemRequest[];
+  bookingId?: number | null; // <-- thêm dòng này
 }
 
 export interface CreateOrderItemRequest {
@@ -179,8 +186,10 @@ export interface LoginFormData {
 }
 
 export interface RegisterFormData {
+  fullname: string;
   username: string;
   email: string;
+  phone: string;
   password: string;
   confirmPassword: string;
 }
@@ -239,4 +248,54 @@ export interface ApiError {
   message: string;
   status: number;
   errors?: Record<string, string[]>;
+}
+
+// PayOS Payment types
+export interface PayOSPaymentItem {
+  name: string;         // Tên món
+  quantity: number;     // Số lượng
+  price: number;        // Giá đơn vị (VND)
+}
+
+export interface CreatePaymentLinkRequest {
+  orderCode: number;  
+  amount: number;      
+  description: string; 
+  returnUrl: string;   
+  cancelUrl: string;  
+  currency?: string;  
+  items?: PayOSPaymentItem[]; 
+  metadata?: {
+    orderIds?: string; 
+    [key: string]: any;
+  };
+}
+
+export interface CreatePaymentLinkResponse {
+  payosPaymentId: string;
+  paymentUrl: string;
+  expiresAt: string;
+  status: string; // 'CREATED', 'PENDING', 'COMPLETED', 'CANCELLED', 'FAILED'
+  internalReference: string;
+  amount: number;
+}
+
+export interface PaymentLinkResponse {
+  checkoutUrl: string;
+  qrCode: string;
+  orderCode: string;
+  amount: number;
+}
+
+export interface PaymentStatusResponse {
+  id: number;
+  orderId: number;
+  amount: number;
+  paymentMethod: string;
+  status: string; // 'PENDING', 'COMPLETED', 'FAILED', 'REFUNDED'
+  transactionId?: string;
+  paymentDate?: string;
+  paidAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

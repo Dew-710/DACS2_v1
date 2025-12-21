@@ -21,12 +21,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // user = customer
+    // user = khách hàng (nullable nếu khách không đặt bàn - walk-in)
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
+    @JoinColumn(name = "customer_id")
     private User customer;
 
-    // user = staff who takes the order
+    // user = nhân viên nhận đơn
     @ManyToOne
     @JoinColumn(name = "staff_id")
     private User staff;
@@ -42,7 +42,7 @@ public class Order {
     @Column(name = "order_time")
     private LocalDateTime orderTime;
 
-    // Order status: PLACED, CONFIRMED, PREPARING, READY, SERVED, PAID, CANCELLED
+    // Trạng thái đơn hàng: PLACED, CONFIRMED, PREPARING, READY, SERVED, PAID, CANCELLED
     private String status;
 
     @Column(name = "total_amount")

@@ -14,6 +14,10 @@ import type {
   CreateBookingRequest,
   BookingAvailabilityRequest,
   CreatePaymentRequest,
+  CreatePaymentLinkRequest,
+  CreatePaymentLinkResponse,
+  PaymentLinkResponse,
+  PaymentStatusResponse,
 } from './types';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"; // Backend URL
@@ -33,8 +37,11 @@ async function fetchData<T>(endpoint: string, options: RequestInit = {}): Promis
 
     try {
       const errorBody = await response.json();
-      errMsg = errorBody.message || errorBody.error || errMsg;
-    } catch (_) {}
+      console.error('[fetchData] Error response:', errorBody);
+      errMsg = errorBody.message || errorBody.error || errorBody.toString();
+    } catch (_) {
+      console.error('[fetchData] Failed to parse error body');
+    }
 
     throw new Error(errMsg);
   }
@@ -50,14 +57,14 @@ async function fetchData<T>(endpoint: string, options: RequestInit = {}): Promis
 }
 
 export async function login(loginRequest: LoginRequest) {
-  return fetchData<{ message: string; user: User }>("/api/users/login", {
+  return fetchData<{ message: string; user: User; token?: string }>("/api/users/login", {
     method: 'POST',
     body: JSON.stringify(loginRequest),
   });
 }
 
 export async function register(registerRequest: RegisterRequest) {
-  return fetchData<{ message: string; user: User }>("/api/users/register", {
+  return fetchData<{ message: string; user: User; token?: string }>("/api/users/register", {
     method: 'POST',
     body: JSON.stringify(registerRequest),
   });
@@ -198,6 +205,7 @@ export async function getTableByQr(qrCode: string) {
   return fetchData<{ message: string; table: RestaurantTable }>(`/api/tables/qr/${qrCode}`);
 }
 
+
 // ===== ORDERS API =====
 export interface OrderItem {
   id: number;
@@ -220,6 +228,13 @@ export interface Order {
 
 export async function getOrders() {
   return fetchData<{ message: string; orders: Order[] }>("/api/orders/list");
+}
+
+export async function getMyOrders(customerId?: number) {
+  const url = customerId 
+    ? `/api/orders/my-orders?customerId=${customerId}`
+    : "/api/orders/my-orders";
+  return fetchData<{ message: string; orders: Order[] }>(url);
 }
 
 export async function getOrderById(id: number) {
@@ -245,6 +260,13 @@ export async function createOrderWithCustomer(customerId: number, tableId: numbe
   return fetchData<{ message: string; order: Order }>(`/api/orders/create-with-customer/${customerId}/table/${tableId}`, {
     method: 'POST',
     body: JSON.stringify(order),
+  });
+}
+
+export async function createOrderFromRequest(request: { tableId: number; customerId?: number | null; staffId?: number; bookingId?: number | null; status?: string; items?: Omit<OrderItem,'id'>[] }) {
+  return fetchData<{ message: string; order: Order }>(`/api/orders/create-from-request`, {
+    method: 'POST',
+    body: JSON.stringify(request),
   });
 }
 
@@ -301,10 +323,54 @@ export async function getBookings() {
   return fetchData<{ message: string; bookings: Booking[] }>("/api/bookings/list");
 }
 
+export async function getMyBookings(customerId?: number) {
+  const url = customerId 
+    ? `/api/bookings/my-bookings?customerId=${customerId}`
+    : "/api/bookings/my-bookings";
+  return fetchData<{ message: string; bookings: Booking[] }>(url);
+}
+
+export async function getActiveBookingByTable(tableId: number) {
+  return fetchData<{ message: string; hasActiveBooking: boolean; booking?: Booking }>(`/api/bookings/table/${tableId}/active`);
+}
+
 export async function createBooking(booking: Omit<Booking, 'id'>) {
   return fetchData<{ message: string; booking: Booking }>("/api/bookings/create", {
     method: 'POST',
     body: JSON.stringify(booking),
+  });
+}
+
+export async function confirmBooking(bookingId: number) {
+  return fetchData<{ message: string; booking: Booking }>(`/api/bookings/${bookingId}/confirm`, {
+    method: 'PUT',
+  });
+}
+
+export async function checkInBooking(bookingId: number) {
+  return fetchData<{ message: string; booking: Booking }>(`/api/bookings/${bookingId}/checkin`, {
+    method: 'PUT',
+  });
+}
+
+export async function checkTableAvailability(date: string, time: string, guests: number) {
+  const params = new URLSearchParams({
+    date,
+    time,
+    guests: guests.toString()
+  });
+  return fetchData<{
+    message: string;
+    date: string;
+    time: string;
+    guests: number;
+    availableTables: RestaurantTable[]
+  }>(`/api/bookings/availability?${params}`);
+}
+
+export async function cancelBooking(bookingId: number) {
+  return fetchData<{ message: string; booking: Booking }>(`/api/bookings/${bookingId}/cancel`, {
+    method: 'PUT',
   });
 }
 
@@ -324,3 +390,98 @@ export async function processPayment(payment: Omit<Payment, 'id'>) {
     body: JSON.stringify(payment),
   });
 }
+
+// ===== SEPAY PAYMENT API =====
+export interface SepayPaymentRequest {
+  orderId: number;
+  amount: number;
+  description?: string;
+}
+
+export interface SepayPaymentResponse {
+  success: boolean;
+  message: string;
+  data: {
+    transactionId: string;
+    orderId: number;
+    amount: number;
+    accountNumber: string;
+    accountName: string;
+    bankCode: string;
+    content: string;
+    paymentUrl: string; // QR code image URL
+    status: string;
+    expiresAt: string;
+  };
+}
+
+export interface SepayPaymentStatus {
+  success: boolean;
+  message: string;
+  data: {
+    transactionId: string;
+    orderId: number;
+    amount: number;
+    status: string; // PENDING, COMPLETED, FAILED, CANCELLED
+    paidAt?: string;
+    bankTransactionId?: string;
+  };
+}
+
+export async function createSepayPayment(request: SepayPaymentRequest) {
+  return fetchData<SepayPaymentResponse>("/api/payments/sepay/create", {
+    method: 'POST',
+    body: JSON.stringify(request),
+  });
+}
+
+export async function checkSepayPaymentStatus(transactionId: string) {
+  return fetchData<SepayPaymentStatus>(`/api/payments/sepay/status/${transactionId}`);
+}
+
+export async function cancelSepayPayment(transactionId: string) {
+  return fetchData<{ success: boolean; message: string }>(`/api/payments/sepay/cancel/${transactionId}`, {
+    method: 'POST',
+  });
+}
+
+// ===== PAYOS PAYMENT API =====
+export async function createPayOSPaymentLink(
+  request: CreatePaymentLinkRequest,
+  token: string
+) {
+  return fetchData<CreatePaymentLinkResponse>("/api/payos/link", {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(request),
+  });
+}
+
+export async function createPaymentLinkForOrders(orderIds: number[], token: string) {
+  return fetchData<PaymentLinkResponse>("/api/payments/link", {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(orderIds),
+  });
+}
+
+export async function getPaymentByOrderId(orderId: number, token: string) {
+  return fetchData<PaymentStatusResponse>(`/api/payments/order/${orderId}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+}
+
+export async function getPaymentById(paymentId: number, token: string) {
+  return fetchData<PaymentStatusResponse>(`/api/payments/${paymentId}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+}
+

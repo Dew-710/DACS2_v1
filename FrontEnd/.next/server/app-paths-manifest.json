@@ -7,7 +7,10 @@
   "/dashboard/page": "app/dashboard/page.js",
   "/dashboard/staff/page": "app/dashboard/staff/page.js",
   "/login/page": "app/login/page.js",
+  "/menu/[qrCode]/page": "app/menu/[qrCode]/page.js",
   "/page": "app/page.js",
+  "/payment/cancel/page": "app/payment/cancel/page.js",
+  "/payment/success/page": "app/payment/success/page.js",
   "/register/page": "app/register/page.js",
   "/unauthorized/page": "app/unauthorized/page.js"
 }

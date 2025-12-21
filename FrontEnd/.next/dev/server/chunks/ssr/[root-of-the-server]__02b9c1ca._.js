@@ -46,12 +46,24 @@ function ThemeProvider({ children, ...props }) {
 __turbopack_context__.s([
     "addItemsToOrder",
     ()=>addItemsToOrder,
+    "cancelBooking",
+    ()=>cancelBooking,
+    "cancelSepayPayment",
+    ()=>cancelSepayPayment,
+    "checkInBooking",
+    ()=>checkInBooking,
     "checkInTable",
     ()=>checkInTable,
     "checkOutTable",
     ()=>checkOutTable,
+    "checkSepayPaymentStatus",
+    ()=>checkSepayPaymentStatus,
+    "checkTableAvailability",
+    ()=>checkTableAvailability,
     "checkoutOrder",
     ()=>checkoutOrder,
+    "confirmBooking",
+    ()=>confirmBooking,
     "createBooking",
     ()=>createBooking,
     "createCategory",
@@ -60,14 +72,24 @@ __turbopack_context__.s([
     ()=>createMenuItem,
     "createOrder",
     ()=>createOrder,
+    "createOrderFromRequest",
+    ()=>createOrderFromRequest,
     "createOrderWithCustomer",
     ()=>createOrderWithCustomer,
+    "createPayOSPaymentLink",
+    ()=>createPayOSPaymentLink,
+    "createPaymentLinkForOrders",
+    ()=>createPaymentLinkForOrders,
+    "createSepayPayment",
+    ()=>createSepayPayment,
     "deleteCategory",
     ()=>deleteCategory,
     "deleteMenuItem",
     ()=>deleteMenuItem,
     "deleteOrder",
     ()=>deleteOrder,
+    "getActiveBookingByTable",
+    ()=>getActiveBookingByTable,
     "getActiveOrdersByTable",
     ()=>getActiveOrdersByTable,
     "getAllTables",
@@ -84,12 +106,20 @@ __turbopack_context__.s([
     ()=>getMenuItems,
     "getMenuItemsByCategory",
     ()=>getMenuItemsByCategory,
+    "getMyBookings",
+    ()=>getMyBookings,
+    "getMyOrders",
+    ()=>getMyOrders,
     "getOrderById",
     ()=>getOrderById,
     "getOrders",
     ()=>getOrders,
     "getOrdersByTable",
     ()=>getOrdersByTable,
+    "getPaymentById",
+    ()=>getPaymentById,
+    "getPaymentByOrderId",
+    ()=>getPaymentByOrderId,
     "getQRCodeImageUrl",
     ()=>getQRCodeImageUrl,
     "getTableByQr",
@@ -121,7 +151,7 @@ __turbopack_context__.s([
     "updateTableStatus",
     ()=>updateTableStatus
 ]);
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"; // Backend URL
+const API_BASE_URL = ("TURBOPACK compile-time value", "http://localhost:8080") || "http://localhost:8080"; // Backend URL
 async function fetchData(endpoint, options = {}) {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         ...options,
@@ -135,8 +165,11 @@ async function fetchData(endpoint, options = {}) {
         let errMsg = response.statusText;
         try {
             const errorBody = await response.json();
-            errMsg = errorBody.message || errorBody.error || errMsg;
-        } catch (_) {}
+            console.error('[fetchData] Error response:', errorBody);
+            errMsg = errorBody.message || errorBody.error || errorBody.toString();
+        } catch (_) {
+            console.error('[fetchData] Failed to parse error body');
+        }
         throw new Error(errMsg);
     }
     // Server có thể không trả JSON (ví dụ DELETE 204)
@@ -241,13 +274,17 @@ async function sendQRCodeToESP32(tableId) {
     });
 }
 function getQRCodeImageUrl(tableId) {
-    return `${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"}/api/qr-code/${tableId}/image`;
+    return `${("TURBOPACK compile-time value", "http://localhost:8080") || "http://localhost:8080"}/api/qr-code/${tableId}/image`;
 }
 async function getTableByQr(qrCode) {
     return fetchData(`/api/tables/qr/${qrCode}`);
 }
 async function getOrders() {
     return fetchData("/api/orders/list");
+}
+async function getMyOrders(customerId) {
+    const url = customerId ? `/api/orders/my-orders?customerId=${customerId}` : "/api/orders/my-orders";
+    return fetchData(url);
 }
 async function getOrderById(id) {
     return fetchData(`/api/orders/${id}`);
@@ -268,6 +305,12 @@ async function createOrderWithCustomer(customerId, tableId, order) {
     return fetchData(`/api/orders/create-with-customer/${customerId}/table/${tableId}`, {
         method: 'POST',
         body: JSON.stringify(order)
+    });
+}
+async function createOrderFromRequest(request) {
+    return fetchData(`/api/orders/create-from-request`, {
+        method: 'POST',
+        body: JSON.stringify(request)
     });
 }
 async function addItemsToOrder(orderId, items) {
@@ -304,16 +347,92 @@ async function deleteOrder(id) {
 async function getBookings() {
     return fetchData("/api/bookings/list");
 }
+async function getMyBookings(customerId) {
+    const url = customerId ? `/api/bookings/my-bookings?customerId=${customerId}` : "/api/bookings/my-bookings";
+    return fetchData(url);
+}
+async function getActiveBookingByTable(tableId) {
+    return fetchData(`/api/bookings/table/${tableId}/active`);
+}
 async function createBooking(booking) {
     return fetchData("/api/bookings/create", {
         method: 'POST',
         body: JSON.stringify(booking)
     });
 }
+async function confirmBooking(bookingId) {
+    return fetchData(`/api/bookings/${bookingId}/confirm`, {
+        method: 'PUT'
+    });
+}
+async function checkInBooking(bookingId) {
+    return fetchData(`/api/bookings/${bookingId}/checkin`, {
+        method: 'PUT'
+    });
+}
+async function checkTableAvailability(date, time, guests) {
+    const params = new URLSearchParams({
+        date,
+        time,
+        guests: guests.toString()
+    });
+    return fetchData(`/api/bookings/availability?${params}`);
+}
+async function cancelBooking(bookingId) {
+    return fetchData(`/api/bookings/${bookingId}/cancel`, {
+        method: 'PUT'
+    });
+}
 async function processPayment(payment) {
     return fetchData("/api/payments/process", {
         method: 'POST',
         body: JSON.stringify(payment)
+    });
+}
+async function createSepayPayment(request) {
+    return fetchData("/api/payments/sepay/create", {
+        method: 'POST',
+        body: JSON.stringify(request)
+    });
+}
+async function checkSepayPaymentStatus(transactionId) {
+    return fetchData(`/api/payments/sepay/status/${transactionId}`);
+}
+async function cancelSepayPayment(transactionId) {
+    return fetchData(`/api/payments/sepay/cancel/${transactionId}`, {
+        method: 'POST'
+    });
+}
+async function createPayOSPaymentLink(request, token) {
+    return fetchData("/api/payos/link", {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(request)
+    });
+}
+async function createPaymentLinkForOrders(orderIds, token) {
+    return fetchData("/api/payments/link", {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(orderIds)
+    });
+}
+async function getPaymentByOrderId(orderId, token) {
+    return fetchData(`/api/payments/order/${orderId}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+}
+async function getPaymentById(paymentId, token) {
+    return fetchData(`/api/payments/${paymentId}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
     });
 }
 }),
@@ -354,27 +473,39 @@ function AuthProvider({ children }) {
                 password
             });
             const userData = response.user;
+            const token = response.token; // Get token from response
             setUser(userData);
             localStorage.setItem('user', JSON.stringify(userData));
-            // Return the user data so the component can handle navigation
-            return userData;
+            // Save JWT token
+            if (token) {
+                localStorage.setItem('token', token);
+                localStorage.setItem('jwt', token); // Also save as 'jwt' for compatibility
+            }
         } catch (error) {
             throw error;
         } finally{
             setIsLoading(false);
         }
     };
-    const register = async (username, email, password)=>{
+    const register = async (username, email, password, fullName, phone)=>{
         try {
             setIsLoading(true);
             const response = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["register"])({
                 username,
                 email,
-                password
+                password,
+                fullName: fullName || '',
+                phone: phone || ''
             });
             const userData = response.user;
+            const token = response.token; // Get token from response
             setUser(userData);
             localStorage.setItem('user', JSON.stringify(userData));
+            // Save JWT token
+            if (token) {
+                localStorage.setItem('token', token);
+                localStorage.setItem('jwt', token); // Also save as 'jwt' for compatibility
+            }
         } catch (error) {
             throw error;
         } finally{
@@ -384,6 +515,8 @@ function AuthProvider({ children }) {
     const logout = ()=>{
         setUser(null);
         localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        localStorage.removeItem('jwt');
     };
     const role = user?.role || null;
     const hasRole = (roles)=>{
@@ -417,7 +550,7 @@ function AuthProvider({ children }) {
         children: children
     }, void 0, false, {
         fileName: "[project]/DACS2/FrontEnd/lib/context/auth-context.tsx",
-        lineNumber: 116,
+        lineNumber: 137,
         columnNumber: 10
     }, this);
 }

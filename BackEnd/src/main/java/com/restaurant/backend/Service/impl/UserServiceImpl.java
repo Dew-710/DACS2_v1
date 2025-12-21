@@ -42,8 +42,11 @@ public class UserServiceImpl implements UserService {
         user.setFullName(orderDTO.getFullName());
         user.setPhone(orderDTO.getPhone());
         user.setEmail(orderDTO.getEmail());
-        user.setRole("CUSTOMER");
-        user.setCreatedAt(LocalDateTime.now());
+        user.setRole(orderDTO.getRole() != null ? orderDTO.getRole() : "CUSTOMER");
+        user.setStatus("ACTIVE");
+        LocalDateTime now = LocalDateTime.now();
+        user.setCreatedAt(now);
+        user.setUpdatedAt(now);
         return userRepository.save(user);
     }
 

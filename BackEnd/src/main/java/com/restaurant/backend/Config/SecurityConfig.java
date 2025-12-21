@@ -18,10 +18,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(
-            "http://localhost:3000"
-        ));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        // ⚠️ DEVELOPMENT: Allow all origins for ngrok/cloudflare tunnels
+        // 🔒 PRODUCTION: Thay bằng domain cụ thể!
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
         configuration.setExposedHeaders(Arrays.asList("Authorization"));
@@ -36,17 +36,33 @@ public class SecurityConfig {
 
         http
                 .csrf(csrf -> csrf.disable())
+                // Enable CORS for HTTP requests
+                
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
+                // IMPORTANT: WebSocket requests must bypass security
                 // Cho phép tất cả requests (đơn giản hóa cho demo)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/ws/**").permitAll() // WebSocket
-                        .anyRequest().permitAll() // Tất cả API
+                        .requestMatchers("/ws/**").permitAll() // WebSocket - must be first
+                        .requestMatchers("/api/**").permitAll() // API endpoints
+                        .anyRequest().permitAll() // Tất cả requests khác
                 )
 
                 // Tắt login form & http basic
                 .httpBasic(c -> c.disable())
-                .formLogin(l -> l.disable());
+                .formLogin(l -> l.disable())
+                
+                // Disable security headers that might interfere with WebSocket
+                .headers(headers -> headers
+                        .contentTypeOptions().disable()
+                        .frameOptions().disable()
+                        .xssProtection(xss -> xss.disable())
+                )
+                
+                // Disable session management for WebSocket
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS)
+                );
 
         return http.build();
     }

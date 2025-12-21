@@ -48,12 +48,12 @@ public class User {
     @JsonIgnore
     private List<Booking> bookings;
 
-    // USER → ORDERS (AS CUSTOMER)
+    // USER → ORDERS (VAI TRÒ KHÁCH HÀNG)
     @OneToMany(mappedBy = "customer")
     @JsonIgnore
     private List<Order> customerOrders;
 
-    // USER → ORDERS (AS STAFF)
+    // USER → ORDERS (VAI TRÒ NHÂN VIÊN)
     @OneToMany(mappedBy = "staff")
     @JsonIgnore
     private List<Order> handledOrders;

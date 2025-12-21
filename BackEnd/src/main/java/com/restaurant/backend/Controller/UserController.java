@@ -4,6 +4,7 @@ import com.restaurant.backend.Dto.Request.LoginRequest;
 import com.restaurant.backend.Dto.Request.RegisterRequest;
 import com.restaurant.backend.Entity.User;
 import com.restaurant.backend.Service.UserService;
+import com.restaurant.backend.Service.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,11 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final JwtService jwtService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtService jwtService) {
         this.userService = userService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/register")
@@ -40,11 +43,15 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
 
         User user = userService.login(loginRequest);
+        
+        // Generate JWT token
+        String token = jwtService.generateToken(user.getUsername());
 
         return ResponseEntity.ok(
                 Map.of(
                         "message", "Login successful",
-                        "user", user
+                        "user", user,
+                        "token", token
                 )
         );
     }

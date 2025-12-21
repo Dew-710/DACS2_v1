@@ -61,4 +61,20 @@ public class CategoryController {
                 Map.of("message", "Category deleted successfully")
         );
     }
+
+    @PostMapping("/cleanup-duplicates")
+    public ResponseEntity<?> cleanupDuplicates() {
+        try {
+            return ResponseEntity.ok(
+                    Map.of(
+                            "message", "Please run the SQL script: cleanup_duplicate_categories.sql",
+                            "action", "Run the SQL script to clean up duplicate categories"
+                    )
+            );
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(
+                    Map.of("message", "Error: " + e.getMessage())
+            );
+        }
+    }
 }

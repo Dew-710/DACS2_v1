@@ -588,7 +588,10 @@ function KitchenOnly({ children }) {
 _c3 = KitchenOnly;
 function CustomerOnly({ children }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ProtectedRoute, {
-        requiredRoles: "CUSTOMER",
+        requiredRoles: [
+            "CUSTOMER",
+            "ADMIN"
+        ],
         children: children
     }, void 0, false, {
         fileName: "[project]/DACS2/FrontEnd/lib/components/protected-route.tsx",
@@ -1474,9 +1477,37 @@ function AdminDashboardContent() {
                                             lineNumber: 332,
                                             columnNumber: 15
                                         }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                            children: "Thêm món ăn"
-                                        }, void 0, false, {
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex gap-2",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                    variant: "outline",
+                                                    onClick: async ()=>{
+                                                        try {
+                                                            await fetch('/api/categories/cleanup-duplicates', {
+                                                                method: 'POST'
+                                                            });
+                                                            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Cleanup initiated. Please run the SQL script.');
+                                                            loadDashboardData();
+                                                        } catch (error) {
+                                                            __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Cleanup failed');
+                                                        }
+                                                    },
+                                                    children: "Cleanup Categories"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
+                                                    lineNumber: 334,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                    children: "Thêm món ăn"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
+                                                    lineNumber: 348,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
                                             lineNumber: 333,
                                             columnNumber: 15
@@ -1501,12 +1532,12 @@ function AdminDashboardContent() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                        lineNumber: 339,
+                                                        lineNumber: 355,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                    lineNumber: 338,
+                                                    lineNumber: 354,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1517,7 +1548,7 @@ function AdminDashboardContent() {
                                                                     children: category.name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                                    lineNumber: 344,
+                                                                    lineNumber: 360,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1526,24 +1557,24 @@ function AdminDashboardContent() {
                                                                     children: "Sửa"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                                    lineNumber: 345,
+                                                                    lineNumber: 361,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, category.id, true, {
                                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                            lineNumber: 343,
+                                                            lineNumber: 359,
                                                             columnNumber: 21
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                    lineNumber: 341,
+                                                    lineNumber: 357,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                            lineNumber: 337,
+                                            lineNumber: 353,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
@@ -1557,12 +1588,12 @@ function AdminDashboardContent() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                        lineNumber: 353,
+                                                        lineNumber: 369,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                    lineNumber: 352,
+                                                    lineNumber: 368,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1576,7 +1607,7 @@ function AdminDashboardContent() {
                                                                             children: item.name
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                                            lineNumber: 359,
+                                                                            lineNumber: 375,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1587,13 +1618,13 @@ function AdminDashboardContent() {
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                                            lineNumber: 360,
+                                                                            lineNumber: 376,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                                    lineNumber: 358,
+                                                                    lineNumber: 374,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -1601,30 +1632,30 @@ function AdminDashboardContent() {
                                                                     children: item.isAvailable ? 'Có sẵn' : 'Hết'
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                                    lineNumber: 362,
+                                                                    lineNumber: 378,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, item.id, true, {
                                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                            lineNumber: 357,
+                                                            lineNumber: 373,
                                                             columnNumber: 21
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                    lineNumber: 355,
+                                                    lineNumber: 371,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                            lineNumber: 351,
+                                            lineNumber: 367,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                    lineNumber: 336,
+                                    lineNumber: 352,
                                     columnNumber: 13
                                 }, this)
                             ]
@@ -1645,20 +1676,20 @@ function AdminDashboardContent() {
                                             children: "Quản lý bàn ăn"
                                         }, void 0, false, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                            lineNumber: 375,
+                                            lineNumber: 391,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                             children: "Thêm bàn"
                                         }, void 0, false, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                            lineNumber: 376,
+                                            lineNumber: 392,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                    lineNumber: 374,
+                                    lineNumber: 390,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1674,12 +1705,12 @@ function AdminDashboardContent() {
                                                             className: "w-6 h-6"
                                                         }, void 0, false, {
                                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                            lineNumber: 388,
+                                                            lineNumber: 404,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                        lineNumber: 387,
+                                                        lineNumber: 403,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1687,7 +1718,7 @@ function AdminDashboardContent() {
                                                         children: table.tableName
                                                     }, void 0, false, {
                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                        lineNumber: 390,
+                                                        lineNumber: 406,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1698,7 +1729,7 @@ function AdminDashboardContent() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                        lineNumber: 391,
+                                                        lineNumber: 407,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -1707,29 +1738,29 @@ function AdminDashboardContent() {
                                                         children: table.status === 'VACANT' ? 'Trống' : table.status === 'OCCUPIED' ? 'Đang dùng' : table.status === 'RESERVED' ? 'Đã đặt' : table.status === 'CLEANING' ? 'Đang dọn' : 'Bảo trì'
                                                     }, void 0, false, {
                                                         fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                        lineNumber: 392,
+                                                        lineNumber: 408,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                                lineNumber: 386,
+                                                lineNumber: 402,
                                                 columnNumber: 19
                                             }, this)
                                         }, table.id, false, {
                                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                            lineNumber: 381,
+                                            lineNumber: 397,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                                    lineNumber: 379,
+                                    lineNumber: 395,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-                            lineNumber: 373,
+                            lineNumber: 389,
                             columnNumber: 11
                         }, this)
                     ]
@@ -1761,12 +1792,12 @@ function AdminDashboard() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$lib$2f$components$2f$protected$2d$route$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AdminOnly"], {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$DACS2$2f$FrontEnd$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AdminDashboardContent, {}, void 0, false, {
             fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-            lineNumber: 415,
+            lineNumber: 431,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/DACS2/FrontEnd/app/dashboard/admin/page.tsx",
-        lineNumber: 414,
+        lineNumber: 430,
         columnNumber: 5
     }, this);
 }

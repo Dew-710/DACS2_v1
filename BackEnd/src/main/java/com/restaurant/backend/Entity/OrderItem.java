@@ -44,7 +44,7 @@ public class OrderItem {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // Getter for subtotal (calculated field)
+    // Getter cho subtotal (trường được tính toán)
     public BigDecimal getSubtotal() {
         if (price != null && quantity > 0) {
             return price.multiply(BigDecimal.valueOf(quantity));

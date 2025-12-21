@@ -40,7 +40,7 @@ public class TableServiceImpl implements RestaurantTableService {
 
         // Set default status
         if (table.getStatus() == null) {
-            table.setStatus("VACANT");
+            table.setStatus("AVAILABLE");
         }
 
         table.setLastUpdated(LocalDateTime.now());
@@ -117,7 +117,7 @@ public class TableServiceImpl implements RestaurantTableService {
     @Override
     @Transactional(readOnly = true)
     public List<RestaurantTable> getAvailableTables() {
-        return tableRepository.findByStatus("VACANT");
+        return tableRepository.findByStatus("AVAILABLE");
     }
 
     @Override
@@ -125,7 +125,7 @@ public class TableServiceImpl implements RestaurantTableService {
         RestaurantTable table = findByQrCode(qrCode);
 
         // Check if table is available
-        if (!"VACANT".equals(table.getStatus()) && !"RESERVED".equals(table.getStatus())) {
+        if (!"AVAILABLE".equals(table.getStatus()) && !"RESERVED".equals(table.getStatus())) {
             throw new RuntimeException("Table is not available for check-in");
         }
 

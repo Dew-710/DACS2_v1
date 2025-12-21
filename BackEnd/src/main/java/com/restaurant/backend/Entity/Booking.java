@@ -20,7 +20,7 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // User = Customer
+    // User = Khách hàng
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private User customer;
@@ -50,5 +50,10 @@ public class Booking {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    // Trường được tính toán để serialize JSON
+    public Long getTableId() {
+        return table != null ? table.getId() : null;
+    }
 
 }

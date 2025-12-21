@@ -1,5 +1,7 @@
 package com.restaurant.backend.Service;
 
+import com.restaurant.backend.Dto.Request.PayosWebhookRequest;
+import com.restaurant.backend.Dto.Response.PaymentLinkResponse;
 import com.restaurant.backend.Entity.Payment;
 
 import java.util.List;
@@ -16,6 +18,10 @@ public interface PaymentService {
     // Business operations
     Payment processPayment(Long orderId, Payment payment);
     Payment refundPayment(Long paymentId, java.math.BigDecimal amount);
+
+    // New methods
+    PaymentLinkResponse createPaymentLink(String token, List<Long> orderIds);
+    void handleWebhook(PayosWebhookRequest webhook) throws Exception;
 
     // Query operations
     List<Payment> getPaymentsByOrder(Long orderId);

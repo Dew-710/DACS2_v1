@@ -9,7 +9,7 @@ export type UserRole = 'ADMIN' | 'STAFF' | 'KITCHEN' | 'CUSTOMER';
 interface AuthContextType {
   user: User | null;
   login: (username: string, password: string) => Promise<void>;
-  register: (username: string, email: string, password: string) => Promise<void>;
+  register: (username: string, email: string, password: string, fullName?: string, phone?: string) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
   isAuthenticated: boolean;
@@ -53,11 +53,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setIsLoading(true);
       const response = await apiLogin({ username, password });
       const userData = response.user;
+      const token = response.token; // Get token from response
+      
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
-
-      // Return the user data so the component can handle navigation
-      return userData;
+      
+      // Save JWT token
+      if (token) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('jwt', token); // Also save as 'jwt' for compatibility
+      }
     } catch (error) {
       throw error;
     } finally {
@@ -65,13 +70,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const register = async (username: string, email: string, password: string) => {
+  const register = async (username: string, email: string, password: string, fullName?: string, phone?: string) => {
     try {
       setIsLoading(true);
-      const response = await apiRegister({ username, email, password });
+      const response = await apiRegister({ 
+        username, 
+        email, 
+        password, 
+        fullName: fullName || '', 
+        phone: phone || '' 
+      });
       const userData = response.user;
+      const token = response.token; // Get token from response
+      
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
+      
+      // Save JWT token
+      if (token) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('jwt', token); // Also save as 'jwt' for compatibility
+      }
     } catch (error) {
       throw error;
     } finally {
@@ -82,6 +101,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('jwt');
   };
 
   const role = user?.role as UserRole || null;

@@ -1,0 +1,1921 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.6)
+
+2025-12-21T03:13:27.198+07:00  INFO 94056 --- [BackEnd] [           main] c.restaurant.backend.BackEndApplication  : Starting BackEndApplication v0.0.1-SNAPSHOT using Java 25 with PID 94056 (/Users/macintosh/DACS2/Backend/target/BackEnd-0.0.1-SNAPSHOT.jar started by macintosh in /Users/macintosh/DACS2/Backend)
+2025-12-21T03:13:27.204+07:00  INFO 94056 --- [BackEnd] [           main] c.restaurant.backend.BackEndApplication  : The following 1 profile is active: "postgres"
+2025-12-21T03:13:28.372+07:00  INFO 94056 --- [BackEnd] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-21T03:13:28.579+07:00  INFO 94056 --- [BackEnd] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 195 ms. Found 10 JPA repository interfaces.
+2025-12-21T03:13:29.331+07:00  INFO 94056 --- [BackEnd] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-12-21T03:13:29.352+07:00  INFO 94056 --- [BackEnd] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-21T03:13:29.352+07:00  INFO 94056 --- [BackEnd] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-12-21T03:13:29.397+07:00  INFO 94056 --- [BackEnd] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-21T03:13:29.398+07:00  INFO 94056 --- [BackEnd] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2139 ms
+2025-12-21T03:13:29.607+07:00  INFO 94056 --- [BackEnd] [           main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.16.1 by Redgate
+2025-12-21T03:13:29.608+07:00  INFO 94056 --- [BackEnd] [           main] o.f.c.internal.license.VersionPrinter    : See release notes here: https://rd.gt/416ObMi
+2025-12-21T03:13:29.608+07:00  INFO 94056 --- [BackEnd] [           main] o.f.c.internal.license.VersionPrinter    : 
+2025-12-21T03:13:29.619+07:00  INFO 94056 --- [BackEnd] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-21T03:13:29.886+07:00  INFO 94056 --- [BackEnd] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6e5f5478
+2025-12-21T03:13:29.887+07:00  INFO 94056 --- [BackEnd] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-21T03:13:29.908+07:00  INFO 94056 --- [BackEnd] [           main] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:postgresql://localhost:5432/restaurant (PostgreSQL 15.15)
+2025-12-21T03:13:29.964+07:00  INFO 94056 --- [BackEnd] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.025s)
+2025-12-21T03:13:30.017+07:00  INFO 94056 --- [BackEnd] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2
+2025-12-21T03:13:30.019+07:00  INFO 94056 --- [BackEnd] [           main] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2025-12-21T03:13:30.122+07:00  INFO 94056 --- [BackEnd] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-21T03:13:30.190+07:00  INFO 94056 --- [BackEnd] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-12-21T03:13:30.228+07:00  INFO 94056 --- [BackEnd] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-12-21T03:13:30.561+07:00  INFO 94056 --- [BackEnd] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-21T03:13:30.614+07:00  WARN 94056 --- [BackEnd] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-21T03:13:30.627+07:00  INFO 94056 --- [BackEnd] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 15.15
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-21T03:13:31.668+07:00  INFO 94056 --- [BackEnd] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-21T03:13:31.672+07:00  INFO 94056 --- [BackEnd] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-21T03:13:31.994+07:00  INFO 94056 --- [BackEnd] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::allocateMemory has been called by io.netty.util.internal.PlatformDependent0$2 (jar:nested:/Users/macintosh/DACS2/Backend/target/BackEnd-0.0.1-SNAPSHOT.jar/!BOOT-INF/lib/netty-common-4.1.127.Final.jar!/)
+WARNING: Please consider reporting this to the maintainers of class io.netty.util.internal.PlatformDependent0$2
+WARNING: sun.misc.Unsafe::allocateMemory will be removed in a future release
+2025-12-21T03:13:33.108+07:00  WARN 94056 --- [BackEnd] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+🔧 Registering WebSocket handlers...
+✅ WebSocket handler registered: /ws/iot
+✅ WebSocket handler registered: /ws/staff
+✅ All WebSocket handlers registered successfully
+2025-12-21T03:13:33.603+07:00  INFO 94056 --- [BackEnd] [           main] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-12-21T03:13:33.969+07:00  INFO 94056 --- [BackEnd] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-12-21T03:13:33.982+07:00  INFO 94056 --- [BackEnd] [           main] o.s.s.config.TaskSchedulerRouter         : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2025-12-21T03:13:33.988+07:00  INFO 94056 --- [BackEnd] [           main] c.restaurant.backend.BackEndApplication  : Started BackEndApplication in 7.349 seconds (process running for 8.122)
+2025-12-21T03:14:45.115+07:00  INFO 94056 --- [BackEnd] [nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-21T03:14:45.116+07:00  INFO 94056 --- [BackEnd] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-21T03:14:45.119+07:00  INFO 94056 --- [BackEnd] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+Hibernate: 
+    /* <criteria> */ select
+        o1_0.id,
+        o1_0.actual_ready_time,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.customer_id,
+        o1_0.estimated_ready_time,
+        o1_0.order_time,
+        o1_0.served_time,
+        o1_0.staff_id,
+        o1_0.status,
+        o1_0.table_id,
+        o1_0.total_amount,
+        o1_0.updated_at 
+    from
+        orders o1_0
+Hibernate: 
+    /* <criteria> */ select
+        rt1_0.id,
+        rt1_0.capacity,
+        rt1_0.created_at,
+        rt1_0.last_updated,
+        rt1_0.location,
+        rt1_0.qr_code,
+        rt1_0.status,
+        rt1_0.table_name,
+        rt1_0.table_type,
+        rt1_0.updated_at 
+    from
+        tables rt1_0
+Hibernate: 
+    /* SELECT
+        b 
+    FROM
+        Booking b 
+    LEFT JOIN
+        
+    FETCH
+        b.customer 
+    LEFT JOIN
+        
+    FETCH
+        b.table */ select
+            b1_0.id,
+            b1_0.booking_code,
+            b1_0.created_at,
+            b1_0.customer_id,
+            c1_0.id,
+            c1_0.created_at,
+            c1_0.email,
+            c1_0.full_name,
+            c1_0.password_hash,
+            c1_0.phone,
+            c1_0.role,
+            c1_0.status,
+            c1_0.updated_at,
+            c1_0.username,
+            b1_0.booking_date,
+            b1_0.guests,
+            b1_0.note,
+            b1_0.status,
+            t1_0.id,
+            t1_0.capacity,
+            t1_0.created_at,
+            t1_0.last_updated,
+            t1_0.location,
+            t1_0.qr_code,
+            t1_0.status,
+            t1_0.table_name,
+            t1_0.table_type,
+            t1_0.updated_at,
+            b1_0.booking_time,
+            b1_0.updated_at 
+        from
+            bookings b1_0 
+        left join
+            users c1_0 
+                on c1_0.id=b1_0.customer_id 
+        left join
+            tables t1_0 
+                on t1_0.id=b1_0.table_id
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.full_name,
+        u1_0.password_hash,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        rt1_0.id,
+        rt1_0.capacity,
+        rt1_0.created_at,
+        rt1_0.last_updated,
+        rt1_0.location,
+        rt1_0.qr_code,
+        rt1_0.status,
+        rt1_0.table_name,
+        rt1_0.table_type,
+        rt1_0.updated_at 
+    from
+        tables rt1_0 
+    where
+        rt1_0.id=?
+Hibernate: 
+    select
+        rt1_0.id,
+        rt1_0.capacity,
+        rt1_0.created_at,
+        rt1_0.last_updated,
+        rt1_0.location,
+        rt1_0.qr_code,
+        rt1_0.status,
+        rt1_0.table_name,
+        rt1_0.table_type,
+        rt1_0.updated_at 
+    from
+        tables rt1_0 
+    where
+        rt1_0.id=?
+Hibernate: 
+    select
+        rt1_0.id,
+        rt1_0.capacity,
+        rt1_0.created_at,
+        rt1_0.last_updated,
+        rt1_0.location,
+        rt1_0.qr_code,
+        rt1_0.status,
+        rt1_0.table_name,
+        rt1_0.table_type,
+        rt1_0.updated_at 
+    from
+        tables rt1_0 
+    where
+        rt1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.full_name,
+        u1_0.password_hash,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.full_name,
+        u1_0.password_hash,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        b1_0.id,
+        b1_0.booking_code,
+        b1_0.created_at,
+        b1_0.customer_id,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.email,
+        c1_0.full_name,
+        c1_0.password_hash,
+        c1_0.phone,
+        c1_0.role,
+        c1_0.status,
+        c1_0.updated_at,
+        c1_0.username,
+        b1_0.booking_date,
+        b1_0.guests,
+        b1_0.note,
+        b1_0.status,
+        t1_0.id,
+        t1_0.capacity,
+        t1_0.created_at,
+        t1_0.last_updated,
+        t1_0.location,
+        t1_0.qr_code,
+        t1_0.status,
+        t1_0.table_name,
+        t1_0.table_type,
+        t1_0.updated_at,
+        b1_0.booking_time,
+        b1_0.updated_at 
+    from
+        bookings b1_0 
+    join
+        users c1_0 
+            on c1_0.id=b1_0.customer_id 
+    left join
+        tables t1_0 
+            on t1_0.id=b1_0.table_id 
+    where
+        b1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.full_name,
+        u1_0.password_hash,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    /* SELECT
+        b 
+    FROM
+        Booking b 
+    LEFT JOIN
+        
+    FETCH
+        b.customer 
+    LEFT JOIN
+        
+    FETCH
+        b.table */ select
+            b1_0.id,
+            b1_0.booking_code,
+            b1_0.created_at,
+            b1_0.customer_id,
+            c1_0.id,
+            c1_0.created_at,
+            c1_0.email,
+            c1_0.full_name,
+            c1_0.password_hash,
+            c1_0.phone,
+            c1_0.role,
+            c1_0.status,
+            c1_0.updated_at,
+            c1_0.username,
+            b1_0.booking_date,
+            b1_0.guests,
+            b1_0.note,
+            b1_0.status,
+            t1_0.id,
+            t1_0.capacity,
+            t1_0.created_at,
+            t1_0.last_updated,
+            t1_0.location,
+            t1_0.qr_code,
+            t1_0.status,
+            t1_0.table_name,
+            t1_0.table_type,
+            t1_0.updated_at,
+            b1_0.booking_time,
+            b1_0.updated_at 
+        from
+            bookings b1_0 
+        left join
+            users c1_0 
+                on c1_0.id=b1_0.customer_id 
+        left join
+            tables t1_0 
+                on t1_0.id=b1_0.table_id
+Hibernate: 
+    /* <criteria> */ select
+        rt1_0.id,
+        rt1_0.capacity,
+        rt1_0.created_at,
+        rt1_0.last_updated,
+        rt1_0.location,
+        rt1_0.qr_code,
+        rt1_0.status,
+        rt1_0.table_name,
+        rt1_0.table_type,
+        rt1_0.updated_at 
+    from
+        tables rt1_0
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    /* <criteria> */ select
+        o1_0.id,
+        o1_0.actual_ready_time,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.customer_id,
+        o1_0.estimated_ready_time,
+        o1_0.order_time,
+        o1_0.served_time,
+        o1_0.staff_id,
+        o1_0.status,
+        o1_0.table_id,
+        o1_0.total_amount,
+        o1_0.updated_at 
+    from
+        orders o1_0
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.full_name,
+        u1_0.password_hash,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        rt1_0.id,
+        rt1_0.capacity,
+        rt1_0.created_at,
+        rt1_0.last_updated,
+        rt1_0.location,
+        rt1_0.qr_code,
+        rt1_0.status,
+        rt1_0.table_name,
+        rt1_0.table_type,
+        rt1_0.updated_at 
+    from
+        tables rt1_0 
+    where
+        rt1_0.id=?
+Hibernate: 
+    select
+        rt1_0.id,
+        rt1_0.capacity,
+        rt1_0.created_at,
+        rt1_0.last_updated,
+        rt1_0.location,
+        rt1_0.qr_code,
+        rt1_0.status,
+        rt1_0.table_name,
+        rt1_0.table_type,
+        rt1_0.updated_at 
+    from
+        tables rt1_0 
+    where
+        rt1_0.id=?
+Hibernate: 
+    select
+        rt1_0.id,
+        rt1_0.capacity,
+        rt1_0.created_at,
+        rt1_0.last_updated,
+        rt1_0.location,
+        rt1_0.qr_code,
+        rt1_0.status,
+        rt1_0.table_name,
+        rt1_0.table_type,
+        rt1_0.updated_at 
+    from
+        tables rt1_0 
+    where
+        rt1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.full_name,
+        u1_0.password_hash,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.full_name,
+        u1_0.password_hash,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        b1_0.id,
+        b1_0.booking_code,
+        b1_0.created_at,
+        b1_0.customer_id,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.email,
+        c1_0.full_name,
+        c1_0.password_hash,
+        c1_0.phone,
+        c1_0.role,
+        c1_0.status,
+        c1_0.updated_at,
+        c1_0.username,
+        b1_0.booking_date,
+        b1_0.guests,
+        b1_0.note,
+        b1_0.status,
+        t1_0.id,
+        t1_0.capacity,
+        t1_0.created_at,
+        t1_0.last_updated,
+        t1_0.location,
+        t1_0.qr_code,
+        t1_0.status,
+        t1_0.table_name,
+        t1_0.table_type,
+        t1_0.updated_at,
+        b1_0.booking_time,
+        b1_0.updated_at 
+    from
+        bookings b1_0 
+    join
+        users c1_0 
+            on c1_0.id=b1_0.customer_id 
+    left join
+        tables t1_0 
+            on t1_0.id=b1_0.table_id 
+    where
+        b1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.full_name,
+        u1_0.password_hash,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    select
+        oi1_0.order_id,
+        oi1_0.id,
+        oi1_0.created_at,
+        oi1_0.menu_item_id,
+        mi1_0.id,
+        mi1_0.allergens,
+        mi1_0.calories,
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.description,
+        c1_0.display_order,
+        c1_0.image_url,
+        c1_0.is_active,
+        c1_0.name,
+        c1_0.updated_at,
+        mi1_0.created_at,
+        mi1_0.description,
+        mi1_0.image_url,
+        mi1_0.is_available,
+        mi1_0.name,
+        mi1_0.preparation_time,
+        mi1_0.price,
+        mi1_0.updated_at,
+        oi1_0.notes,
+        oi1_0.price,
+        oi1_0.quantity,
+        oi1_0.status,
+        oi1_0.updated_at 
+    from
+        order_items oi1_0 
+    left join
+        menu_items mi1_0 
+            on mi1_0.id=oi1_0.menu_item_id 
+    left join
+        categories c1_0 
+            on c1_0.id=mi1_0.category_id 
+    where
+        oi1_0.order_id=?
+Hibernate: 
+    /* <criteria> */ select
+        o1_0.id,
+        o1_0.actual_ready_time,
+        o1_0.booking_id,
+        o1_0.created_at,
+        o1_0.customer_id,
+        o1_0.estimated_ready_time,
+        o1_0.order_time,
+        o1_0.served_time,
+        o1_0.staff_id,
+        o1_0.status,
+        o1_0.table_id,
+        o1_0.total_amount,
+        o1_0.updated_at 
+    from
+        orders o1_0 
+    where
+        o1_0.id in (?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.full_name,
+        u1_0.password_hash,
+        u1_0.phone,
+        u1_0.role,
+        u1_0.status,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        rt1_0.id,
+        rt1_0.capacity,
+        rt1_0.created_at,
+        rt1_0.last_updated,
+        rt1_0.location,
+        rt1_0.qr_code,
+        rt1_0.status,
+        rt1_0.table_name,
+        rt1_0.table_type,
+        rt1_0.updated_at 
+    from
+        tables rt1_0 
+    where
+        rt1_0.id=?
+2025-12-21T03:14:53.386+07:00 ERROR 94056 --- [BackEnd] [nio-8080-exec-7] c.r.backend.Controller.PayOSController   : PAYOS REQUEST JSON = 
+{
+  "orderCode" : 12,
+  "amount" : 170000,
+  "description" : "Thanh toán đơn hàng #12",
+  "returnUrl" : "https://doctrinal-lilliam-unfrequently.ngrok-free.dev/payment/success?orderIds=12",
+  "cancelUrl" : "https://doctrinal-lilliam-unfrequently.ngrok-free.dev/payment/cancel?orderIds=12",
+  "currency" : "VND",
+  "items" : [ {
+    "name" : "Cơm tấm sườn",
+    "quantity" : 2,
+    "price" : 45000
+  }, {
+    "name" : "Phở bò",
+    "quantity" : 2,
+    "price" : 40000
+  } ],
+  "metadata" : {
+    "orderIds" : "12"
+  }
+}
+=== PayOS Payment Request ===
+orderCode: 12
+amount: 170000
+description: Thanh toán đơn hàng #12
+returnUrl: https://doctrinal-lilliam-unfrequently.ngrok-free.dev/payment/success?orderIds=12
+cancelUrl: https://doctrinal-lilliam-unfrequently.ngrok-free.dev/payment/cancel?orderIds=12
+items count: 2
+=============================
+Hibernate: 
+    /* insert for
+        com.restaurant.backend.Entity.Payment */insert 
+    into
+        payments (amount, created_at, method, notes, order_id, paid_at, status, transaction_id, updated_at) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-12-21T03:14:53.422+07:00  WARN 94056 --- [BackEnd] [nio-8080-exec-7] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 23514
+2025-12-21T03:14:53.422+07:00 ERROR 94056 --- [BackEnd] [nio-8080-exec-7] o.h.engine.jdbc.spi.SqlExceptionHelper   : ERROR: new row for relation "payments" violates check constraint "payments_method_check"
+  Detail: Failing row contains (43, 12, 170000.00, PAYOS, PENDING, 3f256459-2349-41b6-b26f-af9fc2b051ff, null, null, 2025-12-21 03:14:53.389532, null).
+2025-12-21T03:14:53.433+07:00 ERROR 94056 --- [BackEnd] [nio-8080-exec-7] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.DataIntegrityViolationException: could not execute statement [ERROR: new row for relation "payments" violates check constraint "payments_method_check"
+  Detail: Failing row contains (43, 12, 170000.00, PAYOS, PENDING, 3f256459-2349-41b6-b26f-af9fc2b051ff, null, null, 2025-12-21 03:14:53.389532, null).] [/* insert for com.restaurant.backend.Entity.Payment */insert into payments (amount,created_at,method,notes,order_id,paid_at,status,transaction_id,updated_at) values (?,?,?,?,?,?,?,?,?)]; SQL [/* insert for com.restaurant.backend.Entity.Payment */insert into payments (amount,created_at,method,notes,order_id,paid_at,status,transaction_id,updated_at) values (?,?,?,?,?,?,?,?,?)]; constraint [payments_method_check]] with root cause
+
+org.postgresql.util.PSQLException: ERROR: new row for relation "payments" violates check constraint "payments_method_check"
+  Detail: Failing row contains (43, 12, 170000.00, PAYOS, PENDING, 3f256459-2349-41b6-b26f-af9fc2b051ff, null, null, 2025-12-21 03:14:53.389532, null).
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2734) ~[postgresql-42.7.7.jar!/:42.7.7]
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2421) ~[postgresql-42.7.7.jar!/:42.7.7]
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372) ~[postgresql-42.7.7.jar!/:42.7.7]
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:518) ~[postgresql-42.7.7.jar!/:42.7.7]
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:435) ~[postgresql-42.7.7.jar!/:42.7.7]
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196) ~[postgresql-42.7.7.jar!/:42.7.7]
+	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:157) ~[postgresql-42.7.7.jar!/:42.7.7]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61) ~[HikariCP-6.3.3.jar!/:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java) ~[HikariCP-6.3.3.jar!/:na]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:194) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.id.insert.GetGeneratedKeysDelegate.performMutation(GetGeneratedKeysDelegate.java:116) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:47) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:55) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.doStaticInserts(InsertCoordinatorStandard.java:194) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.coordinateInsert(InsertCoordinatorStandard.java:132) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.insert(InsertCoordinatorStandard.java:95) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.action.internal.EntityIdentityInsertAction.execute(EntityIdentityInsertAction.java:85) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.engine.spi.ActionQueue.execute(ActionQueue.java:682) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.engine.spi.ActionQueue.addResolvedEntityInsertAction(ActionQueue.java:293) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.engine.spi.ActionQueue.addInsertAction(ActionQueue.java:274) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.engine.spi.ActionQueue.addAction(ActionQueue.java:324) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.event.internal.AbstractSaveEventListener.addInsertAction(AbstractSaveEventListener.java:394) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSaveOrReplicate(AbstractSaveEventListener.java:308) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSave(AbstractSaveEventListener.java:224) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.event.internal.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:136) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:177) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.event.internal.DefaultPersistEventListener.persist(DefaultPersistEventListener.java:95) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:79) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:55) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:761) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:745) ~[hibernate-core-6.6.29.Final.jar!/:6.6.29.Final]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:364) ~[spring-orm-6.2.11.jar!/:6.2.11]
+	at jdk.proxy2/jdk.proxy2.$Proxy151.persist(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:320) ~[spring-orm-6.2.11.jar!/:6.2.11]
+	at jdk.proxy2/jdk.proxy2.$Proxy151.persist(Unknown Source) ~[na:na]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:654) ~[spring-data-jpa-3.5.4.jar!/:3.5.4]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360) ~[spring-aop-6.2.11.jar!/:6.2.11]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:277) ~[spring-data-commons-3.5.4.jar!/:3.5.4]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170) ~[spring-data-commons-3.5.4.jar!/:3.5.4]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158) ~[spring-data-commons-3.5.4.jar!/:3.5.4]
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:515) ~[spring-data-commons-3.5.4.jar!/:3.5.4]
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:284) ~[spring-data-commons-3.5.4.jar!/:3.5.4]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:734) ~[spring-data-commons-3.5.4.jar!/:3.5.4]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.11.jar!/:6.2.11]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:174) ~[spring-data-commons-3.5.4.jar!/:3.5.4]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:149) ~[spring-data-commons-3.5.4.jar!/:3.5.4]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.11.jar!/:6.2.11]
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69) ~[spring-data-commons-3.5.4.jar!/:3.5.4]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.11.jar!/:6.2.11]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380) ~[spring-tx-6.2.11.jar!/:6.2.11]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.11.jar!/:6.2.11]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.11.jar!/:6.2.11]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138) ~[spring-tx-6.2.11.jar!/:6.2.11]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.11.jar!/:6.2.11]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:165) ~[spring-data-jpa-3.5.4.jar!/:3.5.4]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.11.jar!/:6.2.11]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223) ~[spring-aop-6.2.11.jar!/:6.2.11]
+	at jdk.proxy2/jdk.proxy2.$Proxy165.save(Unknown Source) ~[na:na]
+	at com.restaurant.backend.Service.impl.PayOSService.createLink(PayOSService.java:94) ~[!/:0.0.1-SNAPSHOT]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360) ~[spring-aop-6.2.11.jar!/:6.2.11]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.2.11.jar!/:6.2.11]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.2.11.jar!/:6.2.11]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380) ~[spring-tx-6.2.11.jar!/:6.2.11]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.11.jar!/:6.2.11]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.11.jar!/:6.2.11]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728) ~[spring-aop-6.2.11.jar!/:6.2.11]
+	at com.restaurant.backend.Service.impl.PayOSService$$SpringCGLIB$$0.createLink(<generated>) ~[!/:0.0.1-SNAPSHOT]
+	at com.restaurant.backend.Controller.PayOSController.createLink(PayOSController.java:84) ~[!/:0.0.1-SNAPSHOT]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991) ~[spring-webmvc-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896) ~[spring-webmvc-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.2.11.jar!/:6.2.11]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.11.jar!/:6.2.11]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.46.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.5.5.jar!/:6.5.5]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319) ~[spring-security-config-6.5.5.jar!/:6.5.5]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267) ~[spring-webmvc-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240) ~[spring-security-config-6.5.5.jar!/:6.5.5]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.11.jar!/:6.2.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at com.restaurant.backend.Config.WebSocketRequestFilter.doFilter(WebSocketRequestFilter.java:38) ~[!/:0.0.1-SNAPSHOT]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1776) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:975) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:493) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.46.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2025-12-21T03:57:17.725+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=28m47s608ms).
+2025-12-21T04:14:23.430+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m35s712ms).
+2025-12-21T04:32:40.173+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m46s735ms).
+2025-12-21T04:50:56.864+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m46s687ms).
+2025-12-21T05:24:52.369+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=24m25s383ms).
+2025-12-21T05:41:56.088+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m3s719ms).
+2025-12-21T05:54:27.986+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m31s790ms).
+2025-12-21T05:54:57.607+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Retrograde clock change detected (housekeeper delta=29s621ms), soft-evicting connections from pool.
+2025-12-21T06:21:32.172+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=26m34s565ms).
+2025-12-21T06:25:44.275+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m12s109ms).
+2025-12-21T06:41:53.986+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m39s701ms).
+2025-12-21T06:55:42.491+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=13m48s505ms).
+2025-12-21T06:56:08.842+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Retrograde clock change detected (housekeeper delta=26s340ms), soft-evicting connections from pool.
+2025-12-21T07:26:52.698+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=25m13s558ms).
+2025-12-21T07:45:11.494+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=18m18s798ms).
+2025-12-21T08:02:50.004+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m36s477ms).
+2025-12-21T08:19:44.797+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m54s793ms).
+2025-12-21T08:27:42.068+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m27s289ms).
+2025-12-21T08:45:41.057+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m28s987ms).
+2025-12-21T09:03:21.131+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m10s66ms).
+2025-12-21T09:21:16.462+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m55s320ms).
+2025-12-21T09:28:33.771+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m17s309ms).
+2025-12-21T09:44:33.538+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m29s744ms).
+2025-12-21T09:44:59.509+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Retrograde clock change detected (housekeeper delta=25s971ms), soft-evicting connections from pool.
+2025-12-21T10:02:24.248+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m24s739ms).
+2025-12-21T10:18:28.859+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m34s612ms).
+2025-12-21T10:25:22.655+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6m53s796ms).
+2025-12-21T10:29:49.403+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m56s737ms).
+2025-12-21T10:47:57.063+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m37s654ms).
+2025-12-21T10:55:18.744+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m21s681ms).
+2025-12-21T11:27:17.739+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=30m28s990ms).
+2025-12-21T12:49:44.910+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=30m26s707ms).
+2025-12-21T13:13:23.601+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m38s560ms).
+2025-12-21T13:30:07.463+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m13s853ms).
+2025-12-21T13:48:25.452+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=18m17s989ms).
+2025-12-21T13:57:05.886+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8m10s428ms).
+2025-12-21T14:07:55.461+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10m19s565ms).
+2025-12-21T14:17:00.969+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m5s509ms).
+2025-12-21T14:30:05.650+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=13m4s681ms).
+2025-12-21T14:42:33.964+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m16s465ms).
+2025-12-21T14:57:00.874+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=56s875ms).
+2025-12-21T15:26:40.839+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=29m9s951ms).
+2025-12-21T15:42:13.185+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m32s346ms).
+2025-12-21T15:50:16.014+07:00  WARN 94056 --- [BackEnd] [l-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m32s841ms).
+2025-12-21T18:18:06.039+07:00  INFO 94056 --- [BackEnd] [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-21T18:18:06.065+07:00  INFO 94056 --- [BackEnd] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+Hibernate: 
+    /* select
+        p 
+    from
+        DefaultJpaEventPublication p 
+    where
+        p.completionDate is null 
+    order by
+        p.publicationDate asc  */ select
+            djep1_0.id,
+            djep1_0.completion_date,
+            djep1_0.event_type,
+            djep1_0.listener_id,
+            djep1_0.publication_date,
+            djep1_0.serialized_event 
+        from
+            event_publication djep1_0 
+        where
+            djep1_0.completion_date is null 
+        order by
+            djep1_0.publication_date
+2025-12-21T18:18:06.210+07:00  INFO 94056 --- [BackEnd] [ionShutdownHook] .s.m.e.c.DefaultEventPublicationRegistry : No publications outstanding!
+2025-12-21T18:18:06.216+07:00  INFO 94056 --- [BackEnd] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-21T18:18:06.224+07:00  INFO 94056 --- [BackEnd] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-12-21T18:18:06.225+07:00  INFO 94056 --- [BackEnd] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

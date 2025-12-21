@@ -25,7 +25,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     @Transactional(readOnly = true)
     public List<Booking> getAllBookings() {
-        return bookingRepository.findAll();
+        return bookingRepository.findAllWithRelationships();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking createBooking(Booking booking) {
-        // Validate table availability
+        // Kiểm tra tính khả dụng của bàn
         if (booking.getTable() != null) {
             validateTableAvailability(booking.getTable().getId(), booking.getDate(), booking.getTime());
         }
@@ -64,7 +64,7 @@ public class BookingServiceImpl implements BookingService {
         existingBooking.setNote(booking.getNote());
         existingBooking.setStatus(booking.getStatus());
 
-        // Validate new table if changed
+        // Kiểm tra bàn mới nếu có thay đổi
         if (booking.getTable() != null &&
             !booking.getTable().getId().equals(existingBooking.getTable().getId())) {
             validateTableAvailability(booking.getTable().getId(), booking.getDate(), booking.getTime());
@@ -106,22 +106,52 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking updateStatus(Long id, String status) {
-        Booking booking = findById(id);
-        booking.setStatus(status);
+        try {
+            Booking booking = findById(id);
+            if (booking == null) {
+                throw new RuntimeException("Booking not found with id: " + id);
+            }
 
-        // If confirmed, update table status to RESERVED
-        if ("CONFIRMED".equals(status) && booking.getTable() != null) {
-            booking.getTable().setStatus("RESERVED");
+            // Khi xác nhận booking (approve), kiểm tra tính khả dụng của bàn trước
+            if ("CONFIRMED".equals(status) && booking.getTable() != null) {
+                validateTableAvailability(booking.getTable().getId(), booking.getDate(), booking.getTime());
+                booking.getTable().setStatus("PENDING_CHECKIN");
+                restaurantTableRepository.save(booking.getTable());
+            }
+
+            // Khi hủy booking, reset trạng thái bàn nếu nó đang là PENDING_CHECKIN
+            if ("CANCELED".equals(status) && booking.getTable() != null && "PENDING_CHECKIN".equals(booking.getTable().getStatus())) {
+                booking.getTable().setStatus("AVAILABLE");
+                restaurantTableRepository.save(booking.getTable());
+            }
+
+            booking.setStatus(status);
+            return bookingRepository.save(booking);
+        } catch (Exception e) {
+            System.err.println("Error updating booking status: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Failed to update booking status: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Booking checkInBooking(Long id) {
+        Booking booking = findById(id);
+        booking.setStatus("CONFIRMED");
+
+        // Khi check-in, bàn chuyển thành OCCUPIED (khách hàng có mặt và có thể gọi món)
+        if (booking.getTable() != null) {
+            booking.getTable().setStatus("OCCUPIED");
             restaurantTableRepository.save(booking.getTable());
         }
 
         return bookingRepository.save(booking);
     }
 
-    // Additional methods for the improved system
+    // Các method bổ sung cho hệ thống cải tiến
 
     /**
-     * Find available tables for a specific date and time
+     * Tìm bàn khả dụng cho ngày và giờ cụ thể
      */
     @Transactional(readOnly = true)
     public List<RestaurantTable> findAvailableTables(LocalDate date, LocalTime time, int guests) {
@@ -134,12 +164,12 @@ public class BookingServiceImpl implements BookingService {
     }
 
     /**
-     * Suggest suitable tables based on guest count
+     * Đề xuất bàn phù hợp dựa trên số lượng khách
      */
     @Transactional(readOnly = true)
     public List<RestaurantTable> suggestTables(int guests) {
         return restaurantTableRepository.findAll().stream()
-                .filter(table -> "VACANT".equals(table.getStatus()))
+                .filter(table -> "AVAILABLE".equals(table.getStatus()))
                 .filter(table -> table.getCapacity() >= guests)
                 .sorted((t1, t2) -> Integer.compare(t1.getCapacity(), t2.getCapacity())) // Prefer smaller suitable tables
                 .collect(Collectors.toList());
@@ -152,8 +182,19 @@ public class BookingServiceImpl implements BookingService {
     public boolean isTableAvailable(Long tableId, LocalDate date, LocalTime time) {
         // Assume 2-hour booking duration
         LocalTime endTime = time.plusHours(2);
-        List<Booking> conflictingBookings = bookingRepository.findConflictingBookings(tableId, date, time, endTime);
-        return conflictingBookings.isEmpty();
+
+        List<Booking> existingBookings = bookingRepository.findBookingsOnDate(tableId, date);
+
+        // Check for overlapping bookings
+        for (Booking existing : existingBookings) {
+            LocalTime existingEndTime = existing.getTime().plusHours(2);
+            // Check if time ranges overlap: startA < endB AND endA > startB
+            if (time.isBefore(existingEndTime) && endTime.isAfter(existing.getTime())) {
+                return false; // Conflict found
+            }
+        }
+
+        return true; // No conflicts
     }
 
     /**
@@ -173,5 +214,17 @@ public class BookingServiceImpl implements BookingService {
         // Assuming we add a bookingCode field to Booking entity
         // For now, return null - this would need database changes
         return null;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Booking> getBookingsByCustomer(Long customerId) {
+        return bookingRepository.findByCustomerId(customerId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Booking> getBookingsByTable(Long tableId) {
+        return bookingRepository.findByTable_Id(tableId);
     }
 }

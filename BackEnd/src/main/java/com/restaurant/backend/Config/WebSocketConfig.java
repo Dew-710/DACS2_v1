@@ -18,16 +18,25 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
         @Override
         public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+            System.out.println("🔧 Registering WebSocket handlers...");
+            WebSocketHandshakeInterceptor interceptor = new WebSocketHandshakeInterceptor();
+            
             // ESP32 devices
             registry.addHandler(ioTWebSocketHandler, "/ws/iot")
-                    .setAllowedOrigins("*");
+                    .setAllowedOrigins("*")
+                    .addInterceptors(interceptor);
+            System.out.println("✅ WebSocket handler registered: /ws/iot");
 
             // Kitchen display systems
             registry.addHandler(ioTWebSocketHandler, "/ws/kitchen")
-                    .setAllowedOrigins("*");
+                    .setAllowedOrigins("*")
+                    .addInterceptors(interceptor);
 
             // Staff mobile apps
             registry.addHandler(ioTWebSocketHandler, "/ws/staff")
-                    .setAllowedOrigins("*");
+                    .setAllowedOrigins("*")
+                    .addInterceptors(interceptor);
+            System.out.println("✅ WebSocket handler registered: /ws/staff");
+            System.out.println("✅ All WebSocket handlers registered successfully");
     }
 }

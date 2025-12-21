@@ -13,8 +13,10 @@ import { toast } from 'sonner';
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
+    fullname: '',
     username: '',
     email: '',
+    phone: '',
     password: '',
     confirmPassword: '',
   });
@@ -30,6 +32,7 @@ export default function RegisterPage() {
   };
 
   const validateForm = () => {
+    
     if (!formData.username || !formData.email || !formData.password || !formData.confirmPassword) {
       setError('Vui lòng điền đầy đủ thông tin');
       return false;
@@ -50,7 +53,13 @@ export default function RegisterPage() {
       setError('Email không hợp lệ');
       return false;
     }
-
+    const phoneRegex = /^[0-9]{10,15}$/;
+    if (formData.phone) {
+      if (!phoneRegex.test(formData.phone.trim())) {
+        setError('Số điện thoại không hợp lệ (10–15 chữ số)');
+        return false;
+      }
+    }
     return true;
   };
 
@@ -72,7 +81,6 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted flex items-center justify-center px-4">
-      {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/5 rounded-full blur-3xl"></div>
@@ -92,7 +100,7 @@ export default function RegisterPage() {
         <Card className="border border-border bg-card/80 backdrop-blur-sm shadow-xl">
           <CardHeader>
             <CardTitle className="text-2xl">Đăng Ký</CardTitle>
-            <CardDescription>Tạo tài khoản để truy cập hệ thống</CardDescription>
+            <CardDescription>Tạo tài khoản</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -103,6 +111,18 @@ export default function RegisterPage() {
                 </Alert>
               )}
 
+              <div className="space-y-2">
+                <Label htmlFor="fullname">Họ Và Tên</Label>
+                <Input
+                  id="fullname"
+                  type="text"
+                  placeholder="Họ và tên"
+                  value={formData.fullname}
+                  onChange={(e) => handleInputChange('fullname', e.target.value)}
+                  disabled={isLoading}
+                  className="bg-muted/50 border-border text-foreground placeholder:text-muted-foreground"
+                />
+              </div>
               {/* Username Input */}
               <div className="space-y-2">
                 <Label htmlFor="username" className="text-foreground">
@@ -139,6 +159,18 @@ export default function RegisterPage() {
                     className="pl-10 bg-muted/50 border-border text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Số Điện Thoại</Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  placeholder="Số điện thoại"
+                  value={formData.phone}
+                  onChange={(e) => handleInputChange('phone', e.target.value)}
+                  disabled={isLoading}
+                  className="bg-muted/50 border-border text-foreground placeholder:text-muted-foreground"
+                />
               </div>
 
               {/* Password Input */}
@@ -193,7 +225,7 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* Submit Button */}
+              
               <Button
                 type="submit"
                 disabled={isLoading}
@@ -203,7 +235,7 @@ export default function RegisterPage() {
                 {isLoading ? "Đang tạo tài khoản..." : "Đăng Ký"}
               </Button>
 
-              {/* Login Link */}
+            
               <div className="pt-4 border-t border-border text-center">
                 <p className="text-sm text-muted-foreground">
                   Đã có tài khoản?{" "}

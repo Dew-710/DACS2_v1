@@ -330,7 +330,23 @@ function AdminDashboardContent() {
           <TabsContent value="menu" className="space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold">Quản lý thực đơn</h2>
-              <Button>Thêm món ăn</Button>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  onClick={async () => {
+                    try {
+                      await fetch('/api/categories/cleanup-duplicates', { method: 'POST' });
+                      toast.success('Cleanup initiated. Please run the SQL script.');
+                      loadDashboardData();
+                    } catch (error) {
+                      toast.error('Cleanup failed');
+                    }
+                  }}
+                >
+                  Cleanup Categories
+                </Button>
+                <Button>Thêm món ăn</Button>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

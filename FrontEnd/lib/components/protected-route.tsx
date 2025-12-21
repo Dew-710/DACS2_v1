@@ -121,7 +121,7 @@ export function KitchenOnly({ children }: { children: React.ReactNode }) {
 
 export function CustomerOnly({ children }: { children: React.ReactNode }) {
   return (
-    <ProtectedRoute requiredRoles="CUSTOMER">
+    <ProtectedRoute requiredRoles={["CUSTOMER", "ADMIN"]}>
       {children}
     </ProtectedRoute>
   );
