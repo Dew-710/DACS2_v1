@@ -135,12 +135,12 @@ public class PayOSController {
 
     @PostMapping("/webhook")
     public ResponseEntity<String> handleWebhook(@RequestBody Webhook webhook) {
+        System.out.println("Received webhook: " + webhook);
         try {
             String result = String.valueOf(payOSService.handleWebhook(webhook));
             return ResponseEntity.ok(result);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("ERROR" + e.getMessage());
+           return ResponseEntity.ok().build();
         }
     }
     

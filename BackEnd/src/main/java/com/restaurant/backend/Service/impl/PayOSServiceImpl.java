@@ -168,8 +168,8 @@ public class PayOSServiceImpl implements PayOSService {
                 .amount(totalAmount.longValue())
                 .description(description)
                 .items(items)
-                .returnUrl("https://eating-gotten-more-receptor.trycloudflare.com//payment/success")
-                .cancelUrl("https://eating-gotten-more-receptor.trycloudflare.com//payment/cancel")
+                .returnUrl("https://eating-gotten-more-receptor.trycloudflare.com/payment/success")
+                .cancelUrl("https://eating-gotten-more-receptor.trycloudflare.com/payment/cancel")
                 .build();
 
         try {

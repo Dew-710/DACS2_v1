@@ -1,9 +1,5 @@
-[00:00:00.959] Server  LOG     ✓ Ready in 642ms
-[00:00:08.971] Server  WARN    ⚠ Cross origin request detected from eating-gotten-more-receptor.trycloudflare.com to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+[00:00:02.004] Server  LOG     ✓ Ready in 1366ms
+[00:00:17.484] Server  WARN    ⚠ Cross origin request detected from participated-networking-wrap-gather.trycloudflare.com to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
 Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
-[00:00:09.262] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:11.618] Server  LOG     ✓ Compiled in 88ms
-[00:02:11.654] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:02:14.300] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:26.815] Server  LOG     ✓ Compiled in 75ms
-[00:03:12.251] Server  LOG     ✓ Compiled in 62ms
+[00:00:17.760] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:46.350] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
