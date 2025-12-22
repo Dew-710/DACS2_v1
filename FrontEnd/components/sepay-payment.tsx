@@ -46,7 +46,14 @@ export function SepayPayment({
       const response = await createSepayPayment(request);
 
       if (response.success) {
-        setPaymentData(response.data);
+        // ✅ Đảm bảo paymentUrl là URL backend endpoint
+        const paymentData = response.data;
+        if (paymentData.paymentUrl && !paymentData.paymentUrl.startsWith('http')) {
+          // Prepend API_BASE_URL nếu là relative URL
+          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
+          paymentData.paymentUrl = `${apiBaseUrl}${paymentData.paymentUrl}`;
+        }
+        setPaymentData(paymentData);
         setStatus('pending');
         toast.success('QR code đã được tạo. Vui lòng quét mã để thanh toán.');
         
@@ -59,7 +66,6 @@ export function SepayPayment({
         throw new Error(response.message || 'Tạo thanh toán thất bại');
       }
     } catch (error: any) {
-      console.error('Error creating payment:', error);
       toast.error(error.message || 'Không thể tạo thanh toán. Vui lòng thử lại.');
       setStatus('failed');
       onPaymentFailed?.();
@@ -96,7 +102,7 @@ export function SepayPayment({
           }
         }
       } catch (error) {
-        console.error('Error checking payment status:', error);
+        // Ignore
       }
     }, 3000); // Poll mỗi 3 giây
 
@@ -143,7 +149,6 @@ export function SepayPayment({
       toast.info('Đã hủy thanh toán');
       onCancel?.();
     } catch (error: any) {
-      console.error('Error cancelling payment:', error);
       toast.error('Không thể hủy thanh toán');
     }
   };
@@ -218,9 +223,24 @@ export function SepayPayment({
             <div className="flex flex-col items-center space-y-4">
               <div className="relative border-4 border-primary rounded-lg p-2 bg-white">
                 <img 
-                  src={paymentData.paymentUrl} 
+                  src={(() => {
+                    // ✅ Đảm bảo URL là absolute URL
+                    let qrUrl = paymentData.paymentUrl;
+                    if (!qrUrl) {
+                      return '';
+                    }
+                    // Nếu không bắt đầu bằng http, prepend API_BASE_URL
+                    if (!qrUrl.startsWith('http')) {
+                      const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
+                      qrUrl = `${apiBaseUrl}${qrUrl.startsWith('/') ? '' : '/'}${qrUrl}`;
+                    }
+                    return qrUrl;
+                  })()}
                   alt="QR Code thanh toán" 
                   className="w-64 h-64 object-contain"
+                  onError={() => {
+                    // Ignore
+                  }}
                 />
               </div>
 

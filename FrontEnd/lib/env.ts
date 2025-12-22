@@ -101,17 +101,5 @@ export const validatePayOSUrls = (): { valid: boolean; warnings: string[] } => {
  * Log environment configuration (for debugging)
  */
 export const logEnvConfig = () => {
-  console.log('=== Environment Configuration ===');
-  console.log('API Base URL:', getApiBaseUrl());
-  console.log('App URL:', getAppUrl());
-  console.log('PayOS Return URL:', getPayOSReturnUrl());
-  console.log('PayOS Cancel URL:', getPayOSCancelUrl());
-  console.log('Is Development:', isDevelopment());
-  
-  const validation = validatePayOSUrls();
-  if (!validation.valid) {
-    console.warn('=== PayOS URL Warnings ===');
-    validation.warnings.forEach(w => console.warn(w));
-  }
-  console.log('================================');
+  // Debug logging removed
 };

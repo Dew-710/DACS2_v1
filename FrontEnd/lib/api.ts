@@ -37,10 +37,9 @@ async function fetchData<T>(endpoint: string, options: RequestInit = {}): Promis
 
     try {
       const errorBody = await response.json();
-      console.error('[fetchData] Error response:', errorBody);
       errMsg = errorBody.message || errorBody.error || errorBody.toString();
     } catch (_) {
-      console.error('[fetchData] Failed to parse error body');
+      // Ignore
     }
 
     throw new Error(errMsg);
@@ -447,15 +446,16 @@ export async function cancelSepayPayment(transactionId: string) {
 
 // ===== PAYOS PAYMENT API =====
 export async function createPayOSPaymentLink(
-  request: CreatePaymentLinkRequest,
+  orderId: number,
   token: string
 ) {
   return fetchData<CreatePaymentLinkResponse>("/api/payos/link", {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(request),
+    body: JSON.stringify({ orderId }),
   });
 }
 

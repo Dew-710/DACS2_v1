@@ -86,7 +86,6 @@ function AdminDashboardContent() {
       setUsers(usersRes.users || []);
       setBookings(bookingsRes.bookings || []);
     } catch (error) {
-      console.error('Error loading dashboard data:', error);
       toast.error('Không thể tải dữ liệu dashboard');
     } finally {
       setLoading(false);

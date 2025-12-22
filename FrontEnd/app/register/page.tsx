@@ -73,7 +73,6 @@ export default function RegisterPage() {
       toast.success('Đăng ký thành công!');
       router.push('/dashboard');
     } catch (error) {
-      console.error('Registration error:', error);
       setError(error instanceof Error ? error.message : 'Đăng ký thất bại');
       toast.error('Đăng ký thất bại');
     }

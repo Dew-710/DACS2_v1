@@ -33,7 +33,6 @@ export function LoginForm() {
       toast.success("Đăng nhập thành công!")
       router.push("/dashboard")
     } catch (error) {
-      console.error("Login error:", error)
       setError(error instanceof Error ? error.message : "Đăng nhập thất bại")
       toast.error("Đăng nhập thất bại")
     }

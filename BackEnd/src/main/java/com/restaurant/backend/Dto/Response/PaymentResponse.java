@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class PaymentResponse {
     private Integer id;
     private OrderResponse order;
-    private double amount;
+    private Long amount;
     private String method;
     private LocalDateTime paidAt;
 }

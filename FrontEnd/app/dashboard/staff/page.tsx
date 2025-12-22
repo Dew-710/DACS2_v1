@@ -100,7 +100,6 @@ function StaffDashboardContent() {
       );
       setPendingTables(pendingTables);
     } catch (error) {
-      console.error('Error loading dashboard data:', error);
       toast.error('Không thể tải dữ liệu dashboard');
     } finally {
       setLoading(false);
@@ -140,7 +139,6 @@ function StaffDashboardContent() {
       // Làm mới dữ liệu sau một khoảng delay ngắn để đảm bảo UI cập nhật trước
       setTimeout(() => loadDashboardData(), 100);
     } catch (error) {
-      console.error('Error during check-in:', error);
       toast.error('Check-in thất bại');
     }
   };
@@ -180,7 +178,6 @@ function StaffDashboardContent() {
       // Làm mới dữ liệu
       loadDashboardData();
     } catch (error) {
-      console.error('Error during walk-in check-in:', error);
       toast.error('Check-in thất bại. Vui lòng thử lại.');
     }
   };
@@ -192,7 +189,6 @@ function StaffDashboardContent() {
       toast.success('Check-out bàn thành công');
       loadDashboardData(); // Refresh data
     } catch (error) {
-      console.error('Error during check-out:', error);
       toast.error('Check-out thất bại');
     }
   };
@@ -203,7 +199,6 @@ function StaffDashboardContent() {
       toast.success(`Trạng thái bàn đã được cập nhật thành ${newStatus}`);
       loadDashboardData();
     } catch (error) {
-      console.error('Error updating table status:', error);
       toast.error('Cập nhật trạng thái bàn thất bại');
     }
   };
@@ -219,7 +214,6 @@ function StaffDashboardContent() {
       }
       loadDashboardData();
     } catch (error) {
-      console.error('Error handling booking:', error);
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       toast.error(`Thao tác thất bại: ${errorMessage}`);
     }
@@ -228,10 +222,8 @@ function StaffDashboardContent() {
   const handleSendQRToESP32 = async (tableId: number) => {
     try {
       // TODO: Implement ESP32 WebSocket integration
-      console.log('Sending QR to ESP32 for table:', tableId);
       toast.info('Chức năng đang được phát triển');
     } catch (error) {
-      console.error('Error sending QR to ESP32:', error);
       toast.error('Không thể gửi mã QR');
     }
   };
@@ -243,19 +235,14 @@ function StaffDashboardContent() {
       toast.success('Trạng thái đơn hàng đã được cập nhật');
       loadDashboardData();
     } catch (error) {
-      console.error('Error updating order status:', error);
       toast.error('Cập nhật trạng thái thất bại');
     }
   };
 
   const handleProcessPayment = (order: Order) => {
-    console.log('[handleProcessPayment] Order:', order);
-    console.log('[handleProcessPayment] Order Items:', order.orderItems);
-    
     // Validate order has items
     if (!order.orderItems || order.orderItems.length === 0) {
       toast.error('Đơn hàng không có món ăn nào. Không thể thanh toán!');
-      console.error('[handleProcessPayment] Order has no items');
       return;
     }
     
@@ -283,7 +270,6 @@ function StaffDashboardContent() {
       setSelectedOrderForPayment(null);
       loadDashboardData();
     } catch (error) {
-      console.error('Error processing payment:', error);
       toast.error('Thanh toán thất bại');
     }
   };
@@ -311,11 +297,7 @@ function StaffDashboardContent() {
 
   // Helper function để chuyển đổi order items sang PayOS format
   const preparePayOSItems = (order: Order): PayOSPaymentItem[] => {
-    console.log('[preparePayOSItems] Order:', order);
-    console.log('[preparePayOSItems] Order Items:', order.orderItems);
-    
     if (!order.orderItems || order.orderItems.length === 0) {
-      console.warn('[preparePayOSItems] WARNING: Order has no items!');
       return [];
     }
     
@@ -326,7 +308,6 @@ function StaffDashboardContent() {
       price: item.price  // Đơn giá (không phải tổng)
     }));
     
-    console.log('[preparePayOSItems] Prepared items:', items);
     return items;
   };
 

@@ -66,4 +66,8 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<OrderItem> orderItems;
+
+    // Payment related fields
+    @Column(name = "payment_status")
+    private String paymentStatus;
 }

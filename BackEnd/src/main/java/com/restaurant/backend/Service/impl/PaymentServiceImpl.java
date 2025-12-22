@@ -149,7 +149,7 @@ public class PaymentServiceImpl implements PaymentService {
             totalAmount = totalAmount.add(order.getTotalAmount() != null ? order.getTotalAmount() : BigDecimal.ZERO);
         }
 
-        long paymentOrderCode = Long.parseLong(System.currentTimeMillis() + String.format("%03d", orders.get(0).getId() % 1000));
+        long paymentOrderCode = System.currentTimeMillis() * 1000 + (orders.get(0).getId() % 1000);
 
         // Create a faux checkout url and qr code (in production you'd call PayOS SDK)
         String checkoutUrl = "https://pay.example.com/checkout/" + paymentOrderCode;
@@ -169,7 +169,7 @@ public class PaymentServiceImpl implements PaymentService {
             created.add(paymentRepository.save(p));
         }
 
-        return new PaymentLinkResponse(checkoutUrl, qrCode, paymentOrderCode, totalAmount);
+        return new PaymentLinkResponse(checkoutUrl, qrCode, paymentOrderCode, totalAmount.longValue());
     }
 
     // New: handle webhook from PayOS (simple implementation)

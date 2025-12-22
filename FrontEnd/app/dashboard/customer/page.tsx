@@ -94,7 +94,6 @@ function CustomerDashboardContent() {
       setOrders(ordersRes.orders || []);
       setBookings(bookingsRes.bookings || []);
     } catch (error) {
-      console.error('Error loading dashboard data:', error);
       toast.error('Không thể tải dữ liệu. Vui lòng thử lại sau.');
     
       setOrders([]);
@@ -207,7 +206,6 @@ function CustomerDashboardContent() {
       await loadDashboardData();
 
     } catch (error) {
-      console.error('Booking error:', error);
       toast.error('Đặt bàn thất bại. Vui lòng thử lại.');
     } finally {
       setIsBooking(false);

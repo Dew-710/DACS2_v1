@@ -7,8 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ExternalLink, QrCode, Loader2, AlertCircle } from 'lucide-react';
 import { createPayOSPaymentLink } from '@/lib/api';
-import type { CreatePaymentLinkRequest, PayOSPaymentItem } from '@/lib/types';
-import { getPayOSReturnUrl, getPayOSCancelUrl, validatePayOSUrls } from '@/lib/env';
+import type { PayOSPaymentItem } from '@/lib/types';
 import { toast } from 'sonner';
 
 interface PayOSPaymentProps {
@@ -53,48 +52,19 @@ export function PayOSPayment({
         throw new Error('Số tiền thanh toán phải lớn hơn 0');
       }
 
-      // ✅ Validate PayOS URLs (must not be localhost)
-      const urlValidation = validatePayOSUrls();
-      if (!urlValidation.valid) {
-        urlValidation.warnings.forEach(warning => console.warn(warning));
+      // ✅ Validate orderIds - backend chỉ nhận một orderId
+      if (!orderIds || orderIds.length === 0) {
+        throw new Error('Vui lòng chọn ít nhất một đơn hàng để thanh toán');
       }
+
+      // Lấy orderId đầu tiên (backend chỉ hỗ trợ một order tại một thời điểm)
+      const orderId = orderIds[0];
       
-      // ✅ Get URLs from environment configuration
-      const returnUrl = getPayOSReturnUrl(orderIds);
-      const cancelUrl = getPayOSCancelUrl(orderIds);
-      
-      console.log('PayOS URLs:', { returnUrl, cancelUrl });
+      if (orderIds.length > 1) {
+        console.warn('PayOS chỉ hỗ trợ thanh toán một đơn hàng tại một thời điểm. Chỉ đơn hàng đầu tiên sẽ được thanh toán.');
+      }
 
-      // ✅ Map items sang đúng format PayOS yêu cầu
-      const payosItems: PayOSPaymentItem[] = items.map(item => ({
-        name: item.name,
-        quantity: item.quantity,
-        price: item.price // Đơn giá
-      }));
-
-      const request: CreatePaymentLinkRequest = {
-        amount,                 // ✅ REQUIRED
-        description: description || `Thanh toán đơn hàng ${orderIds.join(', ')}`, // ✅ REQUIRED
-        returnUrl,              // ✅ REQUIRED
-        cancelUrl,              // ✅ REQUIRED
-        currency: 'VND',
-        items: payosItems,
-        metadata: {
-          orderIds: orderIds.join(',')
-        }
-      };
-
-      // Debug log
-      console.log('=== PayOS Payment Request ===');
-      console.log('Amount:', amount);
-      console.log('Description:', request.description);
-      console.log('Return URL:', returnUrl);
-      console.log('Cancel URL:', cancelUrl);
-      console.log('Items:', JSON.stringify(payosItems, null, 2));
-      console.log('JWT Token:', token ? `${token.substring(0, 20)}...` : 'MISSING');
-      console.log('============================');
-
-      const response = await createPayOSPaymentLink(request, token);
+      const response = await createPayOSPaymentLink(orderId, token);
 
       if (response && response.paymentUrl) {
         setPaymentUrl(response.paymentUrl);
@@ -113,7 +83,6 @@ export function PayOSPayment({
         throw new Error('Không thể tạo link thanh toán');
       }
     } catch (err: any) {
-      console.error('Error creating PayOS payment:', err);
       const errorMsg = err.message || 'Không thể tạo thanh toán. Vui lòng thử lại.';
       setError(errorMsg);
       toast.error(errorMsg);

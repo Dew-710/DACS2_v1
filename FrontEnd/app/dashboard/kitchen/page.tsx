@@ -51,7 +51,6 @@ function KitchenDashboardContent() {
       );
       setOrders(kitchenOrders);
     } catch (error) {
-      console.error('Error loading orders:', error);
       toast.error('Không thể tải đơn hàng');
     } finally {
       setLoading(false);
@@ -70,7 +69,6 @@ function KitchenDashboardContent() {
       toast.success('Đã bắt đầu nấu món');
       loadOrders(); // Refresh data
     } catch (error) {
-      console.error('Error starting cooking:', error);
       toast.error('Không thể cập nhật trạng thái');
     }
   };
@@ -81,7 +79,6 @@ function KitchenDashboardContent() {
       toast.success('Món đã sẵn sàng phục vụ');
       loadOrders(); // Refresh data
     } catch (error) {
-      console.error('Error finishing cooking:', error);
       toast.error('Không thể cập nhật trạng thái');
     }
   };
@@ -92,7 +89,6 @@ function KitchenDashboardContent() {
       toast.success('Đơn hàng đã hoàn thành');
       loadOrders(); // Refresh data
     } catch (error) {
-      console.error('Error completing order:', error);
       toast.error('Không thể hoàn thành đơn hàng');
     }
   };
