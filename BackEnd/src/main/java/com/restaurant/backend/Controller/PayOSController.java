@@ -1,6 +1,7 @@
 package com.restaurant.backend.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.restaurant.backend.Config.PayOSProperties;
 import com.restaurant.backend.Dto.Request.CreatePaymentLinkRequest;
 import com.restaurant.backend.Dto.Response.PaymentLinkResponse;
 import com.restaurant.backend.Entity.Order;
@@ -8,6 +9,7 @@ import com.restaurant.backend.Entity.User;
 import com.restaurant.backend.Repository.OrderRepository;
 import com.restaurant.backend.Repository.UserRepository;
 import com.restaurant.backend.Service.PayOSService;
+import com.restaurant.backend.Service.PayOSWebhookService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -25,13 +27,21 @@ import vn.payos.model.webhooks.Webhook;
 public class PayOSController {
 
     private final PayOSService payOSService;
+    private final PayOSWebhookService payOSWebhookService;
+    private final PayOSProperties payOSProperties;
     private final UserRepository userRepository;
     private static final Logger log = LoggerFactory.getLogger(PayOSController.class);
     private final OrderRepository orderRepository;
 
-    public PayOSController(PayOSService payOSService, UserRepository userRepository, OrderRepository orderRepository) {
+    public PayOSController(PayOSService payOSService,
+                          PayOSWebhookService payOSWebhookService,
+                          PayOSProperties payOSProperties,
+                          UserRepository userRepository,
+                          OrderRepository orderRepository) {
 
         this.payOSService = payOSService;
+        this.payOSWebhookService = payOSWebhookService;
+        this.payOSProperties = payOSProperties;
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
     }
@@ -135,12 +145,20 @@ public class PayOSController {
 
     @PostMapping("/webhook")
     public ResponseEntity<String> handleWebhook(@RequestBody Webhook webhook) {
-        System.out.println("Received webhook: " + webhook);
+        log.info("Received PayOS webhook request");
+
         try {
-            String result = String.valueOf(payOSService.handleWebhook(webhook));
+            // Process the webhook using PayOS SDK for signature verification
+            // The service will verify signature using PayOS SDK and process the payment
+            String result = payOSWebhookService.processPaymentWebhook(webhook);
+
+            log.info("Webhook processed successfully - Result: {}", result);
             return ResponseEntity.ok(result);
+
         } catch (Exception e) {
-           return ResponseEntity.ok().build();
+            log.error("Error processing PayOS webhook", e);
+            // Return 200 OK to prevent PayOS from retrying, but log the error
+            return ResponseEntity.ok("Webhook processing failed - check logs");
         }
     }
     

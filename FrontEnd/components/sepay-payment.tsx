@@ -50,7 +50,7 @@ export function SepayPayment({
         const paymentData = response.data;
         if (paymentData.paymentUrl && !paymentData.paymentUrl.startsWith('http')) {
           // Prepend API_BASE_URL nếu là relative URL
-          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
+          const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://bulk-choosing-circus-inputs.trycloudflare.com';
           paymentData.paymentUrl = `${apiBaseUrl}${paymentData.paymentUrl}`;
         }
         setPaymentData(paymentData);
@@ -231,7 +231,7 @@ export function SepayPayment({
                     }
                     // Nếu không bắt đầu bằng http, prepend API_BASE_URL
                     if (!qrUrl.startsWith('http')) {
-                      const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
+                      const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://bulk-choosing-circus-inputs.trycloudflare.com';
                       qrUrl = `${apiBaseUrl}${qrUrl.startsWith('/') ? '' : '/'}${qrUrl}`;
                     }
                     return qrUrl;

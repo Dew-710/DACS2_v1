@@ -18,13 +18,18 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // ⚠️ DEVELOPMENT: Allow all origins for ngrok/cloudflare tunnels
-        // 🔒 PRODUCTION: Thay bằng domain cụ thể!
-        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        // Allow all cloudflare tunnel patterns and localhost for development
+        // Pattern matching works with allowCredentials in Spring Boot 5.3+
+        configuration.setAllowedOriginPatterns(Arrays.asList(
+                "https://*.trycloudflare.com",
+                "http://localhost:*",
+                "http://127.0.0.1:*"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setMaxAge(3600L); // Cache preflight for 1 hour
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

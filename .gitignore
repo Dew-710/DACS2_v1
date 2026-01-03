@@ -4,3 +4,13 @@ FrontEnd/dist/
 FrontEnd/build/
 FrontEnd/.next/
 FrontEnd/out/
+
+# Next.js
+.next/
+out/
+
+# Node
+node_modules/
+
+# Logs
+*.log

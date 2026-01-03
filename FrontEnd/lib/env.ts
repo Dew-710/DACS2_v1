@@ -7,7 +7,7 @@
  * Get Backend API base URL
  */
 export const getApiBaseUrl = (): string => {
-  return process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
+  return process.env.NEXT_PUBLIC_API_BASE_URL || 'https://bulk-choosing-circus-inputs.trycloudflare.com';
 };
 
 /**

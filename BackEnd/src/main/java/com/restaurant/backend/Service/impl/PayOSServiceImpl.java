@@ -157,9 +157,9 @@ public class PayOSServiceImpl implements PayOSService {
 
         // Initialize PayOS with properties
         PayOS payOS = new PayOS(
-                "f0198646-c08a-4c64-894a-a9ed5cb4aabe",
-               "2b1d4afd-6b7d-44ba-820a-3f9127f19927",
-                "4244234c1acfc77cfd008d0fe6273eaffe7d1aad262a031291383901198754f8"
+                payOSProperties.getClientId(),
+                payOSProperties.getApiKey(),
+                payOSProperties.getChecksumKey()
         );
 
         // Create payment request
@@ -168,8 +168,8 @@ public class PayOSServiceImpl implements PayOSService {
                 .amount(totalAmount.longValue())
                 .description(description)
                 .items(items)
-                .returnUrl("https://eating-gotten-more-receptor.trycloudflare.com/payment/success")
-                .cancelUrl("https://eating-gotten-more-receptor.trycloudflare.com/payment/cancel")
+                .returnUrl(payOSProperties.getReturnUrl())
+                .cancelUrl(payOSProperties.getCancelUrl())
                 .build();
 
         try {
@@ -193,6 +193,19 @@ public class PayOSServiceImpl implements PayOSService {
 
             PaymentTransaction savedTransaction = paymentTransactionRepository.save(paymentTransaction);
 
+            // Create Payment record to link with Order
+            Payment payment = Payment.builder()
+                    .order(order)
+                    .amount(totalAmount)
+                    .method("PAYOS")
+                    .status("PENDING")
+                    .transactionId(String.valueOf(paymentOrderCode))
+                    .createdAt(LocalDateTime.now())
+                    .updatedAt(LocalDateTime.now())
+                    .build();
+            paymentRepository.save(payment);
+            log.info("Created Payment record for orderId: {}, transactionId: {}", orderId, paymentOrderCode);
+
             // Build response matching frontend CreatePaymentLinkResponse format
             Map<String, Object> response = new HashMap<>();
             response.put("paymentUrl", data.getCheckoutUrl()); // Frontend expects paymentUrl
@@ -214,48 +227,4 @@ public class PayOSServiceImpl implements PayOSService {
             throw new RuntimeException("Lỗi PayOS: " + e.getMessage());
         }
     }
-
-    @Transactional
-    public ResponseEntity<String> handleWebhook(Webhook webhook) throws Exception {
-        PayOS payOS = new PayOS(
-                payOSProperties.getClientId(),
-                payOSProperties.getApiKey(),
-                payOSProperties.getChecksumKey()
-        );
-
-        // Xác thực webhook và lấy dữ liệu từ PayOS
-        WebhookData data = payOS.webhooks().verify(webhook);
-        long paymentOrderCode = data.getOrderCode();
-
-        // Tìm giao dịch trong hệ thống của bạn
-        PaymentTransaction trans = paymentTransactionRepository.findByPaymentOrderCode(paymentOrderCode)
-                .orElseThrow(() -> new RuntimeException("Giao dịch không tồn tại"));
-
-        // Nếu trạng thái không phải PENDING, không làm gì cả
-        if (trans.getStatus() != PaymentStatus.PENDING) {
-            return ResponseEntity.ok("Giao dịch đã được xử lý trước đó.");
-        }
-
-        // Kiểm tra mã trả về từ PayOS để xác định thanh toán thành công hay không
-        if ("00".equals(data.getCode())) {
-            // Thanh toán thành công
-            trans.setStatus(PaymentStatus.PAID);
-            trans.setPaidAt(LocalDateTime.now());
-            trans.setReference(data.getReference());
-            paymentTransactionRepository.save(trans);
-
-            // Trả về phản hồi cho người gọi (có thể là PayOS)
-            return ResponseEntity.ok("Thanh toán thành công.");
-        } else {
-            // Thanh toán không thành công
-            trans.setStatus(PaymentStatus.CANCELLED);
-            paymentTransactionRepository.save(trans);
-
-            // Trả về phản hồi cho người gọi (có thể là PayOS)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Thanh toán không thành công.");
-        }
-    }
-
 }
-
-

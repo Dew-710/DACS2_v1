@@ -218,7 +218,7 @@ function AdminDashboardContent() {
                             <p className="font-medium">{order.totalAmount.toLocaleString('vi-VN')}đ</p>
                             <Badge variant={order.status === 'ACTIVE' ? 'default' : 'secondary'}>
                               {order.status === 'ACTIVE' ? 'Đang hoạt động' :
-                               order.status === 'COMPLETED' ? 'Hoàn thành' : 'Đã hủy'}
+                               order.status === 'COMPLETED' ? 'Hoàn thành' : 'Đang chờ thanh toán'}
                             </Badge>
                           </div>
                         </div>

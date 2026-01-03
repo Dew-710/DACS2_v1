@@ -20,7 +20,7 @@ import type {
   PaymentStatusResponse,
 } from './types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"; // Backend URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://bulk-choosing-circus-inputs.trycloudflare.com"; // Backend URL
 
 async function fetchData<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
