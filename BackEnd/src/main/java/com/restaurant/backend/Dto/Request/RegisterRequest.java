@@ -1,9 +1,7 @@
 package com.restaurant.backend.Dto.Request;
 
 import lombok.Data;
-import org.springframework.modulith.NamedInterface;
 
-@NamedInterface
 @Data
 public class RegisterRequest {
     private String username;

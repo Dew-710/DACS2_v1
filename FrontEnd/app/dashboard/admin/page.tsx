@@ -5,6 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 import { AdminOnly } from '@/lib/components/protected-route';
 import { useAuth } from '@/lib/context/auth-context';
 import {
@@ -13,7 +18,18 @@ import {
   getOrders,
   getCategories,
   getUsersList,
-  getBookings
+  getBookings,
+  getAdminDashboardSummary,
+  getRecentOrders,
+  getPendingReservations,
+  approveReservation,
+  rejectReservation,
+  updateUser,
+  updateOrderStatus,
+  createMenuItem,
+  updateMenuItem,
+  updateTableStatus,
+  sendQRCodeToESP32
 } from '@/lib/api';
 import type {
   RestaurantTable,
@@ -21,7 +37,9 @@ import type {
   Order,
   Category,
   User,
-  Booking
+  Booking,
+  AdminDashboardSummary,
+  RecentOrder
 } from '@/lib/types';
 import {
   LogOut,
@@ -37,7 +55,10 @@ import {
   DollarSign,
   Clock,
   CheckCircle,
-  XCircle
+  XCircle,
+  Edit,
+  Plus,
+  QrCode
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -50,15 +71,66 @@ function AdminDashboardContent() {
   // State for dashboard data
   const [tables, setTables] = useState<RestaurantTable[]>([]);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [orders, setOrders] = useState<Order[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [users, setUsers] = useState<User[]>([]);
-  const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  // Admin dashboard state
+  const [dashboardSummary, setDashboardSummary] = useState<AdminDashboardSummary | null>(null);
+  const [recentOrders, setRecentOrders] = useState<RecentOrder[]>([]);
+  const [pendingReservations, setPendingReservations] = useState<Booking[]>([]);
+  const [loadingDashboard, setLoadingDashboard] = useState(true);
+  
+  // Orders state
+  const [orders, setOrders] = useState<Order[]>([]);
+  
+  // Dialog states
+  const [userDialogOpen, setUserDialogOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [menuDialogOpen, setMenuDialogOpen] = useState(false);
+  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem | null>(null);
+  
+  // Form states
+  const [userForm, setUserForm] = useState({ fullName: '', email: '', phone: '', role: 'CUSTOMER', status: 'ACTIVE' });
+  const [menuForm, setMenuForm] = useState({ name: '', description: '', price: '', categoryId: '', imageUrl: '', isAvailable: true });
 
   useEffect(() => {
     loadDashboardData();
+    loadOverviewData();
+    
+    // Auto refresh dashboard data every 30 seconds
+    const interval = setInterval(() => {
+      loadOverviewData();
+    }, 30000);
+    
+    return () => clearInterval(interval);
   }, []);
+
+  const loadOverviewData = async () => {
+    try {
+      setLoadingDashboard(true);
+      const [summaryRes, ordersRes, reservationsRes] = await Promise.all([
+        getAdminDashboardSummary(),
+        getRecentOrders(5),
+        getPendingReservations(),
+      ]);
+
+      setDashboardSummary(summaryRes);
+      setRecentOrders(ordersRes.orders || []);
+      setPendingReservations(reservationsRes.reservations || []);
+    } catch (error: any) {
+      // Handle 401/403 - redirect to login
+      if (error.message?.includes('401') || error.message?.includes('403') || error.message?.includes('Authentication')) {
+        toast.error('Phiên đăng nhập đã hết hạn');
+        logout();
+        router.push('/login');
+        return;
+      }
+      toast.error('Không thể tải dữ liệu tổng quan');
+    } finally {
+      setLoadingDashboard(false);
+    }
+  };
 
   const loadDashboardData = async () => {
     try {
@@ -66,29 +138,64 @@ function AdminDashboardContent() {
       const [
         tablesRes,
         menuRes,
-        ordersRes,
         categoriesRes,
         usersRes,
-        bookingsRes
+        ordersRes
       ] = await Promise.all([
         getTablesList(),
         getMenuItems(),
-        getOrders(),
         getCategories(),
         getUsersList(),
-        getBookings(),
+        getOrders(),
       ]);
 
       setTables(tablesRes.tables || []);
       setMenuItems(menuRes.menuItems || []);
-      setOrders(ordersRes.orders || []);
       setCategories(categoriesRes.categories || []);
       setUsers(usersRes.users || []);
-      setBookings(bookingsRes.bookings || []);
-    } catch (error) {
+      setOrders(ordersRes.orders || []);
+    } catch (error: any) {
+      if (error.message?.includes('401') || error.message?.includes('403')) {
+        toast.error('Phiên đăng nhập đã hết hạn');
+        logout();
+        router.push('/login');
+        return;
+      }
       toast.error('Không thể tải dữ liệu dashboard');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleApproveReservation = async (id: number) => {
+    try {
+      await approveReservation(id);
+      toast.success('Đã duyệt đặt bàn');
+      await loadOverviewData();
+    } catch (error: any) {
+      if (error.message?.includes('401') || error.message?.includes('403')) {
+        toast.error('Phiên đăng nhập đã hết hạn');
+        logout();
+        router.push('/login');
+        return;
+      }
+      toast.error('Không thể duyệt đặt bàn');
+    }
+  };
+
+  const handleRejectReservation = async (id: number) => {
+    try {
+      await rejectReservation(id);
+      toast.success('Đã từ chối đặt bàn');
+      await loadOverviewData();
+    } catch (error: any) {
+      if (error.message?.includes('401') || error.message?.includes('403')) {
+        toast.error('Phiên đăng nhập đã hết hạn');
+        logout();
+        router.push('/login');
+        return;
+      }
+      toast.error('Không thể từ chối đặt bàn');
     }
   };
 
@@ -98,38 +205,136 @@ function AdminDashboardContent() {
     router.push('/');
   };
 
-  // Calculate statistics
-  const totalRevenue = orders.reduce((sum, order) => sum + order.totalAmount, 0);
-  const activeOrders = orders.filter(order => order.status === 'ACTIVE');
-  const pendingBookings = bookings.filter(booking => booking.status === 'PENDING');
-  const availableTables = tables.filter(table => table.status === 'VACANT');
-  const occupiedTables = tables.filter(table => table.status === 'OCCUPIED');
+  // User management handlers
+  const handleEditUser = (user: User) => {
+    setSelectedUser(user);
+    setUserForm({
+      fullName: user.fullName || '',
+      email: user.email || '',
+      phone: user.phone || '',
+      role: user.role || 'CUSTOMER',
+      status: user.status || 'ACTIVE'
+    });
+    setUserDialogOpen(true);
+  };
 
+  const handleSaveUser = async () => {
+    if (!selectedUser) return;
+    try {
+      await updateUser(selectedUser.id, userForm);
+      toast.success('Cập nhật người dùng thành công');
+      setUserDialogOpen(false);
+      await loadDashboardData();
+    } catch (error: any) {
+      toast.error('Không thể cập nhật người dùng: ' + (error.message || 'Lỗi không xác định'));
+    }
+  };
+
+  // Order management handlers
+  const handleUpdateOrderStatus = async (orderId: number, newStatus: string) => {
+    try {
+      await updateOrderStatus(orderId, newStatus);
+      toast.success('Cập nhật trạng thái đơn hàng thành công');
+      await loadDashboardData();
+    } catch (error: any) {
+      toast.error('Không thể cập nhật trạng thái: ' + (error.message || 'Lỗi không xác định'));
+    }
+  };
+
+  // Menu management handlers
+  const handleEditMenuItem = (item: MenuItem) => {
+    setSelectedMenuItem(item);
+    setMenuForm({
+      name: item.name || '',
+      description: item.description || '',
+      price: item.price?.toString() || '',
+      categoryId: item.categoryId?.toString() || '',
+      imageUrl: item.imageUrl || '',
+      isAvailable: item.isAvailable ?? true
+    });
+    setMenuDialogOpen(true);
+  };
+
+  const handleAddMenuItem = () => {
+    setSelectedMenuItem(null);
+    setMenuForm({ name: '', description: '', price: '', categoryId: '', imageUrl: '', isAvailable: true });
+    setMenuDialogOpen(true);
+  };
+
+  const handleSaveMenuItem = async () => {
+    try {
+      if (selectedMenuItem) {
+        await updateMenuItem(selectedMenuItem.id, {
+          ...menuForm,
+          price: parseFloat(menuForm.price) || 0,
+          categoryId: parseInt(menuForm.categoryId) || undefined
+        });
+        toast.success('Cập nhật món ăn thành công');
+      } else {
+        await createMenuItem({
+          ...menuForm,
+          price: parseFloat(menuForm.price) || 0,
+          categoryId: parseInt(menuForm.categoryId) || undefined
+        } as any);
+        toast.success('Thêm món ăn thành công');
+      }
+      setMenuDialogOpen(false);
+      await loadDashboardData();
+    } catch (error: any) {
+      toast.error('Không thể lưu món ăn: ' + (error.message || 'Lỗi không xác định'));
+    }
+  };
+
+  // Table status handler
+  const handleUpdateTableStatus = async (tableId: number, newStatus: string) => {
+    try {
+      await updateTableStatus(tableId, newStatus);
+      toast.success('Cập nhật trạng thái bàn thành công');
+      await loadDashboardData();
+    } catch (error: any) {
+      toast.error('Không thể cập nhật trạng thái: ' + (error.message || 'Lỗi không xác định'));
+    }
+  };
+
+  const handleSendQRCode = async (tableId: number, tableName: string) => {
+    try {
+      const result = await sendQRCodeToESP32(tableId);
+      toast.success(`Đã gửi QR code của bàn ${tableName} tới ESP32 thành công!`);
+    } catch (error: any) {
+      toast.error('Không thể gửi QR code: ' + (error.message || 'Lỗi không xác định'));
+    }
+  };
+
+  // Calculate statistics from dashboard summary
   const stats = [
     {
       title: "Tổng doanh thu",
-      value: `${totalRevenue.toLocaleString('vi-VN')}đ`,
+      value: dashboardSummary 
+        ? `${dashboardSummary.totalRevenue.toLocaleString('vi-VN')}đ`
+        : '0đ',
       icon: DollarSign,
       color: "text-green-600",
       bgColor: "bg-green-50 dark:bg-green-900/20"
     },
     {
       title: "Đơn hàng hoạt động",
-      value: activeOrders.length.toString(),
+      value: dashboardSummary?.activeOrders.toString() || '0',
       icon: ShoppingCart,
       color: "text-blue-600",
       bgColor: "bg-blue-50 dark:bg-blue-900/20"
     },
     {
       title: "Bàn trống",
-      value: `${availableTables.length}/${tables.length}`,
+      value: dashboardSummary
+        ? `${dashboardSummary.availableTables}/${dashboardSummary.totalTables}`
+        : '0/0',
       icon: Table,
       color: "text-emerald-600",
       bgColor: "bg-emerald-50 dark:bg-emerald-900/20"
     },
     {
       title: "Đặt bàn chờ duyệt",
-      value: pendingBookings.length.toString(),
+      value: dashboardSummary?.pendingReservations.toString() || '0',
       icon: Calendar,
       color: "text-orange-600",
       bgColor: "bg-orange-50 dark:bg-orange-900/20"
@@ -198,31 +403,47 @@ function AdminDashboardContent() {
                   <CardTitle>Đơn hàng gần đây</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {loading ? (
+                  {loadingDashboard ? (
                     <div className="flex items-center justify-center py-8">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                     </div>
-                  ) : orders.length === 0 ? (
+                  ) : recentOrders.length === 0 ? (
                     <p className="text-muted-foreground text-center py-8">Chưa có đơn hàng</p>
                   ) : (
                     <div className="space-y-3">
-                      {orders.slice(0, 5).map((order) => (
-                        <div key={order.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                          <div>
-                            <p className="font-medium">Đơn #{order.id}</p>
-                            <p className="text-sm text-muted-foreground">
-                              {new Date(order.createdAt).toLocaleDateString('vi-VN')}
-                            </p>
+                      {recentOrders.map((order) => {
+                        const paymentStatusText = 
+                          order.paymentStatus === 'WAITING_PAYMENT' ? 'Đang chờ thanh toán' :
+                          order.paymentStatus === 'PAID' ? 'Đã thanh toán' :
+                          order.paymentStatus === 'CANCELLED' ? 'Đã hủy' :
+                          order.paymentStatus || 'Đang chờ thanh toán';
+                        
+                        return (
+                          <div key={order.orderId} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                            <div>
+                              <p className="font-medium">Đơn #{order.orderId}</p>
+                              <p className="text-sm text-muted-foreground">
+                                {new Date(order.createdAt).toLocaleDateString('vi-VN', {
+                                  day: '2-digit',
+                                  month: '2-digit',
+                                  year: 'numeric',
+                                  hour: '2-digit',
+                                  minute: '2-digit'
+                                })}
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <p className="font-medium">{order.totalAmount.toLocaleString('vi-VN')}đ</p>
+                              <Badge variant={
+                                order.paymentStatus === 'PAID' ? 'default' :
+                                order.paymentStatus === 'CANCELLED' ? 'destructive' : 'secondary'
+                              }>
+                                {paymentStatusText}
+                              </Badge>
+                            </div>
                           </div>
-                          <div className="text-right">
-                            <p className="font-medium">{order.totalAmount.toLocaleString('vi-VN')}đ</p>
-                            <Badge variant={order.status === 'ACTIVE' ? 'default' : 'secondary'}>
-                              {order.status === 'ACTIVE' ? 'Đang hoạt động' :
-                               order.status === 'COMPLETED' ? 'Hoàn thành' : 'Đang chờ thanh toán'}
-                            </Badge>
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
                 </CardContent>
@@ -233,32 +454,57 @@ function AdminDashboardContent() {
                   <CardTitle>Đặt bàn chờ duyệt</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {loading ? (
+                  {loadingDashboard ? (
                     <div className="flex items-center justify-center py-8">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                     </div>
-                  ) : pendingBookings.length === 0 ? (
+                  ) : pendingReservations.length === 0 ? (
                     <p className="text-muted-foreground text-center py-8">Không có đặt bàn nào chờ duyệt</p>
                   ) : (
                     <div className="space-y-3">
-                      {pendingBookings.slice(0, 5).map((booking) => (
-                        <div key={booking.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                          <div>
-                            <p className="font-medium">{booking.customer?.username || 'Khách'}</p>
-                            <p className="text-sm text-muted-foreground">
-                              {booking.date} - {booking.time}
-                            </p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-sm">{booking.guests} người</p>
-                            <div className="flex gap-2 mt-1">
-                              <Button size="sm" variant="outline" className="h-6 px-2">
-                                <CheckCircle className="w-3 h-3" />
-                              </Button>
-                              <Button size="sm" variant="outline" className="h-6 px-2">
-                                <XCircle className="w-3 h-3" />
-                              </Button>
+                      {pendingReservations.map((booking) => (
+                        <div key={booking.id} className="p-3 bg-muted/50 rounded-lg space-y-2">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <p className="font-medium">{booking.customer?.username || booking.customer?.fullName || 'Khách'}</p>
+                              {booking.customer?.fullName && booking.customer?.username && (
+                                <p className="text-xs text-muted-foreground">@{booking.customer.username}</p>
+                              )}
+                              <div className="mt-1 space-y-0.5">
+                                {booking.customer?.email && (
+                                  <p className="text-xs text-muted-foreground">📧 {booking.customer.email}</p>
+                                )}
+                                {booking.customer?.phone && (
+                                  <p className="text-xs text-muted-foreground">📞 {booking.customer.phone}</p>
+                                )}
+                              </div>
                             </div>
+                            <div className="text-right ml-4">
+                              <p className="text-sm font-medium">{booking.guests} người</p>
+                              <p className="text-xs text-muted-foreground mt-1">
+                                {new Date(booking.date).toLocaleDateString('vi-VN')} - {booking.time}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex gap-2 pt-2 border-t">
+                            <Button 
+                              size="sm" 
+                              variant="default" 
+                              className="flex-1"
+                              onClick={() => handleApproveReservation(booking.id)}
+                            >
+                              <CheckCircle className="w-4 h-4 mr-1" />
+                              Duyệt
+                            </Button>
+                            <Button 
+                              size="sm" 
+                              variant="destructive" 
+                              className="flex-1"
+                              onClick={() => handleRejectReservation(booking.id)}
+                            >
+                              <XCircle className="w-4 h-4 mr-1" />
+                              Từ chối
+                            </Button>
                           </div>
                         </div>
                       ))}
@@ -305,7 +551,10 @@ function AdminDashboardContent() {
                           }>
                             {userItem.role}
                           </Badge>
-                          <Button variant="outline" size="sm">Chỉnh sửa</Button>
+                          <Button variant="outline" size="sm" onClick={() => handleEditUser(userItem)}>
+                            <Edit className="w-4 h-4 mr-1" />
+                            Chỉnh sửa
+                          </Button>
                         </div>
                       </div>
                     ))}
@@ -319,8 +568,68 @@ function AdminDashboardContent() {
           <TabsContent value="orders" className="space-y-6">
             <h2 className="text-2xl font-bold">Quản lý đơn hàng</h2>
             <Card>
-              <CardContent>
-                <p className="text-muted-foreground">Chức năng quản lý đơn hàng sẽ được phát triển</p>
+              <CardContent className="p-0">
+                {loading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                  </div>
+                ) : orders.length === 0 ? (
+                  <p className="text-muted-foreground text-center py-8">Chưa có đơn hàng</p>
+                ) : (
+                  <div className="divide-y">
+                    {orders.map((order) => (
+                      <div key={order.id} className="p-4">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <p className="font-medium">Đơn #{order.id}</p>
+                              <Badge variant={
+                                order.status === 'PLACED' || order.status === 'CONFIRMED' ? 'default' :
+                                order.status === 'CANCELLED' ? 'destructive' : 'secondary'
+                              }>
+                                {order.status}
+                              </Badge>
+                              {order.paymentStatus && (
+                                <Badge variant={
+                                  order.paymentStatus === 'PAID' ? 'default' :
+                                  order.paymentStatus === 'CANCELLED' ? 'destructive' : 'secondary'
+                                }>
+                                  {order.paymentStatus === 'PAID' ? 'Đã thanh toán' :
+                                   order.paymentStatus === 'WAITING_PAYMENT' ? 'Chờ thanh toán' : order.paymentStatus}
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="space-y-1 text-sm text-muted-foreground">
+                              <p>Bàn: {order.table?.tableName || `#${order.tableId}`}</p>
+                              {order.customer && (
+                                <p>Khách: {order.customer.fullName || order.customer.username}</p>
+                              )}
+                              <p>Tổng: {order.totalAmount.toLocaleString('vi-VN')}đ</p>
+                              <p>Ngày: {new Date(order.createdAt).toLocaleString('vi-VN')}</p>
+                            </div>
+                          </div>
+                          <Select
+                            value={order.status}
+                            onValueChange={(value) => handleUpdateOrderStatus(order.id, value)}
+                          >
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="PLACED">PLACED</SelectItem>
+                              <SelectItem value="CONFIRMED">CONFIRMED</SelectItem>
+                              <SelectItem value="PREPARING">PREPARING</SelectItem>
+                              <SelectItem value="READY">READY</SelectItem>
+                              <SelectItem value="SERVED">SERVED</SelectItem>
+                              <SelectItem value="COMPLETED">COMPLETED</SelectItem>
+                              <SelectItem value="CANCELLED">CANCELLED</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
@@ -344,7 +653,10 @@ function AdminDashboardContent() {
                 >
                   Cleanup Categories
                 </Button>
-                <Button>Thêm món ăn</Button>
+                <Button onClick={handleAddMenuItem}>
+                  <Plus className="w-4 h-4 mr-2" />
+                  Thêm món ăn
+                </Button>
               </div>
             </div>
 
@@ -404,15 +716,32 @@ function AdminDashboardContent() {
                     </div>
                     <p className="font-semibold">{table.tableName}</p>
                     <p className="text-sm text-muted-foreground">{table.capacity} người</p>
-                    <Badge variant={
-                      table.status === 'VACANT' ? 'default' :
-                      table.status === 'OCCUPIED' ? 'destructive' : 'secondary'
-                    } className="mt-2">
-                      {table.status === 'VACANT' ? 'Trống' :
-                       table.status === 'OCCUPIED' ? 'Đang dùng' :
-                       table.status === 'RESERVED' ? 'Đã đặt' :
-                       table.status === 'CLEANING' ? 'Đang dọn' : 'Bảo trì'}
-                    </Badge>
+                    <div className="mt-3 space-y-2">
+                      <Select
+                        value={table.status || 'AVAILABLE'}
+                        onValueChange={(value) => handleUpdateTableStatus(table.id, value)}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="AVAILABLE">Trống</SelectItem>
+                          <SelectItem value="OCCUPIED">Đang dùng</SelectItem>
+                          <SelectItem value="RESERVED">Đã đặt</SelectItem>
+                          <SelectItem value="CLEANING">Đang dọn</SelectItem>
+                          <SelectItem value="MAINTENANCE">Bảo trì</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="w-full"
+                        onClick={() => handleSendQRCode(table.id, table.tableName)}
+                      >
+                        <QrCode className="w-4 h-4 mr-2" />
+                        Gửi QR Code
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -420,6 +749,156 @@ function AdminDashboardContent() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* User Edit Dialog */}
+      <Dialog open={userDialogOpen} onOpenChange={setUserDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Cập nhật người dùng</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="fullName">Họ tên</Label>
+              <Input
+                id="fullName"
+                value={userForm.fullName}
+                onChange={(e) => setUserForm({ ...userForm, fullName: e.target.value })}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={userForm.email}
+                onChange={(e) => setUserForm({ ...userForm, email: e.target.value })}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="phone">Số điện thoại</Label>
+              <Input
+                id="phone"
+                value={userForm.phone}
+                onChange={(e) => setUserForm({ ...userForm, phone: e.target.value })}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="role">Vai trò</Label>
+              <Select value={userForm.role} onValueChange={(value) => setUserForm({ ...userForm, role: value })}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ADMIN">ADMIN</SelectItem>
+                  <SelectItem value="STAFF">STAFF</SelectItem>
+                  <SelectItem value="KITCHEN">KITCHEN</SelectItem>
+                  <SelectItem value="CUSTOMER">CUSTOMER</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="status">Trạng thái</Label>
+              <Select value={userForm.status} onValueChange={(value) => setUserForm({ ...userForm, status: value })}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ACTIVE">ACTIVE</SelectItem>
+                  <SelectItem value="INACTIVE">INACTIVE</SelectItem>
+                  <SelectItem value="SUSPENDED">SUSPENDED</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setUserDialogOpen(false)}>Hủy</Button>
+            <Button onClick={handleSaveUser}>Lưu</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Menu Item Dialog */}
+      <Dialog open={menuDialogOpen} onOpenChange={setMenuDialogOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>{selectedMenuItem ? 'Cập nhật món ăn' : 'Thêm món ăn mới'}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
+            <div className="space-y-2">
+              <Label htmlFor="menuName">Tên món</Label>
+              <Input
+                id="menuName"
+                value={menuForm.name}
+                onChange={(e) => setMenuForm({ ...menuForm, name: e.target.value })}
+                placeholder="Nhập tên món ăn"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="menuDescription">Mô tả</Label>
+              <Textarea
+                id="menuDescription"
+                value={menuForm.description}
+                onChange={(e) => setMenuForm({ ...menuForm, description: e.target.value })}
+                placeholder="Nhập mô tả món ăn"
+                rows={3}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="menuPrice">Giá (VNĐ)</Label>
+                <Input
+                  id="menuPrice"
+                  type="number"
+                  value={menuForm.price}
+                  onChange={(e) => setMenuForm({ ...menuForm, price: e.target.value })}
+                  placeholder="0"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="menuCategory">Danh mục</Label>
+                <Select value={menuForm.categoryId} onValueChange={(value) => setMenuForm({ ...menuForm, categoryId: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Chọn danh mục" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((cat) => (
+                      <SelectItem key={cat.id} value={cat.id.toString()}>{cat.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="menuImageUrl">URL hình ảnh</Label>
+              <Input
+                id="menuImageUrl"
+                value={menuForm.imageUrl}
+                onChange={(e) => setMenuForm({ ...menuForm, imageUrl: e.target.value })}
+                placeholder="https://..."
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="menuAvailable">Trạng thái</Label>
+              <Select
+                value={menuForm.isAvailable ? 'true' : 'false'}
+                onValueChange={(value) => setMenuForm({ ...menuForm, isAvailable: value === 'true' })}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="true">Có sẵn</SelectItem>
+                  <SelectItem value="false">Hết</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setMenuDialogOpen(false)}>Hủy</Button>
+            <Button onClick={handleSaveMenuItem}>Lưu</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

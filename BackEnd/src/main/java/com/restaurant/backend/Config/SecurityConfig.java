@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -16,20 +17,30 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        // Completely ignore security for WebSocket endpoints
+        return (web) -> web.ignoring()
+                .requestMatchers("/ws/**");
+    }
+
+    @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Allow all cloudflare tunnel patterns and localhost for development
-        // Pattern matching works with allowCredentials in Spring Boot 5.3+
+
+        // Allow specific origins for Cloudflare tunnels
         configuration.setAllowedOriginPatterns(Arrays.asList(
-                "https://*.trycloudflare.com",
-                "http://localhost:*",
-                "http://127.0.0.1:*"
-        ));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+            "http://localhost:3000",
+            "http://localhost:*",
+            "https://app.dewjunior.id.vn"
+    ));
+
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
-        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
-        configuration.setMaxAge(3600L); // Cache preflight for 1 hour
+
+        // Add specific headers that might be needed
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
+        configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -42,15 +53,14 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 // Enable CORS for HTTP requests
-                
+
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
-                // IMPORTANT: WebSocket requests must bypass security
-                // Cho phép tất cả requests (đơn giản hóa cho demo)
+                // IMPORTANT: WebSocket requests must bypass security completely
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/ws/**").permitAll() // WebSocket - must be first
                         .requestMatchers("/api/**").permitAll() // API endpoints
-                        .anyRequest().permitAll() // Tất cả requests khác
+                        .requestMatchers("/**").permitAll() // Allow all other requests
                 )
 
                 // Tắt login form & http basic
@@ -64,10 +74,13 @@ public class SecurityConfig {
                         .xssProtection(xss -> xss.disable())
                 )
                 
-                // Disable session management for WebSocket
+                // Allow WebSocket connections - stateless session
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS)
-                );
+                )
+
+                // Disable request cache to allow WebSocket upgrade
+                .requestCache(cache -> cache.disable());
 
         return http.build();
     }

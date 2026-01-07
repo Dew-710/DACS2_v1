@@ -1,5 +1,6 @@
 package com.restaurant.backend.Controller;
 
+import com.restaurant.backend.Config.FrontendConfig;
 import com.restaurant.backend.Service.QRCodeService;
 import com.restaurant.backend.Service.RestaurantTableService;
 import com.restaurant.backend.websocket.IoTWebSocketHandler;
@@ -7,17 +8,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import java.io.InputStream;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 public class ImageController {
 
     private final IoTWebSocketHandler ws;
     private final QRCodeService qrCodeService;
     private final RestaurantTableService tableService;
+    private final FrontendConfig frontendConfig;
 
     @PostMapping("/send-image/{filename}")
     public ResponseEntity<?> send(@PathVariable String filename) {
@@ -47,6 +51,7 @@ public class ImageController {
     }
 
     @PostMapping("/send-qr-code/{tableId}")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.POST, RequestMethod.OPTIONS})
     public ResponseEntity<?> sendQRCodeToESP32(@PathVariable Long tableId) {
         try {
             var table = tableService.findById(tableId);
@@ -62,18 +67,14 @@ public class ImageController {
                 );
             }
 
-            // Generate URL for QR code
-            String frontendUrl = System.getenv("FRONTEND_URL");
-            if (frontendUrl == null || frontendUrl.isEmpty()) {
-                frontendUrl = "http://localhost:3000";
-            }
-            String qrUrl = frontendUrl + "/menu/" + table.getQrCode();
+            // Generate URL for QR code using configured frontend URL
+            String qrUrl = frontendConfig.getFrontendUrl() + "/menu/" + table.getQrCode();
             
             // Generate QR code image (128x128 for ESP32 display)
             byte[] qrImageBytes = qrCodeService.generateQRCodeImageBytes(qrUrl, 128, 128);
             
-            // Send to ESP32 via WebSocket
-            ws.broadcastImageBytes(qrImageBytes);
+            // Send to ESP32 via WebSocket with table ID
+            ws.broadcastImageBytes(qrImageBytes, tableId);
 
             return ResponseEntity.ok(
                     Map.of(
@@ -108,12 +109,8 @@ public class ImageController {
                 );
             }
 
-            // Generate URL for QR code
-            String frontendUrl = System.getenv("FRONTEND_URL");
-            if (frontendUrl == null || frontendUrl.isEmpty()) {
-                frontendUrl = "http://localhost:3000";
-            }
-            String qrUrl = frontendUrl + "/menu/" + table.getQrCode();
+            // Generate URL for QR code using configured frontend URL
+            String qrUrl = frontendConfig.getFrontendUrl() + "/menu/" + table.getQrCode();
             
             // Generate QR code image
             byte[] qrImageBytes = qrCodeService.generateQRCodeImageBytes(qrUrl, 256, 256);

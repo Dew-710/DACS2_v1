@@ -1,9 +1,14 @@
 package com.restaurant.backend.Service.impl;
 
+import com.restaurant.backend.Entity.Order;
 import com.restaurant.backend.Entity.RestaurantTable;
 import com.restaurant.backend.Repository.RestaurantTableRepository;
+import com.restaurant.backend.Service.OrderService;
+import com.restaurant.backend.Service.QRCodeService;
 import com.restaurant.backend.Service.RestaurantTableService;
+import com.restaurant.backend.websocket.IoTWebSocketHandler;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,9 +19,13 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class TableServiceImpl implements RestaurantTableService {
 
     private final RestaurantTableRepository tableRepository;
+    private final QRCodeService qrCodeService;
+    private final IoTWebSocketHandler webSocketHandler;
+    private final OrderService orderService;
 
     @Override
     @Transactional(readOnly = true)
@@ -81,9 +90,37 @@ public class TableServiceImpl implements RestaurantTableService {
     @Override
     public RestaurantTable updateStatus(Long id, String status) {
         RestaurantTable table = findById(id);
+        String oldStatus = table.getStatus();
+
         table.setStatus(status);
         table.setLastUpdated(LocalDateTime.now());
-        return tableRepository.save(table);
+        RestaurantTable updatedTable = tableRepository.save(table);
+
+        // Auto-send QR code when table becomes OCCUPIED
+        if ("OCCUPIED".equals(status) && !status.equals(oldStatus) && table.getQrCode() != null) {
+            try {
+                System.out.println("🎯 Auto-sending QR code for table " + table.getTableName() + " (ID: " + id + ")");
+
+                // Generate frontend URL
+                String frontendUrl = System.getenv("FRONTEND_URL");
+                if (frontendUrl == null || frontendUrl.isEmpty()) {
+                    frontendUrl = "http://localhost:3000";
+                }
+                String qrUrl = frontendUrl + "/menu/" + table.getQrCode();
+
+                // Generate QR code image
+                byte[] qrImageBytes = qrCodeService.generateQRCodeImageBytes(qrUrl, 128, 128);
+
+                // Send to ESP32 with table ID
+                webSocketHandler.broadcastImageBytes(qrImageBytes, id);
+
+                System.out.println("✅ Auto-sent QR code for occupied table " + table.getTableName());
+            } catch (Exception e) {
+                System.err.println("❌ Failed to auto-send QR code for table " + table.getTableName() + ": " + e.getMessage());
+            }
+        }
+
+        return updatedTable;
     }
 
     @Override
@@ -138,6 +175,27 @@ public class TableServiceImpl implements RestaurantTableService {
     @Override
     public RestaurantTable checkOutTable(Long tableId) {
         RestaurantTable table = findById(tableId);
+        
+        // IMPORTANT: Close all active orders on this table before changing status
+        // BUT: Skip empty orders (orders without items) - they shouldn't be closed
+        List<Order> activeOrders = orderService.getActiveOrdersByTable(tableId);
+        for (Order order : activeOrders) {
+            try {
+                // Skip orders without items (empty orders)
+                if (order.getOrderItems() == null || order.getOrderItems().isEmpty()) {
+                    log.info("⏭️ Skipping empty order #{} (no items)", order.getId());
+                    continue;
+                }
+                
+                log.info("🔒 Closing order #{} for table checkout ({} items)", order.getId(), order.getOrderItems().size());
+                orderService.closeOrder(order.getId());
+                log.info("✅ Order #{} closed successfully", order.getId());
+            } catch (Exception e) {
+                log.error("❌ Failed to close order #{}: {}", order.getId(), e.getMessage(), e);
+                // Continue with other orders even if one fails
+            }
+        }
+        
         table.setStatus("CLEANING");
         table.setLastUpdated(LocalDateTime.now());
 

@@ -5,9 +5,9 @@ import { useParams } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { getTableByQr, getMenuItems, getCategories, createOrderFromRequest, addItemsToOrder, getActiveBookingByTable } from '@/lib/api';
+import { getTableByQr, getMenuItems, getCategories, createOrderFromRequest, addItemsToOrder, getActiveBookingByTable, getActiveOrdersByTable } from '@/lib/api';
 import { useAuth } from '@/lib/context/auth-context';
-import type { RestaurantTable, MenuItem, Category, Booking } from '@/lib/types';
+import type { RestaurantTable, MenuItem, Category, Booking, Order } from '@/lib/types';
 import { ShoppingCart, Loader2, Utensils } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -18,6 +18,7 @@ export default function CustomerMenuPage() {
   
   const [table, setTable] = useState<RestaurantTable | null>(null);
   const [booking, setBooking] = useState<Booking | null>(null);
+  const [activeOrder, setActiveOrder] = useState<Order | null>(null);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [cart, setCart] = useState<{ menuItem: MenuItem; quantity: number }[]>([]);
@@ -44,7 +45,7 @@ export default function CustomerMenuPage() {
       setMenuItems(menuRes.menuItems || []);
       setCategories(categoriesRes.categories || []);
 
-      // Load active booking for this table
+      // Load active booking and active order for this table
       if (tableRes.table?.id) {
         try {
           const bookingRes = await getActiveBookingByTable(tableRes.table.id);
@@ -54,6 +55,17 @@ export default function CustomerMenuPage() {
         } catch (error) {
           // No booking found, that's okay
           setBooking(null);
+        }
+
+        // Check for active orders
+        try {
+          const ordersRes = await getActiveOrdersByTable(tableRes.table.id);
+          if (ordersRes.orders && ordersRes.orders.length > 0) {
+            setActiveOrder(ordersRes.orders[0]); // Use first active order
+          }
+        } catch (error) {
+          // No active order, that's okay
+          setActiveOrder(null);
         }
       }
     } catch (error) {
@@ -98,21 +110,43 @@ export default function CustomerMenuPage() {
     try {
       setSubmitting(true);
       
-      // Customer ID: từ booking nếu có, hoặc null nếu không đặt bàn
-      const customerId = booking?.customerId || null;
-      const bookingId = booking?.id || null;
+      let orderId: number;
 
-      // Create order
-      const orderRequest = {
-        tableId: table.id,
-        customerId: customerId,
-        bookingId: bookingId,
-        status: 'PLACED',
-        items: []
-      };
+      // Check if there's already an active order for this table
+      if (activeOrder && activeOrder.id) {
+        // Use existing order
+        orderId = activeOrder.id;
+        console.log('Using existing active order:', orderId);
+      } else {
+        // Create new order
+        // Customer ID: từ booking nếu có, hoặc undefined (sẽ không gửi field này)
+        const customerId = booking?.customerId;
+        const bookingId = booking?.id;
 
-      const orderResult = await createOrderFromRequest(orderRequest);
-      const orderId = orderResult.order.id;
+        const orderRequest: any = {
+          tableId: table.id,
+          status: 'PLACED',
+          items: []
+        };
+
+        // Only add customerId if it exists
+        if (customerId !== undefined && customerId !== null) {
+          orderRequest.customerId = customerId;
+        }
+
+        // Only add bookingId if it exists
+        if (bookingId !== undefined && bookingId !== null) {
+          orderRequest.bookingId = bookingId;
+        }
+
+        console.log('Creating new order with request:', JSON.stringify(orderRequest, null, 2));
+        console.log('Table:', table);
+        console.log('Booking:', booking);
+        
+        const orderResult = await createOrderFromRequest(orderRequest);
+        orderId = orderResult.order.id;
+        setActiveOrder(orderResult.order);
+      }
 
       // Add items to order - need to send full menuItem objects
       const orderItems = cart.map(item => ({
@@ -132,12 +166,15 @@ export default function CustomerMenuPage() {
         price: item.menuItem.price
       }));
 
+      console.log('Adding items to order:', orderId, orderItems);
       await addItemsToOrder(orderId, orderItems);
       
       toast.success('Đặt món thành công! Nhân viên sẽ phục vụ bạn sớm nhất có thể.');
       setCart([]);
-    } catch (error) {
-      toast.error('Đặt món thất bại. Vui lòng thử lại.');
+    } catch (error: any) {
+      console.error('Order submission error:', error);
+      const errorMessage = error?.message || 'Đặt món thất bại. Vui lòng thử lại.';
+      toast.error(errorMessage);
     } finally {
       setSubmitting(false);
     }

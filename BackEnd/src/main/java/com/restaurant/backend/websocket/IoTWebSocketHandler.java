@@ -202,6 +202,11 @@ public class IoTWebSocketHandler extends TextWebSocketHandler {
 
     /** Gửi ảnh JPEG tới tất cả ESP32 đang kết nối */
     public void broadcastImageBytes(byte[] jpgData) {
+        broadcastImageBytes(jpgData, null);
+    }
+
+    /** Gửi ảnh JPEG tới tất cả ESP32 đang kết nối với thông tin bàn */
+    public void broadcastImageBytes(byte[] jpgData, Long tableId) {
         try {
             BufferedImage img = ImageIO.read(new ByteArrayInputStream(jpgData));
             if (img == null) {
@@ -303,6 +308,11 @@ public class IoTWebSocketHandler extends TextWebSocketHandler {
                 int end = Math.min(base64.length(), start + chunkSize);
                 String part = base64.substring(start, end);
                 String msg = "IMG|" + (i + 1) + "/" + total + "|" + part;
+
+                // Nếu có tableId, thêm vào message để ESP32 biết đây là QR cho bàn nào
+                if (tableId != null) {
+                    msg += "|TABLE:" + tableId;
+                }
 
                 for (WebSocketSession s : readySessions) {
                     if (s.isOpen()) {

@@ -90,7 +90,16 @@ export function LoginForm() {
 
               {/* Password */}
               <div className="space-y-2">
-                <Label htmlFor="password">Mật khẩu</Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password">Mật khẩu</Label>
+                  <button
+                    type="button"
+                    className="text-sm text-primary hover:underline"
+                    onClick={() => router.push("/forgot-password")}
+                  >
+                    Quên mật khẩu?
+                  </button>
+                </div>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                   <Input

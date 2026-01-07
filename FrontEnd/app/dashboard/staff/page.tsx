@@ -221,10 +221,10 @@ function StaffDashboardContent() {
 
   const handleSendQRToESP32 = async (tableId: number) => {
     try {
-      // TODO: Implement ESP32 WebSocket integration
-      toast.info('Chức năng đang được phát triển');
-    } catch (error) {
-      toast.error('Không thể gửi mã QR');
+      const result = await sendQRCodeToESP32(tableId);
+      toast.success(`Đã gửi QR code cho bàn thành công!`);
+    } catch (error: any) {
+      toast.error('Không thể gửi QR code: ' + (error.message || 'Lỗi không xác định'));
     }
   };
 
@@ -323,7 +323,15 @@ function StaffDashboardContent() {
   const maintenanceTables = tables.filter(table => table.status === 'MAINTENANCE');
   const reservedTables = tables.filter(table => table.status === 'RESERVED');
   const pendingCheckInTables = tables.filter(table => table.status === 'PENDING_CHECKIN');
-  const activeOrders = orders.filter(order => order.status === 'ACTIVE' || order.status === 'PLACED');
+  // Filter orders for staff: show PENDING_PAYMENT (ready for payment) and other active statuses
+  const activeOrders = orders.filter(order => 
+    order.status === 'PENDING_PAYMENT' || 
+    order.status === 'PLACED' || 
+    order.status === 'CONFIRMED' || 
+    order.status === 'PREPARING' || 
+    order.status === 'READY' || 
+    order.status === 'SERVED'
+  );
 
   // Lọc bàn dựa trên bộ lọc đã chọn
   const filteredTables = tableFilter === 'all' ? tables :

@@ -38,6 +38,12 @@ public class OrderItem {
 
     private String status; // PENDING, PREPARING, READY, SERVED, CANCELLED
 
+    @Column(name = "round_number")
+    private Integer roundNumber = 1; // Lượt gọi món thứ mấy (1, 2, 3...)
+
+    @Column(name = "is_confirmed")
+    private Boolean isConfirmed = false; // FALSE = draft/temp, TRUE = confirmed và tính tiền
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

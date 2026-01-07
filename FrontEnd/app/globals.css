@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant light (&:is(.light *));
 
 :root {
   /* Light theme - Neutral palette */
@@ -42,43 +42,7 @@
   --sidebar-ring: oklch(0.58 0.22 40);
 }
 
-.dark {
-  /* Dark theme - Deep navy/charcoal background */
-  --background: oklch(0.12 0.01 0);
-  --foreground: oklch(0.95 0.01 0);
-  --card: oklch(0.18 0.01 0);
-  --card-foreground: oklch(0.95 0.01 0);
-  --popover: oklch(0.18 0.01 0);
-  --popover-foreground: oklch(0.95 0.01 0);
-  /* Primary: Bright orange-red for high contrast */
-  --primary: oklch(0.62 0.24 40);
-  --primary-foreground: oklch(0.12 0.01 0);
-  /* Secondary: Cyan/teal accent */
-  --secondary: oklch(0.65 0.22 190);
-  --secondary-foreground: oklch(0.12 0.01 0);
-  --muted: oklch(0.28 0.01 0);
-  --muted-foreground: oklch(0.65 0.01 0);
-  --accent: oklch(0.65 0.22 190);
-  --accent-foreground: oklch(0.12 0.01 0);
-  --destructive: oklch(0.62 0.24 25);
-  --destructive-foreground: oklch(0.95 0.01 0);
-  --border: oklch(0.28 0.01 0);
-  --input: oklch(0.22 0.01 0);
-  --ring: oklch(0.65 0.22 190);
-  --chart-1: oklch(0.62 0.24 40);
-  --chart-2: oklch(0.65 0.22 190);
-  --chart-3: oklch(0.7 0.2 120);
-  --chart-4: oklch(0.68 0.18 280);
-  --chart-5: oklch(0.6 0.22 20);
-  --sidebar: oklch(0.15 0.01 0);
-  --sidebar-foreground: oklch(0.95 0.01 0);
-  --sidebar-primary: oklch(0.62 0.24 40);
-  --sidebar-primary-foreground: oklch(0.12 0.01 0);
-  --sidebar-accent: oklch(0.65 0.22 190);
-  --sidebar-accent-foreground: oklch(0.12 0.01 0);
-  --sidebar-border: oklch(0.28 0.01 0);
-  --sidebar-ring: oklch(0.65 0.22 190);
-}
+/* Removed dark theme - using light mode only */
 
 @theme inline {
   --font-sans: "Geist", "Geist Fallback";

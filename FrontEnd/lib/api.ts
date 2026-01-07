@@ -18,11 +18,13 @@ import type {
   CreatePaymentLinkResponse,
   PaymentLinkResponse,
   PaymentStatusResponse,
+  AdminDashboardSummary,
+  RecentOrder,
 } from './types';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://bulk-choosing-circus-inputs.trycloudflare.com"; // Backend URL
+import { getApiBaseUrl } from './env';
 
 async function fetchData<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  const API_BASE_URL = getApiBaseUrl();
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
     headers: {
@@ -71,6 +73,55 @@ export async function register(registerRequest: RegisterRequest) {
 
 export async function getUsersList() {
   return fetchData<{ message: string; users: User[] }>("/api/users/list");
+}
+
+export async function getUserById(id: number) {
+  return fetchData<{ message: string; user: User }>(`/api/users/${id}`);
+}
+
+export async function updateUser(id: number, user: Partial<User>) {
+  return fetchData<{ message: string; user: User }>(`/api/users/update/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(user),
+  });
+}
+
+export async function deleteUser(id: number) {
+  return fetchData<{ message: string }>(`/api/users/delete/${id}`, {
+    method: 'DELETE',
+  });
+}
+
+export async function updateProfile(id: number, profile: Partial<User>) {
+  return fetchData<{ message: string; user: User }>(`/api/users/profile/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(profile),
+  });
+}
+
+export async function changePassword(id: number, passwords: { currentPassword: string; newPassword: string; confirmPassword: string }) {
+  return fetchData<{ message: string }>(`/api/users/change-password/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(passwords),
+  });
+}
+
+export async function forgotPassword(email: string) {
+  return fetchData<{ message: string }>(`/api/users/forgot-password`, {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  });
+}
+
+export async function resetPassword(token: string, newPassword: string, confirmPassword: string) {
+  return fetchData<{ message: string }>(`/api/users/reset-password`, {
+    method: 'POST',
+    body: JSON.stringify({ token, newPassword, confirmPassword }),
+  });
+}
+
+export async function validateResetToken(token: string) {
+  return fetchData<{ valid: boolean; message: string }>(`/api/users/validate-reset-token?token=${token}`);
 }
 
 // ===== MENU ITEMS API =====
@@ -197,7 +248,7 @@ export async function sendQRCodeToESP32(tableId: number) {
 }
 
 export function getQRCodeImageUrl(tableId: number) {
-  return `${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080"}/api/qr-code/${tableId}/image`;
+  return `${getApiBaseUrl()}/api/qr-code/${tableId}/image`;
 }
 
 export async function getTableByQr(qrCode: string) {
@@ -303,6 +354,32 @@ export async function updateOrderItemStatus(orderId: number, itemId: number, sta
 export async function deleteOrder(id: number) {
   return fetchData<{ message: string }>(`/api/orders/${id}`, {
     method: 'DELETE',
+  });
+}
+
+// ===== NEW ORDER FLOW API =====
+export async function getOrCreateActiveOrder(tableId: number, customerId?: number) {
+  const url = customerId 
+    ? `/api/orders/table/${tableId}/get-or-create?customerId=${customerId}`
+    : `/api/orders/table/${tableId}/get-or-create`;
+  return fetchData<{ message: string; order: Order }>(url, {
+    method: 'POST',
+  });
+}
+
+export async function addItemsToTableOrder(tableId: number, items: Omit<OrderItem, 'id'>[], customerId?: number) {
+  const url = customerId
+    ? `/api/orders/table/${tableId}/add-items?customerId=${customerId}`
+    : `/api/orders/table/${tableId}/add-items`;
+  return fetchData<{ message: string; order: Order }>(url, {
+    method: 'POST',
+    body: JSON.stringify(items),
+  });
+}
+
+export async function closeOrder(orderId: number) {
+  return fetchData<{ message: string; order: Order }>(`/api/orders/${orderId}/close`, {
+    method: 'PUT',
   });
 }
 
@@ -479,6 +556,99 @@ export async function getPaymentByOrderId(orderId: number, token: string) {
 
 export async function getPaymentById(paymentId: number, token: string) {
   return fetchData<PaymentStatusResponse>(`/api/payments/${paymentId}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+}
+
+
+// ===== ADMIN API =====
+
+/**
+ * Get JWT token from localStorage
+ */
+function getAuthToken(): string | null {
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem('token') || localStorage.getItem('jwt');
+}
+
+/**
+ * Get dashboard summary statistics
+ */
+export async function getAdminDashboardSummary(): Promise<AdminDashboardSummary> {
+  const token = getAuthToken();
+  if (!token) {
+    throw new Error('Authentication required');
+  }
+  
+  return fetchData<AdminDashboardSummary>('/api/admin/dashboard/summary', {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+}
+
+/**
+ * Get recent orders (latest 5 by default)
+ */
+export async function getRecentOrders(limit: number = 5): Promise<{ orders: RecentOrder[] }> {
+  const token = getAuthToken();
+  if (!token) {
+    throw new Error('Authentication required');
+  }
+  
+  return fetchData<{ orders: RecentOrder[] }>(`/api/admin/orders/recent?limit=${limit}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+}
+
+/**
+ * Get pending reservations
+ */
+export async function getPendingReservations(): Promise<{ reservations: Booking[] }> {
+  const token = getAuthToken();
+  if (!token) {
+    throw new Error('Authentication required');
+  }
+  
+  return fetchData<{ reservations: Booking[] }>('/api/admin/reservations/pending', {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+}
+
+/**
+ * Approve a reservation
+ */
+export async function approveReservation(id: number): Promise<{ message: string; reservation: Booking }> {
+  const token = getAuthToken();
+  if (!token) {
+    throw new Error('Authentication required');
+  }
+  
+  return fetchData<{ message: string; reservation: Booking }>(`/api/admin/reservations/${id}/approve`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+}
+
+/**
+ * Reject a reservation
+ */
+export async function rejectReservation(id: number): Promise<{ message: string; reservation: Booking }> {
+  const token = getAuthToken();
+  if (!token) {
+    throw new Error('Authentication required');
+  }
+  
+  return fetchData<{ message: string; reservation: Booking }>(`/api/admin/reservations/${id}/reject`, {
+    method: 'PATCH',
     headers: {
       'Authorization': `Bearer ${token}`,
     },

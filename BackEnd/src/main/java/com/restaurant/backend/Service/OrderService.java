@@ -31,4 +31,12 @@ public interface OrderService {
     // Kitchen workflow operations
     Order updateOrderStatus(Long orderId, String status);
     List<Order> getOrdersByStatusForKitchen(String status);
+    
+    // New order flow - one active order per table
+    Order getOrCreateActiveOrder(Long tableId, Long customerId);
+    Order addItemsToActiveOrder(Long tableId, Long customerId, List<OrderItem> items);
+    Order closeOrder(Long orderId);
+    
+    // Staff dashboard - get orders ready for payment/service
+    List<Order> getOrdersForStaffDashboard();
 }

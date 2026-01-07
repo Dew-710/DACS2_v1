@@ -6,6 +6,7 @@ export interface User {
   phone?: string;
   fullName?: string;
   role?: string;
+  status?: string;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -90,6 +91,7 @@ export interface Order {
   customer?: User;
   orderItems?: OrderItem[];
   status: string; // 'ACTIVE', 'COMPLETED', 'CANCELLED', 'PAID'
+  paymentStatus?: string;
   totalAmount: number;
   subtotal?: number;
   tax?: number;
@@ -194,6 +196,28 @@ export interface RegisterFormData {
   confirmPassword: string;
 }
 
+export interface UpdateProfileRequest {
+  fullName?: string;
+  email?: string;
+  phone?: string;
+}
+
+export interface ChangePasswordRequest {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+export interface ForgotPasswordRequest {
+  email: string;
+}
+
+export interface ResetPasswordRequest {
+  token: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
 export interface MenuItemFormData {
   name: string;
   description: string;
@@ -241,6 +265,22 @@ export interface DashboardStats {
   availableTables: number;
   occupiedTables: number;
   pendingBookings: number;
+}
+
+// Admin Dashboard types
+export interface AdminDashboardSummary {
+  totalRevenue: number;
+  activeOrders: number;
+  availableTables: number;
+  totalTables: number;
+  pendingReservations: number;
+}
+
+export interface RecentOrder {
+  orderId: number;
+  createdAt: string;
+  totalAmount: number;
+  paymentStatus: string;
 }
 
 // Error types

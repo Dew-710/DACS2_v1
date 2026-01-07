@@ -664,7 +664,13 @@ function CustomerDashboardContent() {
                         </Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        {new Date(booking.date).toLocaleDateString('vi-VN')} • {booking.time} • {booking.guests} người
+                        {booking.date 
+                          ? new Date(booking.date).toLocaleDateString('vi-VN', { 
+                              year: 'numeric', 
+                              month: '2-digit', 
+                              day: '2-digit' 
+                            })
+                          : 'Chưa có ngày'} • {booking.time || 'Chưa có giờ'} • {booking.guests} người
                       </p>
                     </CardHeader>
                     <CardContent>
@@ -719,7 +725,13 @@ function CustomerDashboardContent() {
                         </Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        {new Date(order.createdAt).toLocaleDateString('vi-VN')} •
+                        {order.createdAt 
+                          ? new Date(order.createdAt).toLocaleDateString('vi-VN', { 
+                              year: 'numeric', 
+                              month: '2-digit', 
+                              day: '2-digit' 
+                            })
+                          : 'Chưa có ngày'} •
                         Bàn {order.table?.tableName || order.tableId}
                       </p>
                     </CardHeader>

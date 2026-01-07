@@ -5,9 +5,27 @@
 
 /**
  * Get Backend API base URL
+ * Priority: 1. Environment variable 2. Try to detect from window.location (if same origin) 3. Fallback to localhost
  */
 export const getApiBaseUrl = (): string => {
-  return process.env.NEXT_PUBLIC_API_BASE_URL || 'https://bulk-choosing-circus-inputs.trycloudflare.com';
+  // If environment variable is set, use it
+  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
+    return process.env.NEXT_PUBLIC_API_BASE_URL;
+  }
+  
+  // If running in browser and on same origin, use relative URL
+  if (typeof window !== 'undefined') {
+    // Check if we're on a Cloudflare tunnel - if so, try to use backend tunnel
+    // For now, fallback to localhost for local development
+    if (window.location.hostname.includes('trycloudflare.com')) {
+      // If frontend is on Cloudflare, backend should also be on Cloudflare
+      // User needs to set NEXT_PUBLIC_API_BASE_URL environment variable
+      console.warn('⚠️ Frontend is on Cloudflare but NEXT_PUBLIC_API_BASE_URL is not set. Using localhost fallback.');
+    }
+  }
+  
+  // Fallback to localhost for local development
+  return 'http://localhost:8080';
 };
 
 /**

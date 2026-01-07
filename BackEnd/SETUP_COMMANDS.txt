@@ -1,0 +1,97 @@
+==========================================
+GMAIL SMTP SETUP - QUICK COMMANDS
+==========================================
+
+BƯỚC 1: Tạo Gmail App Password
+-------------------------------
+1. Truy cập: https://myaccount.google.com/apppasswords
+2. Bật 2-Step Verification (nếu chưa có)
+3. Tạo App Password cho "Mail" 
+4. Lưu lại mật khẩu 16 ký tự (ví dụ: abcd efgh ijkl mnop)
+
+BƯỚC 2: Setup và Start Backend
+-------------------------------
+
+Option A: Dùng Script Tự Động (Windows PowerShell)
+===================================================
+cd BackEnd
+.\setup-gmail.ps1
+
+
+Option B: Manual Setup (Windows PowerShell)
+===========================================
+cd BackEnd
+
+# Set environment variables (THAY YOUR_EMAIL và YOUR_APP_PASSWORD)
+$env:EMAIL_ENABLED="true"
+$env:EMAIL_SMTP_ENABLED="true"
+$env:SPRING_MAIL_HOST="smtp.gmail.com"
+$env:SPRING_MAIL_PORT="587"
+$env:SPRING_MAIL_USERNAME="your_email@gmail.com"
+$env:SPRING_MAIL_PASSWORD="abcd efgh ijkl mnop"
+$env:EMAIL_FROM="your_email@gmail.com"
+$env:FRONTEND_URL="https://tcp-iowa-favorite-exams.trycloudflare.com"
+$env:TELEGRAM_BOT_ENABLED="true"
+$env:TELEGRAM_BOT_CHAT_ID="6284223765"
+
+# Start backend
+.\mvnw.cmd spring-boot:run
+
+
+Option C: One-Line Command (Thay YOUR_EMAIL và YOUR_APP_PASSWORD)
+==================================================================
+cd BackEnd && $env:EMAIL_ENABLED="true"; $env:EMAIL_SMTP_ENABLED="true"; $env:SPRING_MAIL_USERNAME="your_email@gmail.com"; $env:SPRING_MAIL_PASSWORD="abcd efgh ijkl mnop"; $env:EMAIL_FROM="your_email@gmail.com"; $env:FRONTEND_URL="https://tcp-iowa-favorite-exams.trycloudflare.com"; $env:TELEGRAM_BOT_CHAT_ID="6284223765"; .\mvnw.cmd spring-boot:run
+
+
+BƯỚC 3: Test Forgot Password
+-----------------------------
+1. Truy cập: https://tcp-iowa-favorite-exams.trycloudflare.com/login
+2. Click "Quên mật khẩu?"
+3. Nhập email của user
+4. Kiểm tra inbox (có thể trong spam)
+
+
+KIỂM TRA LOGS
+-------------
+Get-Content backend-local.log -Wait | Select-String "email"
+
+
+TEST VỚI CURL
+-------------
+curl -X POST https://magazine-tent-done-repository.trycloudflare.com/api/users/forgot-password -H "Content-Type: application/json" -d "{\"email\": \"test@example.com\"}"
+
+
+CẤU HÌNH HIỆN TẠI
+-----------------
+Backend URL:    https://magazine-tent-done-repository.trycloudflare.com
+Frontend URL:   https://tcp-iowa-favorite-exams.trycloudflare.com
+Telegram Chat:  6284223765
+SMTP Server:    smtp.gmail.com:587
+
+
+TROUBLESHOOTING
+---------------
+1. Lỗi "Username and Password not accepted"
+   → Kiểm tra lại app password
+   → Đảm bảo 2-Step Verification đã bật
+   → Tạo app password mới
+
+2. Email không nhận được
+   → Kiểm tra spam folder
+   → Kiểm tra logs: Get-Content backend-local.log -Tail 50
+
+3. Backend không start
+   → Clean: .\mvnw.cmd clean install
+   → Restart: .\mvnw.cmd spring-boot:run
+
+
+TÀI LIỆU CHI TIẾT
+-----------------
+- GMAIL_QUICK_START.md           → Quick start guide
+- BackEnd/GMAIL_SMTP_SETUP.md    → Detailed Gmail setup
+- EMAIL_SETUP_GUIDE.md           → General email guide
+- EMAIL_PROVIDER_EXAMPLES.md     → Other providers
+
+==========================================
+
+

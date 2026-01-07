@@ -42,7 +42,7 @@ public class Order {
     @Column(name = "order_time")
     private LocalDateTime orderTime;
 
-    // Trạng thái đơn hàng: PLACED, CONFIRMED, PREPARING, READY, SERVED, PAID, CANCELLED
+    // Trạng thái đơn hàng: PLACED, CONFIRMED, PREPARING, READY, SERVED, PENDING_PAYMENT, CANCELLED
     private String status;
 
     @Column(name = "total_amount")

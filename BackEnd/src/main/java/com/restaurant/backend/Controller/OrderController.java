@@ -49,8 +49,17 @@ public class OrderController {
     // Create new order with OrderRequest (supports customerId = null for walk-in)
     @PostMapping("/create-from-request")
     public ResponseEntity<?> createFromRequest(@RequestBody OrderRequest request) {
+        System.out.println("📥 Received create-from-request");
+        System.out.println("   Request: " + request);
+        System.out.println("   TableId: " + request.getTableId());
+        System.out.println("   CustomerId: " + request.getCustomerId());
+        System.out.println("   BookingId: " + request.getBookingId());
+        System.out.println("   Status: " + request.getStatus());
+        System.out.println("   Items: " + (request.getItems() != null ? request.getItems().size() : "null"));
+        
         // Validate table
         if (request.getTableId() == null) {
+            System.err.println("❌ Table ID is null");
             return ResponseEntity.badRequest().body(Map.of("message", "Table ID is required"));
         }
 
@@ -59,26 +68,29 @@ public class OrderController {
             return ResponseEntity.badRequest().body(Map.of("message", "Table not found"));
         }
 
-        // Customer: từ booking nếu có, hoặc null nếu walk-in
-        User customer = null;
-        if (request.getCustomerId() != null) {
-            customer = userService.findById(request.getCustomerId());
-            if (customer == null) {
-                return ResponseEntity.badRequest().body(Map.of("message", "Customer not found"));
-            }
-        }
-
-        // Booking: nếu có bookingId
+        // Booking: nếu có bookingId, LUÔN LUÔN dùng customer từ booking
         Booking booking = null;
+        User customer = null;
+        
         if (request.getBookingId() != null) {
             booking = bookingService.getBookingById(request.getBookingId());
             if (booking == null) {
                 return ResponseEntity.badRequest().body(Map.of("message", "Booking not found"));
             }
-            // Đảm bảo customer từ booking match với request
+            // ƯU TIÊN: Dùng customer từ booking (đảm bảo đúng customer đã đặt bàn)
+            customer = booking.getCustomer();
             if (customer == null) {
-                customer = booking.getCustomer();
+                return ResponseEntity.badRequest().body(Map.of("message", "Booking does not have a customer"));
             }
+        } else {
+            // Chỉ dùng customer từ request nếu KHÔNG có booking
+            if (request.getCustomerId() != null) {
+                customer = userService.findById(request.getCustomerId());
+                if (customer == null) {
+                    return ResponseEntity.badRequest().body(Map.of("message", "Customer not found"));
+                }
+            }
+            // customer có thể null nếu walk-in (không có booking, không có customerId)
         }
 
         // Staff: nếu có
@@ -132,10 +144,10 @@ public class OrderController {
         );
     }
 
-    // Get all orders
+    // Get all orders for staff dashboard (filtered: PENDING_PAYMENT, SERVED, etc.)
     @GetMapping("/list")
     public ResponseEntity<?> getAll() {
-        List<Order> orders = orderService.getAll();
+        List<Order> orders = orderService.getOrdersForStaffDashboard();
         return ResponseEntity.ok(
                 Map.of(
                         "message", "Orders retrieved successfully",
@@ -283,5 +295,77 @@ public class OrderController {
         return ResponseEntity.ok(
                 Map.of("message", "Order deleted successfully")
         );
+    }
+
+    // NEW FLOW: Get or create active order for table
+    @PostMapping("/table/{tableId}/get-or-create")
+    public ResponseEntity<?> getOrCreateActiveOrder(@PathVariable Long tableId, 
+                                                     @RequestParam(required = false) Long customerId) {
+        try {
+            Order order = orderService.getOrCreateActiveOrder(tableId, customerId);
+            return ResponseEntity.ok(
+                    Map.of(
+                            "message", "Active order retrieved/created successfully",
+                            "order", order
+                    )
+            );
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(
+                    Map.of("message", e.getMessage())
+            );
+        }
+    }
+
+    // NEW FLOW: Add items to active order for table
+    @PostMapping("/table/{tableId}/add-items")
+    public ResponseEntity<?> addItemsToTable(@PathVariable Long tableId,
+                                              @RequestParam(required = false) Long customerId,
+                                              @RequestBody List<OrderItem> items) {
+        System.out.println("==============================================");
+        System.out.println("📥 POST /api/orders/table/" + tableId + "/add-items");
+        System.out.println("   CustomerId: " + customerId);
+        System.out.println("   Items count: " + (items != null ? items.size() : "null"));
+        if (items != null) {
+            for (OrderItem item : items) {
+                System.out.println("   - " + (item.getMenuItem() != null ? item.getMenuItem().getName() : "Unknown") + " x" + item.getQuantity());
+            }
+        }
+        System.out.println("==============================================");
+        
+        try {
+            System.out.println("✅ Calling orderService.addItemsToActiveOrder()...");
+            Order order = orderService.addItemsToActiveOrder(tableId, customerId, items);
+            System.out.println("✅ Order created/updated: #" + order.getId());
+            return ResponseEntity.ok(
+                    Map.of(
+                            "message", "Items added successfully",
+                            "order", order
+                    )
+            );
+        } catch (Exception e) {
+            System.err.println("❌ Error adding items: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(
+                    Map.of("message", e.getMessage())
+            );
+        }
+    }
+
+    // NEW FLOW: Close order (when staff checks out table)
+    @PutMapping("/{orderId}/close")
+    public ResponseEntity<?> closeOrder(@PathVariable Long orderId) {
+        try {
+            Order order = orderService.closeOrder(orderId);
+            return ResponseEntity.ok(
+                    Map.of(
+                            "message", "Order closed successfully",
+                            "order", order
+                    )
+            );
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(
+                    Map.of("message", e.getMessage())
+            );
+        }
     }
 }
