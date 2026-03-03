@@ -201,16 +201,6 @@ public class TelegramBotServiceImpl extends TelegramLongPollingBot implements Te
             log.error("❌ Unexpected error sending Telegram message:", e);
         }
     }
-    
-    // Test method to verify bot can send messages
-    public void sendTestMessage() {
-        log.info("🧪 Sending test message to verify Telegram bot...");
-        if (!enabled || chatId == null || chatId.isEmpty()) {
-            log.warn("❌ Cannot send test message - bot disabled or chat ID not configured");
-            return;
-        }
-        sendTelegramMessage(chatId, "✅ Telegram Bot Test - Backend đã kết nối thành công!");
-    }
 
     private String formatStatus(String status) {
         switch (status.toUpperCase()) {

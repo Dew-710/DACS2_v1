@@ -49,7 +49,14 @@ function KitchenDashboardContent() {
           ['PENDING', 'PREPARING', 'READY'].includes(item.status)
         )
       );
-      setOrders(kitchenOrders);
+      
+      // Sắp xếp orders: đơn mới nhất lên trên (theo createdAt DESC)
+      const sortedOrders = kitchenOrders.sort((a, b) => {
+        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        return dateB - dateA; // DESC: mới nhất lên trên
+      });
+      setOrders(sortedOrders);
     } catch (error) {
       toast.error('Không thể tải đơn hàng');
     } finally {
@@ -93,17 +100,32 @@ function KitchenDashboardContent() {
     }
   };
 
-  // Categorize orders by status
-  const pendingOrders = orders.filter(order =>
-    order.items.some(item => item.status === 'PENDING')
+  // Sắp xếp orders: đơn mới nhất lên trên (theo createdAt DESC)
+  const sortOrdersByDate = (ordersList: Order[]) => {
+    return ordersList.sort((a, b) => {
+      const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return dateB - dateA; // DESC: mới nhất lên trên
+    });
+  };
+
+  // Categorize orders by status và sắp xếp mới nhất lên trên
+  const pendingOrders = sortOrdersByDate(
+    orders.filter(order =>
+      order.items.some(item => item.status === 'PENDING')
+    )
   );
 
-  const preparingOrders = orders.filter(order =>
-    order.items.some(item => item.status === 'PREPARING')
+  const preparingOrders = sortOrdersByDate(
+    orders.filter(order =>
+      order.items.some(item => item.status === 'PREPARING')
+    )
   );
 
-  const readyOrders = orders.filter(order =>
-    order.items.every(item => item.status === 'READY')
+  const readyOrders = sortOrdersByDate(
+    orders.filter(order =>
+      order.items.every(item => item.status === 'READY')
+    )
   );
 
   const getItemStatusColor = (status: string) => {

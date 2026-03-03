@@ -96,22 +96,23 @@ public class TableServiceImpl implements RestaurantTableService {
         table.setLastUpdated(LocalDateTime.now());
         RestaurantTable updatedTable = tableRepository.save(table);
 
-        // Auto-send QR code when table becomes OCCUPIED
+        // Tự động gửi QR code khi bàn chuyển sang trạng thái OCCUPIED
+        // QR code sẽ được gửi qua WebSocket đến ESP32 để hiển thị trên màn hình bàn
         if ("OCCUPIED".equals(status) && !status.equals(oldStatus) && table.getQrCode() != null) {
             try {
                 System.out.println("🎯 Auto-sending QR code for table " + table.getTableName() + " (ID: " + id + ")");
 
-                // Generate frontend URL
+                // Tạo URL frontend cho QR code (khách hàng scan để xem menu)
                 String frontendUrl = System.getenv("FRONTEND_URL");
                 if (frontendUrl == null || frontendUrl.isEmpty()) {
                     frontendUrl = "http://localhost:3000";
                 }
                 String qrUrl = frontendUrl + "/menu/" + table.getQrCode();
 
-                // Generate QR code image
+                // Tạo hình ảnh QR code
                 byte[] qrImageBytes = qrCodeService.generateQRCodeImageBytes(qrUrl, 128, 128);
 
-                // Send to ESP32 with table ID
+                // Gửi QR code qua WebSocket đến ESP32 với table ID
                 webSocketHandler.broadcastImageBytes(qrImageBytes, id);
 
                 System.out.println("✅ Auto-sent QR code for occupied table " + table.getTableName());
@@ -172,35 +173,54 @@ public class TableServiceImpl implements RestaurantTableService {
         return tableRepository.save(table);
     }
 
+    /**
+     * Check-out bàn (sau khi thanh toán)
+     * 
+     * QUAN TRỌNG: Đóng tất cả đơn hàng đang hoạt động của bàn TRƯỚC KHI đổi trạng thái bàn
+     * 
+     * Logic:
+     * 1. Lấy tất cả đơn hàng đang hoạt động của bàn
+     * 2. Với mỗi đơn hàng:
+     *    - Bỏ qua đơn hàng rỗng (không có món ăn) → không cần đóng
+     *    - Đóng đơn hàng có món ăn → chuyển sang PENDING_PAYMENT, confirm items, tính tiền
+     * 3. Cập nhật status bàn thành "CLEANING" (đang dọn dẹp)
+     * 
+     * Sau khi dọn dẹp xong, bàn sẽ trở lại trạng thái "AVAILABLE" (có thể xử lý bằng scheduled task hoặc staff thủ công)
+     * 
+     * @param tableId ID của bàn cần checkout
+     * @return Bàn đã được checkout
+     */
     @Override
     public RestaurantTable checkOutTable(Long tableId) {
         RestaurantTable table = findById(tableId);
         
-        // IMPORTANT: Close all active orders on this table before changing status
-        // BUT: Skip empty orders (orders without items) - they shouldn't be closed
+        // QUAN TRỌNG: Đóng tất cả đơn hàng đang hoạt động của bàn TRƯỚC KHI đổi trạng thái bàn
+        // NHƯNG: Bỏ qua đơn hàng rỗng (không có món ăn) - không cần đóng
         List<Order> activeOrders = orderService.getActiveOrdersByTable(tableId);
         for (Order order : activeOrders) {
             try {
-                // Skip orders without items (empty orders)
+                // Bỏ qua đơn hàng rỗng (không có món ăn)
                 if (order.getOrderItems() == null || order.getOrderItems().isEmpty()) {
                     log.info("⏭️ Skipping empty order #{} (no items)", order.getId());
                     continue;
                 }
                 
+                // Đóng đơn hàng có món ăn
                 log.info("🔒 Closing order #{} for table checkout ({} items)", order.getId(), order.getOrderItems().size());
-                orderService.closeOrder(order.getId());
+                orderService.closeOrder(order.getId()); // Confirm items, tính tiền, set PENDING_PAYMENT
                 log.info("✅ Order #{} closed successfully", order.getId());
             } catch (Exception e) {
                 log.error("❌ Failed to close order #{}: {}", order.getId(), e.getMessage(), e);
-                // Continue with other orders even if one fails
+                // Tiếp tục với các đơn hàng khác ngay cả khi một đơn hàng bị lỗi
             }
         }
         
+        // Cập nhật status bàn thành "CLEANING" (đang dọn dẹp)
         table.setStatus("CLEANING");
         table.setLastUpdated(LocalDateTime.now());
 
-        // After cleaning, table becomes vacant again
-        // This could be handled by a scheduled task or manual staff action
+        // Sau khi dọn dẹp xong, bàn sẽ trở lại trạng thái "AVAILABLE"
+        // Có thể xử lý bằng scheduled task hoặc staff thủ công
         return tableRepository.save(table);
     }
 

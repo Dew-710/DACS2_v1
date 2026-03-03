@@ -13,6 +13,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controller quản lý các API endpoint liên quan đến bàn ăn (Table)
+ * 
+ * Chức năng chính:
+ * - Lấy danh sách bàn (tất cả, available, theo status)
+ * - Tạo và quản lý QR code cho bàn
+ * - Check-in/Check-out bàn
+ * - Lấy đơn hàng hiện tại của bàn
+ */
 @RestController
 @RequestMapping("/api/tables")
 public class TableController {
@@ -29,7 +38,11 @@ public class TableController {
         this.userService = userService;
     }
 
-    // Get all tables
+    /**
+     * Lấy tất cả bàn trong nhà hàng
+     * 
+     * @return Danh sách tất cả bàn
+     */
     @GetMapping("/all")
     public ResponseEntity<?> getAllTables() {
         List<RestaurantTable> tables = tableService.getAll();
@@ -41,7 +54,13 @@ public class TableController {
         );
     }
 
-    // Get available tables
+    /**
+     * Lấy danh sách bàn đang trống (available)
+     * 
+     * Chỉ trả về các bàn có status = "AVAILABLE" (sẵn sàng phục vụ)
+     * 
+     * @return Danh sách bàn đang trống
+     */
     @GetMapping("/available")
     public ResponseEntity<?> getAvailableTables() {
         List<RestaurantTable> tables = tableService.getAvailableTables();
@@ -53,7 +72,14 @@ public class TableController {
         );
     }
 
-    // Generate QR code for table
+    /**
+     * Tạo QR code cho bàn
+     * 
+     * QR code được dùng để khách hàng scan và xem menu, đặt món
+     * 
+     * @param id ID của bàn
+     * @return Bàn đã được tạo QR code
+     */
     @PostMapping("/{id}/generate-qr")
     public ResponseEntity<?> generateQrCode(@PathVariable Long id) {
         RestaurantTable table = tableService.generateQrCode(id);
@@ -66,19 +92,31 @@ public class TableController {
         );
     }
 
-    // Check-in via QR code (customer scans QR at table)
+    /**
+     * Check-in bàn qua QR code (khách hàng scan QR tại bàn)
+     * 
+     * Khi khách hàng scan QR code:
+     * 1. Tìm bàn theo QR code
+     * 2. Kiểm tra bàn có available không
+     * 3. Cập nhật status bàn thành "OCCUPIED"
+     * 4. Tạo đơn hàng ban đầu cho bàn
+     * 
+     * @param qrCode QR code của bàn
+     * @param customerId ID của khách hàng
+     * @return Thông tin bàn và đơn hàng đã được tạo
+     */
     @PostMapping("/checkin/{qrCode}")
     public ResponseEntity<?> checkIn(@PathVariable String qrCode,
                                    @RequestParam Long customerId) {
         RestaurantTable table = tableService.checkInTable(qrCode, customerId);
 
-        // Create initial order for the table
+        // Tạo đơn hàng ban đầu cho bàn (khi khách check-in)
         Order order = new Order();
         User customer = userService.findById(customerId);
         order.setCustomer(customer);
         order.setTable(table);
         order.setOrderTime(LocalDateTime.now());
-        order.setStatus("PLACED");
+        order.setStatus("PLACED"); // Trạng thái ban đầu: đã đặt
 
         Order createdOrder = orderService.create(order);
 
@@ -91,7 +129,14 @@ public class TableController {
         );
     }
 
-    // Get table by QR code
+    /**
+     * Lấy thông tin bàn theo QR code
+     * 
+     * Dùng để frontend lấy thông tin bàn khi khách hàng scan QR code
+     * 
+     * @param qrCode QR code của bàn
+     * @return Thông tin bàn
+     */
     @GetMapping("/qr/{qrCode}")
     public ResponseEntity<?> getTableByQr(@PathVariable String qrCode) {
         RestaurantTable table = tableService.findByQrCode(qrCode);
@@ -103,7 +148,15 @@ public class TableController {
         );
     }
 
-    // Update table status (advanced)
+    /**
+     * Cập nhật trạng thái bàn (nâng cao)
+     * 
+     * Các trạng thái có thể: AVAILABLE, RESERVED, OCCUPIED, CLEANING, UNAVAILABLE
+     * 
+     * @param id ID của bàn
+     * @param status Trạng thái mới
+     * @return Bàn đã được cập nhật
+     */
     @PutMapping("/{id}/status-update/{status}")
     public ResponseEntity<?> updateTableStatus(@PathVariable Long id, @PathVariable String status) {
         RestaurantTable table = tableService.updateStatus(id, status);
@@ -115,7 +168,17 @@ public class TableController {
         );
     }
 
-    // Check-out table (after payment)
+    /**
+     * Check-out bàn (sau khi thanh toán)
+     * 
+     * Khi staff checkout bàn:
+     * 1. Đóng tất cả đơn hàng đang hoạt động của bàn (chuyển sang PENDING_PAYMENT)
+     * 2. Xóa các đơn hàng rỗng (không có món ăn)
+     * 3. Cập nhật status bàn thành "CLEANING" (đang dọn dẹp)
+     * 
+     * @param id ID của bàn
+     * @return Bàn đã được checkout
+     */
     @PostMapping("/{id}/checkout")
     public ResponseEntity<?> checkOutTable(@PathVariable Long id) {
         RestaurantTable table = tableService.checkOutTable(id);
@@ -127,7 +190,14 @@ public class TableController {
         );
     }
 
-    // Get table with current order
+    /**
+     * Lấy đơn hàng hiện tại của bàn
+     * 
+     * Endpoint này trả về đơn hàng đang hoạt động của bàn (chưa thanh toán, chưa hủy)
+     * 
+     * @param id ID của bàn
+     * @return Đơn hàng hiện tại của bàn (nếu có)
+     */
     @GetMapping("/{id}/current-order")
     public ResponseEntity<?> getCurrentOrder(@PathVariable Long id) {
         List<Order> activeOrders = orderService.getActiveOrdersByTable(id);
@@ -141,7 +211,8 @@ public class TableController {
             );
         }
 
-        Order currentOrder = activeOrders.get(0); // Get the first active order
+        // Lấy đơn hàng đang hoạt động đầu tiên
+        Order currentOrder = activeOrders.get(0);
         return ResponseEntity.ok(
                 Map.of(
                         "message", "Current order retrieved",

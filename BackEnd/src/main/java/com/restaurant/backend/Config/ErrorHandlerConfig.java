@@ -61,6 +61,19 @@ public class ErrorHandlerConfig implements ErrorController {
         );
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<?> handleRuntimeException(RuntimeException ex) {
+        System.err.println("❌ Runtime error:");
+        System.err.println("   Error: " + ex.getMessage());
+        ex.printStackTrace();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+            Map.of(
+                "error", "Runtime error",
+                "message", ex.getMessage() != null ? ex.getMessage() : "Đã xảy ra lỗi. Vui lòng thử lại sau."
+            )
+        );
+    }
+
     @RequestMapping("/error")
     public ResponseEntity<?> handleError(jakarta.servlet.http.HttpServletRequest request) {
         // Log the error details

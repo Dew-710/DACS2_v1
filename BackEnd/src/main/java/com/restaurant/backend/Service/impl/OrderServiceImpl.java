@@ -22,6 +22,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service implementation xử lý tất cả logic nghiệp vụ liên quan đến đơn hàng
+ * 
+ * Chức năng chính:
+ * - Tạo, cập nhật, xóa đơn hàng
+ * - Quản lý món ăn trong đơn hàng (thêm, xóa, cập nhật trạng thái)
+ * - Tính tổng tiền (chỉ tính items đã confirmed)
+ * - Quản lý round_number (lượt gọi món) và is_confirmed (xác nhận tính tiền)
+ * - Đóng đơn hàng (checkout) - chuyển sang chờ thanh toán
+ * - Gửi thông báo Telegram và WebSocket
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -35,6 +46,20 @@ public class OrderServiceImpl implements OrderService {
     private final TelegramBotService telegramBotService;
     private final com.restaurant.backend.websocket.IoTWebSocketHandler webSocketHandler;
 
+    /**
+     * Tạo đơn hàng mới
+     * 
+     * Tự động set:
+     * - orderTime = thời gian hiện tại
+     * - createdAt = thời gian hiện tại (nếu chưa có)
+     * - updatedAt = thời gian hiện tại (nếu chưa có)
+     * - status = "PLACED" (nếu chưa có)
+     * 
+     * Sau khi tạo, gửi thông báo WebSocket cho bếp/staff
+     * 
+     * @param order Đơn hàng cần tạo
+     * @return Đơn hàng đã được lưu vào database
+     */
     @Override
     public Order create(Order order) {
         LocalDateTime now = LocalDateTime.now();
@@ -51,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
         
         Order savedOrder = orderRepository.save(order);
 
-        // Notify kitchen and staff about new order
+        // Gửi thông báo WebSocket cho bếp và staff về đơn hàng mới
         if (savedOrder.getTable() != null) {
             String tableName = savedOrder.getTable().getTableName();
             String orderDetails = "Order #" + savedOrder.getId();
@@ -71,7 +96,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<Order> getAll() {
-        return orderRepository.findAll();
+        // Lấy tất cả orders và sắp xếp mới nhất lên trên
+        List<Order> orders = orderRepository.findAll();
+        orders.sort((o1, o2) -> {
+            // So sánh theo createdAt (mới nhất lên trên)
+            if (o1.getCreatedAt() == null && o2.getCreatedAt() == null) return 0;
+            if (o1.getCreatedAt() == null) return 1; // null xuống dưới
+            if (o2.getCreatedAt() == null) return -1; // null xuống dưới
+            return o2.getCreatedAt().compareTo(o1.getCreatedAt()); // DESC: mới nhất lên trên
+        });
+        return orders;
     }
 
     @Override
@@ -88,11 +122,26 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.deleteById(id);
     }
 
-    @Override
+    /**
+     * Thêm món ăn vào đơn hàng
+     * 
+     * Logic quan trọng:
+     * 1. Tự động tính round_number (lượt gọi món): Lấy max round_number hiện tại + 1
+     * 2. Set is_confirmed = false: Món mới thêm chưa được xác nhận, chưa tính tiền
+     * 3. KHÔNG tính total_amount: Chỉ tính khi items đã confirmed (khi checkout)
+     * 4. Gửi thông báo Telegram cho bếp với round_number
+     * 5. Gửi thông báo WebSocket cho real-time updates
+     * 
+     * @param orderId ID của đơn hàng
+     * @param items Danh sách món ăn cần thêm
+     * @return Đơn hàng đã được cập nhật
+     */
+     @Override
     public Order addItem(Long orderId, List<OrderItem> items) {
         Order order = getById(orderId);
         
-        // Calculate current round number (max round + 1)
+        // Tính round_number hiện tại: Lấy max round_number của các items hiện có + 1
+        // Round_number dùng để phân biệt các lượt gọi món (lượt 1, lượt 2, ...)
         int currentRound = order.getOrderItems().stream()
                 .map(OrderItem::getRoundNumber)
                 .filter(r -> r != null)
@@ -101,24 +150,24 @@ public class OrderServiceImpl implements OrderService {
         
         log.info("✅ Adding {} items to order #{}, Round #{}", items.size(), orderId, currentRound);
         
-        // Prepare notification message
+        // Chuẩn bị nội dung thông báo Telegram
         StringBuilder itemsDescription = new StringBuilder();
         
         for (OrderItem item : items) {
-            // Load menuItem if not already set but menuItemId is provided
+            // Kiểm tra menuItem đã được set chưa
             if (item.getMenuItem() == null) {
-                // For now, we'll assume menuItem is provided in the request
-                // In a real implementation, you might need to add menuItemId field to OrderItem
                 throw new IllegalArgumentException("MenuItem must be provided");
             }
+            
+            // Set thông tin cho item
             item.setOrder(order);
-            item.setStatus("PENDING");
+            item.setStatus("PENDING"); // Trạng thái ban đầu: chờ bếp xử lý
             item.setRoundNumber(currentRound); // Set lượt gọi món
-            item.setIsConfirmed(false); // Chưa confirm, chưa tính tiền
+            item.setIsConfirmed(false); // Chưa confirm, chưa tính tiền (draft mode)
             item.setCreatedAt(LocalDateTime.now());
             item.setUpdatedAt(LocalDateTime.now());
             
-            // Build notification description
+            // Xây dựng mô tả món ăn cho thông báo
             itemsDescription.append("   • ")
                     .append(item.getMenuItem().getName())
                     .append(" x").append(item.getQuantity());
@@ -130,13 +179,14 @@ public class OrderServiceImpl implements OrderService {
         
         order.getOrderItems().addAll(items);
         
-        // DON'T calculate total yet - only confirmed items count toward total
+        // QUAN TRỌNG: KHÔNG tính total_amount ở đây
+        // Chỉ tính khi items đã confirmed (is_confirmed = true) - tức là khi checkout
         order.setUpdatedAt(LocalDateTime.now());
         
         Order updatedOrder = orderRepository.save(order);
         log.info("✅ Saved order #{} with {} new items (Round {}, Draft mode)", orderId, items.size(), currentRound);
         
-        // Send Telegram notification about new items WITH ROUND NUMBER
+        // Gửi thông báo Telegram về món mới với round_number
         try {
             String roundLabel = "LƯỢT " + currentRound;
             log.info("🔔 Calling Telegram service for Round {}", currentRound);
@@ -146,7 +196,7 @@ public class OrderServiceImpl implements OrderService {
             log.error("❌ Failed to send Telegram notification: {}", e.getMessage(), e);
         }
         
-        // WebSocket notification
+        // Gửi thông báo WebSocket cho real-time updates
         if (updatedOrder.getTable() != null) {
             try {
                 webSocketHandler.notifyNewOrder(
@@ -257,14 +307,30 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findByStatus(status);
     }
 
+    /**
+     * Tính tổng tiền của đơn hàng
+     * 
+     * QUAN TRỌNG: CHỈ tính tổng tiền cho các items đã CONFIRMED (is_confirmed = true)
+     * 
+     * Logic:
+     * - Bỏ qua items có status = "CANCELLED" (đã hủy)
+     * - CHỈ tính items có is_confirmed = true (đã xác nhận)
+     * - Items chưa confirmed (draft) KHÔNG được tính vào tổng tiền
+     * 
+     * Cách tính:
+     * - Nếu item có subtotal → dùng subtotal
+     * - Nếu không → tính = price * quantity
+     * 
+     * @param order Đơn hàng cần tính tổng tiền
+     */
     private void calculateTotalAmount(Order order) {
         // CHỈ tính tổng tiền cho items đã CONFIRMED (isConfirmed = true)
         // Items chưa confirmed (draft) KHÔNG được tính vào tổng tiền
         BigDecimal total = order.getOrderItems().stream()
-                .filter(item -> !"CANCELLED".equals(item.getStatus()))
+                .filter(item -> !"CANCELLED".equals(item.getStatus())) // Bỏ qua items đã hủy
                 .filter(item -> Boolean.TRUE.equals(item.getIsConfirmed())) // CHỈ tính confirmed items
                 .map(item -> {
-                    // Calculate subtotal as quantity * price
+                    // Tính subtotal: Nếu có subtotal sẵn thì dùng, không thì tính = price * quantity
                     if (item.getSubtotal() != null) {
                         return item.getSubtotal();
                     } else {
@@ -276,19 +342,33 @@ public class OrderServiceImpl implements OrderService {
         log.debug("Calculated total amount: {} (confirmed items only)", total);
     }
 
+    /**
+     * Lấy hoặc tạo đơn hàng đang hoạt động cho bàn
+     * 
+     * Logic:
+     * - Tìm đơn hàng đang hoạt động của bàn (paymentStatus != 'PAID', status != 'CANCELLED', 'PENDING_PAYMENT')
+     * - Nếu có → trả về đơn hàng đó
+     * - Nếu không có → tạo đơn hàng mới với status = "ACTIVE"
+     * 
+     * Dùng cho flow mới: Khách hàng có thể gọi nhiều lượt món trong cùng một đơn hàng
+     * 
+     * @param tableId ID của bàn
+     * @param customerId ID của khách hàng (optional, có thể null cho walk-in)
+     * @return Đơn hàng đang hoạt động (có sẵn hoặc mới tạo)
+     */
     @Override
     public Order getOrCreateActiveOrder(Long tableId, Long customerId) {
-        // Find active order for this table
+        // Tìm đơn hàng đang hoạt động của bàn này
         List<Order> activeOrders = orderRepository.findActiveOrdersByTableId(tableId);
         
         if (!activeOrders.isEmpty()) {
-            // Return existing active order
+            // Trả về đơn hàng đang hoạt động hiện có
             Order existingOrder = activeOrders.get(0);
             log.info("Found existing active order #{} for table {}", existingOrder.getId(), tableId);
             return existingOrder;
         }
         
-        // Create new order if no active order exists
+        // Tạo đơn hàng mới nếu chưa có đơn hàng đang hoạt động
         RestaurantTable table = tableRepository.findById(tableId)
                 .orElseThrow(() -> new RuntimeException("Table not found with id: " + tableId));
         
@@ -299,25 +379,25 @@ public class OrderServiceImpl implements OrderService {
         
         Order newOrder = new Order();
         newOrder.setTable(table);
-        newOrder.setCustomer(customer);
-        newOrder.setStatus("ACTIVE");
+        newOrder.setCustomer(customer); // Có thể null nếu walk-in
+        newOrder.setStatus("ACTIVE"); // Trạng thái đang hoạt động
         newOrder.setOrderTime(LocalDateTime.now());
         newOrder.setCreatedAt(LocalDateTime.now());
         newOrder.setUpdatedAt(LocalDateTime.now());
-        newOrder.setTotalAmount(BigDecimal.ZERO);
-        newOrder.setOrderItems(new ArrayList<>());
+        newOrder.setTotalAmount(BigDecimal.ZERO); // Tổng tiền ban đầu = 0
+        newOrder.setOrderItems(new ArrayList<>()); // Danh sách món ăn ban đầu rỗng
         
         Order savedOrder = orderRepository.save(newOrder);
         log.info("Created new active order #{} for table {}", savedOrder.getId(), tableId);
         
-        // Send Telegram notification
+        // Gửi thông báo Telegram về đơn hàng mới
         try {
             telegramBotService.sendOrderNotification(savedOrder, "ORDER MỚI");
         } catch (Exception e) {
             log.error("Failed to send Telegram notification: {}", e.getMessage());
         }
         
-        // WebSocket notification
+        // Gửi thông báo WebSocket cho real-time updates
         if (table != null) {
             webSocketHandler.notifyNewOrder(table.getTableName(), "Order #" + savedOrder.getId());
         }
@@ -325,12 +405,27 @@ public class OrderServiceImpl implements OrderService {
         return savedOrder;
     }
 
+    /**
+     * Thêm món ăn vào đơn hàng đang hoạt động của bàn (Flow mới)
+     * 
+     * Endpoint này tự động:
+     * 1. Tìm hoặc tạo đơn hàng đang hoạt động cho bàn
+     * 2. Tính round_number (lượt gọi món) tự động
+     * 3. Thêm món ăn với is_confirmed = false (draft mode)
+     * 4. KHÔNG tính total_amount (chỉ tính khi checkout)
+     * 5. Gửi thông báo Telegram và WebSocket
+     * 
+     * @param tableId ID của bàn
+     * @param customerId ID của khách hàng (optional)
+     * @param items Danh sách món ăn cần thêm
+     * @return Đơn hàng đã được cập nhật
+     */
     @Override
     public Order addItemsToActiveOrder(Long tableId, Long customerId, List<OrderItem> items) {
-        // Get or create active order
+        // Bước 1: Lấy hoặc tạo đơn hàng đang hoạt động
         Order order = getOrCreateActiveOrder(tableId, customerId);
         
-        // Calculate current round number (max round + 1)
+        // Bước 2: Tính round_number hiện tại (max round_number + 1)
         int currentRound = order.getOrderItems().stream()
                 .map(OrderItem::getRoundNumber)
                 .filter(r -> r != null)
@@ -339,30 +434,31 @@ public class OrderServiceImpl implements OrderService {
         
         log.info("Adding items to order #{}, Round #{}", order.getId(), currentRound);
         
-        // Prepare notification message
+        // Bước 3: Chuẩn bị nội dung thông báo Telegram
         StringBuilder itemsDescription = new StringBuilder();
         
-        // Add items to order
+        // Bước 4: Thêm món ăn vào đơn hàng
         for (OrderItem item : items) {
             if (item.getMenuItem() == null) {
                 throw new IllegalArgumentException("MenuItem must be provided for each item");
             }
             
+            // Set thông tin cho item
             item.setOrder(order);
-            item.setStatus("PENDING");
+            item.setStatus("PENDING"); // Trạng thái ban đầu: chờ bếp xử lý
             item.setRoundNumber(currentRound); // Set lượt gọi món
-            item.setIsConfirmed(false); // Chưa confirm, chưa tính tiền
+            item.setIsConfirmed(false); // Chưa confirm, chưa tính tiền (draft mode)
             item.setCreatedAt(LocalDateTime.now());
             item.setUpdatedAt(LocalDateTime.now());
             
-            // Set price from menu item if not set
+            // Set giá từ menu item nếu chưa có
             if (item.getPrice() == null) {
                 item.setPrice(item.getMenuItem().getPrice());
             }
             
             order.getOrderItems().add(item);
             
-            // Build notification description
+            // Xây dựng mô tả món ăn cho thông báo
             itemsDescription.append("   • ")
                     .append(item.getMenuItem().getName())
                     .append(" x").append(item.getQuantity());
@@ -372,13 +468,14 @@ public class OrderServiceImpl implements OrderService {
             itemsDescription.append("\n");
         }
         
-        // DON'T calculate total yet - only confirmed items count toward total
+        // QUAN TRỌNG: KHÔNG tính total_amount ở đây
+        // Chỉ tính khi items đã confirmed (khi checkout)
         order.setUpdatedAt(LocalDateTime.now());
         
         Order updatedOrder = orderRepository.save(order);
         log.info("✅ Added {} items to order #{} (Round {}, Draft mode)", items.size(), updatedOrder.getId(), currentRound);
         
-        // Send Telegram notification about new items WITH ROUND NUMBER
+        // Bước 5: Gửi thông báo Telegram về món mới với round_number
         try {
             String roundLabel = "LƯỢT " + currentRound;
             log.info("🔔 Calling Telegram service to send notification for Round {}", currentRound);
@@ -388,7 +485,7 @@ public class OrderServiceImpl implements OrderService {
             log.error("❌ Failed to send Telegram notification: {}", e.getMessage(), e);
         }
         
-        // WebSocket notification
+        // Gửi thông báo WebSocket cho real-time updates
         if (updatedOrder.getTable() != null) {
             webSocketHandler.notifyNewOrder(
                     updatedOrder.getTable().getTableName(), 
@@ -399,11 +496,38 @@ public class OrderServiceImpl implements OrderService {
         return updatedOrder;
     }
 
+    /**
+     * Đóng đơn hàng (khi staff checkout bàn)
+     * 
+     * Đây là bước quan trọng trong flow thanh toán:
+     * 
+     * 1. Confirm tất cả items:
+     *    - Chuyển tất cả items từ draft (is_confirmed = false) sang confirmed (is_confirmed = true)
+     *    - Chỉ items đã confirmed mới được tính tiền
+     * 
+     * 2. Tính lại total_amount:
+     *    - Sau khi confirm items, tính lại tổng tiền
+     *    - Chỉ tính items đã confirmed
+     * 
+     * 3. Cập nhật trạng thái:
+     *    - status = "PENDING_PAYMENT" (chờ thanh toán) → hiển thị trong staff dashboard
+     *    - payment_status = NULL (chưa thanh toán) → chỉ set "PAID" khi thanh toán xong
+     * 
+     * 4. Gửi thông báo:
+     *    - Telegram: Thông báo tổng thanh toán cho bếp/staff
+     *    - WebSocket: Cập nhật real-time cho frontend
+     * 
+     * Lưu ý: Chỉ gửi thông báo Telegram nếu order chưa được thanh toán (tránh duplicate)
+     * 
+     * @param orderId ID của đơn hàng cần đóng
+     * @return Đơn hàng đã được đóng
+     */
     @Override
     public Order closeOrder(Long orderId) {
         Order order = getById(orderId);
         
-        // QUAN TRỌNG: Confirm tất cả items (chuyển từ draft sang confirmed)
+        // BƯỚC 1: Confirm tất cả items (chuyển từ draft sang confirmed)
+        // Items chưa confirmed sẽ được confirm để tính tiền
         int confirmedCount = 0;
         for (OrderItem item : order.getOrderItems()) {
             if (Boolean.FALSE.equals(item.getIsConfirmed())) {
@@ -415,17 +539,19 @@ public class OrderServiceImpl implements OrderService {
         
         log.info("Confirmed {} draft items for order #{}", confirmedCount, orderId);
         
-        // Recalculate total amount AFTER confirming all items
+        // BƯỚC 2: Tính lại total_amount SAU KHI confirm tất cả items
         calculateTotalAmount(order);
         
+        // Kiểm tra xem order đã được thanh toán chưa (để tránh gửi duplicate notification)
         String oldPaymentStatus = order.getPaymentStatus();
         boolean wasAlreadyPaid = "PAID".equals(oldPaymentStatus);
         
+        // BƯỚC 3: Cập nhật trạng thái
         // QUAN TRỌNG: Khi checkout bàn, payment_status phải để NULL (chưa thanh toán)
         // Chỉ khi thanh toán xong (PayOS webhook hoặc cash) mới set payment_status = 'PAID'
         // KHÔNG set payment_status ở đây!
         
-        // Set status to PENDING_PAYMENT so staff can see it in dashboard (chờ thanh toán)
+        // Set status to PENDING_PAYMENT để staff có thể thấy trong dashboard (chờ thanh toán)
         order.setStatus("PENDING_PAYMENT");
         order.setUpdatedAt(LocalDateTime.now());
         
@@ -433,7 +559,7 @@ public class OrderServiceImpl implements OrderService {
         log.info("Closed order #{} with total amount: {} (confirmed {} items, payment_status: {})", 
                 orderId, closedOrder.getTotalAmount(), confirmedCount, closedOrder.getPaymentStatus());
         
-        // Send Telegram notification ONLY if order wasn't already PAID (prevent duplicates)
+        // BƯỚC 4: Gửi thông báo Telegram CHỈ NẾU order chưa được thanh toán (tránh duplicate)
         if (!wasAlreadyPaid) {
             try {
                 log.info("📤 Sending checkout notification to Telegram for order #{}", orderId);
@@ -448,7 +574,7 @@ public class OrderServiceImpl implements OrderService {
             log.info("⏭️ Skipping Telegram notification for order #{} (already paid before)", orderId);
         }
         
-        // WebSocket notification
+        // Gửi thông báo WebSocket cho real-time updates
         if (closedOrder.getTable() != null) {
             webSocketHandler.notifyOrderStatusUpdate(
                     closedOrder.getTable().getTableName(), 
@@ -459,6 +585,17 @@ public class OrderServiceImpl implements OrderService {
         return closedOrder;
     }
 
+    /**
+     * Lấy danh sách đơn hàng cho staff dashboard
+     * 
+     * Endpoint này trả về các đơn hàng có:
+     * - status = 'PENDING_PAYMENT' (chờ thanh toán)
+     * - payment_status = NULL hoặc != 'PAID' (chưa thanh toán)
+     * 
+     * Các đơn hàng này sẽ được hiển thị trong staff dashboard để staff xử lý thanh toán
+     * 
+     * @return Danh sách đơn hàng đang chờ thanh toán
+     */
     @Override
     @Transactional(readOnly = true)
     public List<Order> getOrdersForStaffDashboard() {

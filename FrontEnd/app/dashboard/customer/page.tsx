@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -82,7 +82,6 @@ function CustomerDashboardContent() {
 
       setMenuItems(menuRes.menuItems || []);
       setCategories(categoriesRes.categories || []);
-
       let tablesData = tablesRes.tables || [];
       if( tablesData.length === 0 ) {
         toast.error('Không có bàn nào trong hệ thống. Vui lòng liên hệ quản trị viên.');
@@ -91,8 +90,21 @@ function CustomerDashboardContent() {
       setAvailableTablesForBooking(tablesData.filter(table => table.status === 'AVAILABLE'));
 
       // Orders và bookings đã được filter ở backend
-      setOrders(ordersRes.orders || []);
-      setBookings(bookingsRes.bookings || []);
+      // Sắp xếp orders: đơn mới nhất lên trên (theo createdAt DESC)
+      const sortedOrders = (ordersRes.orders || []).sort((a, b) => {
+        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        return dateB - dateA; // DESC: mới nhất lên trên
+      });
+      setOrders(sortedOrders);
+      
+      // Sắp xếp bookings: đặt bàn mới nhất lên trên
+      const sortedBookings = (bookingsRes.bookings || []).sort((a, b) => {
+        const dateA = a.date ? new Date(a.date).getTime() : 0;
+        const dateB = b.date ? new Date(b.date).getTime() : 0;
+        return dateB - dateA; // DESC: mới nhất lên trên
+      });
+      setBookings(sortedBookings);
     } catch (error) {
       toast.error('Không thể tải dữ liệu. Vui lòng thử lại sau.');
     
@@ -218,9 +230,41 @@ function CustomerDashboardContent() {
   const occupiedTables = tables.filter(table => table.status === 'OCCUPIED');
 
   // Lọc menu items theo category đã chọn
-  const filteredMenuItems = selectedCategory
-    ? menuItems.filter(item => Number(item.categoryId) === selectedCategory)
-    : menuItems;
+  // Sử dụng item.category?.id giống như menu QR code (nested object) thay vì item.categoryId
+  const filteredMenuItems = useMemo(() => {
+    // Nếu không chọn category nào, hiển thị tất cả món available
+    if (selectedCategory === null || selectedCategory === undefined) {
+      return menuItems.filter(item => item?.isAvailable === true);
+    }
+    
+    // Filter theo category.id (nested object) giống như menu QR code
+    const filtered = menuItems.filter(item => {
+      // Chỉ lấy món available
+      if (!item || item.isAvailable !== true) {
+        return false;
+      }
+      
+      // Sử dụng item.category?.id (nested object) thay vì item.categoryId
+      // Giống như cách menu QR code làm
+      return item.category?.id === selectedCategory;
+    });
+    
+    return filtered;
+  }, [menuItems, selectedCategory]);
+
+  // Tính tổng số món ăn
+  const totalItems = filteredMenuItems.length;
+  const totalAllItems = menuItems.length;
+  const totalAvailableItems = menuItems.filter(item => item?.isAvailable === true).length;
+
+  // Log để debug (chỉ chạy khi component render hoặc dependencies thay đổi)
+  useEffect(() => {
+    console.log('totalItems (filtered):', totalItems);
+    console.log('totalAllItems:', totalAllItems);
+    console.log('totalAvailableItems:', totalAvailableItems);
+    console.log('selectedCategory:', selectedCategory);
+    console.log('menuItems:', menuItems);
+  }, [totalItems, totalAllItems, totalAvailableItems, selectedCategory, menuItems]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
@@ -234,6 +278,7 @@ function CustomerDashboardContent() {
             <div>
               <h1 className="text-xl font-bold">DEW FOOD</h1>
               <p className="text-sm text-muted-foreground">Chào mừng {user?.fullName || user?.username}</p>
+            
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -278,7 +323,7 @@ function CustomerDashboardContent() {
                 <Button
                   key={category.id}
                   variant={selectedCategory === category.id ? "default" : "outline"}
-                  onClick={() => setSelectedCategory(Number(category.id))}
+                  onClick={() => setSelectedCategory(category.id)}
                 >
                   {category.name}
                 </Button>
@@ -287,28 +332,42 @@ function CustomerDashboardContent() {
 
             {/* Menu Items Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredMenuItems
-                .filter(item => item.isAvailable)
-                .map((item) => (
-                <Card key={item.id} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-4">
-                    <div className="text-center mb-4">
-                      <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-2">
-                        🍽️
-                      </div>
-                      <h3 className="font-semibold">{item.name}</h3>
-                      <p className="text-sm text-muted-foreground">{item.description}</p>
-                    </div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-lg font-bold text-primary">
-                        {item.price.toLocaleString('vi-VN')}đ
-                      </span>
-                      <Badge variant="outline">{item.category?.name}</Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+              {filteredMenuItems.length === 0 ? (
+                <div className="col-span-full text-center py-12">
+                  <p className="text-muted-foreground">
+                    {selectedCategory !== null 
+                      ? `Không có món nào trong danh mục này` 
+                      : 'Không có món nào trong thực đơn'}
+                  </p>
+                </div>
+              ) : (
+                filteredMenuItems.map(item => {
+      const price = Number(item?.price ?? 0);
+
+      return (
+        <Card key={item?.id ?? `${item?.name}-${price}`} className="hover:shadow-lg transition-shadow">
+          <CardContent className="p-4">
+            <div className="text-center mb-4">
+              <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-2">
+                🍽️
+              </div>
+              <h3 className="font-semibold">{item?.name}</h3>
+              <p className="text-sm text-muted-foreground">{item?.description}</p>
             </div>
+
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-lg font-bold text-primary">
+                {price.toLocaleString("vi-VN")}đ
+              </span>
+              <Badge variant="outline">{item?.category?.name ?? "Khác"}</Badge>
+            </div>
+          </CardContent>
+        </Card>
+      );
+                })
+              )}
+            </div>
+
           </TabsContent>
 
           {/* Booking Tab */}
@@ -721,7 +780,7 @@ function CustomerDashboardContent() {
                           order.status === 'COMPLETED' ? 'secondary' : 'outline'
                         }>
                           {order.status === 'ACTIVE' ? 'Đang hoạt động' :
-                           order.status === 'COMPLETED' ? 'Hoàn thành' : 'Đã hủy'}
+                           order.status === 'COMPLETED' ? 'Hoàn thành' : ''}
                         </Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">

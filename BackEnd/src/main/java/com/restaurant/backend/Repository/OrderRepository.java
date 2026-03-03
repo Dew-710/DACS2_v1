@@ -11,19 +11,30 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    List<Order> findByCustomerId(Long customerId);
+    // Tìm đơn hàng theo customer, sắp xếp mới nhất lên trên
+    @Query("SELECT o FROM Order o WHERE o.customer.id = :customerId ORDER BY o.createdAt DESC")
+    List<Order> findByCustomerId(@Param("customerId") Long customerId);
 
-    List<Order> findByStaffId(Long staffId);
+    // Tìm đơn hàng theo staff, sắp xếp mới nhất lên trên
+    @Query("SELECT o FROM Order o WHERE o.staff.id = :staffId ORDER BY o.createdAt DESC")
+    List<Order> findByStaffId(@Param("staffId") Long staffId);
 
-    List<Order> findByTable_Id(Long tableId);
+    // Tìm đơn hàng theo bàn, sắp xếp mới nhất lên trên
+    @Query("SELECT o FROM Order o WHERE o.table.id = :tableId ORDER BY o.createdAt DESC")
+    List<Order> findByTable_Id(@Param("tableId") Long tableId);
 
-    List<Order> findByBookingId(Long bookingId);
+    // Tìm đơn hàng theo booking, sắp xếp mới nhất lên trên
+    @Query("SELECT o FROM Order o WHERE o.booking.id = :bookingId ORDER BY o.createdAt DESC")
+    List<Order> findByBookingId(@Param("bookingId") Long bookingId);
 
-    List<Order> findByStatus(String status);
+    // Tìm đơn hàng theo status, sắp xếp mới nhất lên trên
+    @Query("SELECT o FROM Order o WHERE o.status = :status ORDER BY o.createdAt DESC")
+    List<Order> findByStatus(@Param("status") String status);
 
     // Find ACTIVE orders for table - orders that are still being served (not yet checked out)
     // PENDING_PAYMENT orders are NOT active (already checked out, waiting for payment)
-    @Query("SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.orderItems oi LEFT JOIN FETCH oi.menuItem WHERE o.table.id = :tableId AND (o.paymentStatus IS NULL OR o.paymentStatus != 'PAID') AND o.status NOT IN ('CANCELLED', 'PENDING_PAYMENT')")
+    // Sắp xếp mới nhất lên trên
+    @Query("SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.orderItems oi LEFT JOIN FETCH oi.menuItem WHERE o.table.id = :tableId AND (o.paymentStatus IS NULL OR o.paymentStatus != 'PAID') AND o.status NOT IN ('CANCELLED', 'PENDING_PAYMENT') ORDER BY o.createdAt DESC")
     List<Order> findActiveOrdersByTableId(@Param("tableId") Long tableId);
 
     // Get orders for staff dashboard - show only PENDING_PAYMENT orders (ready for payment)

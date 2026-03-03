@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.restaurant.mobileapp.ui.login.LoginFragment"
+        android:label="Đăng nhập"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.restaurant.mobileapp.ui.menu.MenuFragment"
+        android:label="Menu"
+        tools:layout="@layout/fragment_menu" />
+
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.restaurant.mobileapp.ui.orders.OrdersFragment"
+        android:label="Đơn hàng"
+        tools:layout="@layout/fragment_orders" />
+
+</navigation>
+

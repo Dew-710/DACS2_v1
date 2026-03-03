@@ -40,19 +40,45 @@ public class UserController {
     @PostMapping("/login")
     @Operation(summary = "User login", description = "Authenticate user and return JWT token")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            // Validate request
+            if (loginRequest == null || loginRequest.getUsername() == null || loginRequest.getPassword() == null) {
+                return ResponseEntity.badRequest().body(
+                        Map.of("message", "Username và password là bắt buộc")
+                );
+            }
 
-        User user = userService.login(loginRequest);
-        
-        // Generate JWT token
-        String token = jwtService.generateToken(user.getUsername());
+            if (loginRequest.getUsername().trim().isEmpty() || loginRequest.getPassword().trim().isEmpty()) {
+                return ResponseEntity.badRequest().body(
+                        Map.of("message", "Username và password không được để trống")
+                );
+            }
 
-        return ResponseEntity.ok(
-                Map.of(
-                        "message", "Login successful",
-                        "user", user,
-                        "token", token
-                )
-        );
+            User user = userService.login(loginRequest);
+            
+            // Generate JWT token
+            String token = jwtService.generateToken(user.getUsername());
+
+            return ResponseEntity.ok(
+                    Map.of(
+                            "message", "Login successful",
+                            "user", user,
+                            "token", token
+                    )
+            );
+        } catch (RuntimeException e) {
+            // Handle login errors (user not found, wrong password, account locked, etc.)
+            return ResponseEntity.badRequest().body(
+                    Map.of("message", e.getMessage())
+            );
+        } catch (Exception e) {
+            // Handle unexpected errors
+            System.err.println("❌ Login error: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(
+                    Map.of("message", "Đăng nhập thất bại. Vui lòng thử lại sau.")
+            );
+        }
     }
 
     @GetMapping("/list")

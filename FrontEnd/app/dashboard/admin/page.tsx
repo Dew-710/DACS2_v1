@@ -25,9 +25,12 @@ import {
   approveReservation,
   rejectReservation,
   updateUser,
+  deleteUser,
+  register,
   updateOrderStatus,
   createMenuItem,
   updateMenuItem,
+  deleteMenuItem,
   updateTableStatus,
   sendQRCodeToESP32
 } from '@/lib/api';
@@ -58,7 +61,9 @@ import {
   XCircle,
   Edit,
   Plus,
-  QrCode
+  QrCode,
+  Trash2,
+  Menu
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -74,7 +79,7 @@ function AdminDashboardContent() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
-  
+  const totalItems = menuItems.length;
   // Admin dashboard state
   const [dashboardSummary, setDashboardSummary] = useState<AdminDashboardSummary | null>(null);
   const [recentOrders, setRecentOrders] = useState<RecentOrder[]>([]);
@@ -116,8 +121,22 @@ function AdminDashboardContent() {
       ]);
 
       setDashboardSummary(summaryRes);
-      setRecentOrders(ordersRes.orders || []);
-      setPendingReservations(reservationsRes.reservations || []);
+      
+      // Sắp xếp recentOrders: đơn mới nhất lên trên
+      const sortedRecentOrders = (ordersRes.orders || []).sort((a, b) => {
+        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        return dateB - dateA; // DESC: mới nhất lên trên
+      });
+      setRecentOrders(sortedRecentOrders);
+      
+      // Sắp xếp pendingReservations: đặt bàn mới nhất lên trên
+      const sortedReservations = (reservationsRes.reservations || []).sort((a, b) => {
+        const dateA = a.date ? new Date(a.date).getTime() : 0;
+        const dateB = b.date ? new Date(b.date).getTime() : 0;
+        return dateB - dateA; // DESC: mới nhất lên trên
+      });
+      setPendingReservations(sortedReservations);
     } catch (error: any) {
       // Handle 401/403 - redirect to login
       if (error.message?.includes('401') || error.message?.includes('403') || error.message?.includes('Authentication')) {
@@ -153,7 +172,14 @@ function AdminDashboardContent() {
       setMenuItems(menuRes.menuItems || []);
       setCategories(categoriesRes.categories || []);
       setUsers(usersRes.users || []);
-      setOrders(ordersRes.orders || []);
+      
+      // Sắp xếp orders: đơn mới nhất lên trên (theo createdAt DESC)
+      const sortedOrders = (ordersRes.orders || []).sort((a, b) => {
+        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        return dateB - dateA; // DESC: mới nhất lên trên
+      });
+      setOrders(sortedOrders);
     } catch (error: any) {
       if (error.message?.includes('401') || error.message?.includes('403')) {
         toast.error('Phiên đăng nhập đã hết hạn');
@@ -206,6 +232,12 @@ function AdminDashboardContent() {
   };
 
   // User management handlers
+  const handleAddUser = () => {
+    setSelectedUser(null);
+    setUserForm({ fullName: '', email: '', phone: '', role: 'CUSTOMER', status: 'ACTIVE' });
+    setUserDialogOpen(true);
+  };
+
   const handleEditUser = (user: User) => {
     setSelectedUser(user);
     setUserForm({
@@ -219,14 +251,46 @@ function AdminDashboardContent() {
   };
 
   const handleSaveUser = async () => {
-    if (!selectedUser) return;
     try {
-      await updateUser(selectedUser.id, userForm);
-      toast.success('Cập nhật người dùng thành công');
+      if (selectedUser) {
+        // Cập nhật người dùng hiện có
+        await updateUser(selectedUser.id, userForm);
+        toast.success('Cập nhật người dùng thành công');
+      } else {
+        // Tạo người dùng mới
+        // Tạo username từ email (lấy phần trước @)
+        const username = userForm.email.split('@')[0] || `user_${Date.now()}`;
+        // Tạo password mặc định (có thể yêu cầu admin đổi sau)
+        const defaultPassword = '123456';
+        
+        await register({
+          username,
+          password: defaultPassword,
+          confirmPassword: defaultPassword,
+          fullName: userForm.fullName,
+          email: userForm.email,
+          phone: userForm.phone,
+          role: userForm.role as any
+        });
+        toast.success('Thêm người dùng thành công. Mật khẩu mặc định: 123456');
+      }
       setUserDialogOpen(false);
       await loadDashboardData();
     } catch (error: any) {
-      toast.error('Không thể cập nhật người dùng: ' + (error.message || 'Lỗi không xác định'));
+      toast.error('Không thể lưu người dùng: ' + (error.message || 'Lỗi không xác định'));
+    }
+  };
+
+  const handleDeleteUser = async (userId: number, username: string) => {
+    if (!confirm(`Bạn có chắc chắn muốn xóa người dùng "${username}"?`)) {
+      return;
+    }
+    try {
+      await deleteUser(userId);
+      toast.success('Xóa người dùng thành công');
+      await loadDashboardData();
+    } catch (error: any) {
+      toast.error('Không thể xóa người dùng: ' + (error.message || 'Lỗi không xác định'));
     }
   };
 
@@ -282,6 +346,19 @@ function AdminDashboardContent() {
       await loadDashboardData();
     } catch (error: any) {
       toast.error('Không thể lưu món ăn: ' + (error.message || 'Lỗi không xác định'));
+    }
+  };
+
+  const handleDeleteMenuItem = async (itemId: number, itemName: string) => {
+    if (!confirm(`Bạn có chắc chắn muốn xóa món "${itemName}"?`)) {
+      return;
+    }
+    try {
+      await deleteMenuItem(itemId);
+      toast.success('Xóa món ăn thành công');
+      await loadDashboardData();
+    } catch (error: any) {
+      toast.error('Không thể xóa món ăn: ' + (error.message || 'Lỗi không xác định'));
     }
   };
 
@@ -342,6 +419,8 @@ function AdminDashboardContent() {
   ];
 
   return (
+    console.log('totalItems:', totalItems),
+    
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
       {/* Header */}
       <header className="border-b bg-card/80 backdrop-blur-sm">
@@ -349,10 +428,13 @@ function AdminDashboardContent() {
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-primary-foreground font-bold">
               👑
+            
+              
             </div>
             <div>
               <h1 className="text-xl font-bold">Admin Dashboard</h1>
               <p className="text-sm text-muted-foreground">Chào mừng Admin {user?.username}</p>
+              
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -519,7 +601,10 @@ function AdminDashboardContent() {
           <TabsContent value="users" className="space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold">Quản lý người dùng</h2>
-              <Button>Thêm người dùng</Button>
+              <Button onClick={handleAddUser}>
+                <Plus className="w-4 h-4 mr-2" />
+                Thêm người dùng
+              </Button>
             </div>
 
             <Card>
@@ -553,7 +638,15 @@ function AdminDashboardContent() {
                           </Badge>
                           <Button variant="outline" size="sm" onClick={() => handleEditUser(userItem)}>
                             <Edit className="w-4 h-4 mr-1" />
-                            Chỉnh sửa
+                            Sửa
+                          </Button>
+                          <Button 
+                            variant="destructive" 
+                            size="sm" 
+                            onClick={() => handleDeleteUser(userItem.id, userItem.username)}
+                          >
+                            <Trash2 className="w-4 h-4 mr-1" />
+                            Xóa
                           </Button>
                         </div>
                       </div>
@@ -679,18 +772,47 @@ function AdminDashboardContent() {
                 <CardHeader>
                   <CardTitle>Món ăn ({menuItems.length})</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  {menuItems.slice(0, 5).map((item) => (
-                    <div key={item.id} className="flex items-center justify-between py-2">
-                      <div>
-                        <p className="font-medium">{item.name}</p>
-                        <p className="text-sm text-muted-foreground">{item.price}đ</p>
-                      </div>
-                      <Badge variant={item.isAvailable ? 'default' : 'secondary'}>
-                        {item.isAvailable ? 'Có sẵn' : 'Hết'}
-                      </Badge>
+                <CardContent className="p-0">
+                  {menuItems.length === 0 ? (
+                    <p className="text-muted-foreground text-center py-8">Chưa có món ăn</p>
+                  ) : (
+                    <div className="divide-y max-h-[600px] overflow-y-auto">
+                      {menuItems.map((item) => (
+                        <div key={item.id} className="flex items-center justify-between p-4 hover:bg-muted/50">
+                          <div className="flex-1">
+                            <p className="font-medium">{item.name}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {item.price?.toLocaleString('vi-VN')}đ • {item.category?.name || 'Chưa phân loại'}
+                            </p>
+                            {item.description && (
+                              <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{item.description}</p>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Badge variant={item.isAvailable ? 'default' : 'secondary'}>
+                              {item.isAvailable ? 'Có sẵn' : 'Hết'}
+                            </Badge>
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              onClick={() => handleEditMenuItem(item)}
+                            >
+                              <Edit className="w-4 h-4 mr-1" />
+                              Sửa
+                            </Button>
+                            <Button 
+                              variant="destructive" 
+                              size="sm" 
+                              onClick={() => handleDeleteMenuItem(item.id, item.name)}
+                            >
+                              <Trash2 className="w-4 h-4 mr-1" />
+                              Xóa
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  )}
                 </CardContent>
               </Card>
             </div>
@@ -754,7 +876,7 @@ function AdminDashboardContent() {
       <Dialog open={userDialogOpen} onOpenChange={setUserDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Cập nhật người dùng</DialogTitle>
+            <DialogTitle>{selectedUser ? 'Cập nhật người dùng' : 'Thêm người dùng mới'}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
@@ -812,7 +934,9 @@ function AdminDashboardContent() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setUserDialogOpen(false)}>Hủy</Button>
-            <Button onClick={handleSaveUser}>Lưu</Button>
+            <Button onClick={handleSaveUser}>
+              {selectedUser ? 'Cập nhật' : 'Thêm mới'}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -895,7 +1019,9 @@ function AdminDashboardContent() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setMenuDialogOpen(false)}>Hủy</Button>
-            <Button onClick={handleSaveMenuItem}>Lưu</Button>
+            <Button onClick={handleSaveMenuItem}>
+              {selectedMenuItem ? 'Cập nhật' : 'Thêm mới'}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

@@ -91,8 +91,22 @@ function StaffDashboardContent() {
       ]);
 
       setTables(tablesRes.tables || []);
-      setOrders(ordersRes.orders || []);
-      setBookings(bookingsRes.bookings || []);
+      
+      // Sắp xếp orders: đơn mới nhất lên trên (theo createdAt DESC)
+      const sortedOrders = (ordersRes.orders || []).sort((a, b) => {
+        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        return dateB - dateA; // DESC: mới nhất lên trên
+      });
+      setOrders(sortedOrders);
+      
+      // Sắp xếp bookings: đặt bàn mới nhất lên trên
+      const sortedBookings = (bookingsRes.bookings || []).sort((a, b) => {
+        const dateA = a.date ? new Date(a.date).getTime() : 0;
+        const dateB = b.date ? new Date(b.date).getTime() : 0;
+        return dateB - dateA; // DESC: mới nhất lên trên
+      });
+      setBookings(sortedBookings);
 
       // Lọc bàn có trạng thái PENDING_CHECKIN để check-in
       const pendingTables = (tablesRes.tables || []).filter(table =>
@@ -324,14 +338,22 @@ function StaffDashboardContent() {
   const reservedTables = tables.filter(table => table.status === 'RESERVED');
   const pendingCheckInTables = tables.filter(table => table.status === 'PENDING_CHECKIN');
   // Filter orders for staff: show PENDING_PAYMENT (ready for payment) and other active statuses
-  const activeOrders = orders.filter(order => 
-    order.status === 'PENDING_PAYMENT' || 
-    order.status === 'PLACED' || 
-    order.status === 'CONFIRMED' || 
-    order.status === 'PREPARING' || 
-    order.status === 'READY' || 
-    order.status === 'SERVED'
-  );
+  // Lọc và sắp xếp active orders: đơn mới nhất lên trên
+  const activeOrders = orders
+    .filter(order => 
+      order.status === 'PENDING_PAYMENT' || 
+      order.status === 'PLACED' || 
+      order.status === 'CONFIRMED' || 
+      order.status === 'PREPARING' || 
+      order.status === 'READY' || 
+      order.status === 'SERVED'
+    )
+    .sort((a, b) => {
+      // Sắp xếp theo createdAt DESC (mới nhất lên trên)
+      const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return dateB - dateA; // DESC: mới nhất lên trên
+    });
 
   // Lọc bàn dựa trên bộ lọc đã chọn
   const filteredTables = tableFilter === 'all' ? tables :
