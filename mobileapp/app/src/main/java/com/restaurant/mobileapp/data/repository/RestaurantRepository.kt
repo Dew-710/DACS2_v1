@@ -1,9 +1,6 @@
 package com.restaurant.mobileapp.data.repository
 
-import com.restaurant.mobileapp.data.api.ApiService
-import com.restaurant.mobileapp.data.api.RegisterResponse
-import com.restaurant.mobileapp.data.api.RetrofitClient
-import com.restaurant.mobileapp.data.api.TokenManager
+import com.restaurant.mobileapp.data.api.*
 import com.restaurant.mobileapp.data.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -19,7 +16,10 @@ class RestaurantRepository {
                 val response = apiService.login(LoginRequest(username, password))
                 if (response.isSuccessful && response.body() != null) {
                     val loginResponse = response.body()!!
-                    TokenManager.setToken(loginResponse.token)
+                    SessionManager.saveAuthToken(loginResponse.token)
+                    loginResponse.user.id?.let {
+                        SessionManager.saveUser(it, loginResponse.user.role, loginResponse.user.username)
+                    }
                     Result.success(loginResponse)
                 } else {
                     Result.failure(Exception(response.message() ?: "Login failed"))
@@ -176,7 +176,114 @@ class RestaurantRepository {
     }
     
     fun logout() {
-        TokenManager.clearToken()
+        SessionManager.clearSession()
+    }
+
+    // Bookings
+    suspend fun createBooking(request: BookingRequest): Result<Booking> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.createBooking(request)
+                if (response.isSuccessful && response.body() != null) {
+                    Result.success(response.body()!!.booking)
+                } else {
+                    Result.failure(Exception(response.message() ?: "Failed to book table"))
+                }
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+    }
+
+    suspend fun getMyBookings(customerId: Long): Result<List<Booking>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.getMyBookings(customerId)
+                if (response.isSuccessful && response.body() != null) {
+                    Result.success(response.body()!!.bookings)
+                } else {
+                    Result.failure(Exception(response.message() ?: "Failed to load bookings"))
+                }
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+    }
+    
+    // User Profile
+    suspend fun getUserProfile(userId: Long): Result<User> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.getUserProfile(userId)
+                if (response.isSuccessful && response.body() != null) {
+                    Result.success(response.body()!!.user)
+                } else {
+                    Result.failure(Exception(response.message() ?: "Failed to get profile"))
+                }
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+    }
+
+    // Tables & Admin
+    suspend fun getDashboardSummary(): Result<DashboardSummaryResponse> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.getDashboardSummary()
+                if (response.isSuccessful && response.body() != null) {
+                    Result.success(response.body()!!)
+                } else {
+                    Result.failure(Exception(response.message() ?: "Failed to load dashboard"))
+                }
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+    }
+
+    suspend fun getAllTables(): Result<List<RestaurantTable>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.getAllTables()
+                if (response.isSuccessful && response.body() != null) {
+                    Result.success(response.body()!!.tables)
+                } else {
+                    Result.failure(Exception(response.message() ?: "Failed to load tables"))
+                }
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+    }
+
+    suspend fun checkInTable(qrCode: String): Result<RestaurantTable> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.checkInTable(qrCode)
+                if (response.isSuccessful && response.body() != null) {
+                    Result.success(response.body()!!.table)
+                } else {
+                    Result.failure(Exception(response.message() ?: "Check-in failed"))
+                }
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+    }
+    
+    suspend fun checkOutTable(tableId: Long): Result<RestaurantTable> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.checkOutTable(tableId)
+                if (response.isSuccessful && response.body() != null) {
+                    Result.success(response.body()!!.table)
+                } else {
+                    Result.failure(Exception(response.message() ?: "Check-out failed"))
+                }
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
     }
 }
-

@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.restaurant.mobileapp"
-    compileSdk = 36
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.restaurant.mobileapp"
@@ -42,6 +42,11 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        compose = true
+    }
+    
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
 }
 
@@ -52,15 +57,24 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     
+    // Compose
+    val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.runtime:runtime-livedata")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.navigation:navigation-compose:2.7.6")
+    
     // Lifecycle & ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     implementation("androidx.activity:activity-ktx:1.8.2")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
-    
-    // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
     
     // Retrofit & Networking
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -74,6 +88,10 @@ dependencies {
     
     // Image Loading
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    
+    // QR Code
+    implementation("com.google.zxing:core:3.5.3")
     
     // DataStore (for storing token)
     implementation("androidx.datastore:datastore-preferences:1.0.0")
@@ -83,4 +101,3 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
-

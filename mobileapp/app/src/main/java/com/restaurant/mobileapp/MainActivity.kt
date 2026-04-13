@@ -1,31 +1,32 @@
 package com.restaurant.mobileapp
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.restaurant.mobileapp.databinding.ActivityMainBinding
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.restaurant.mobileapp.ui.navigation.AppNavigation
+import com.restaurant.mobileapp.ui.theme.RestaurantAppTheme
 
-class MainActivity : AppCompatActivity() {
-    
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : ComponentActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         
-        setupNavigation()
-    }
-    
-    private fun setupNavigation() {
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-        
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNav?.setupWithNavController(navController)
+        setContent {
+            RestaurantAppTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    AppNavigation()
+                }
+            }
+        }
     }
 }
+
+
 

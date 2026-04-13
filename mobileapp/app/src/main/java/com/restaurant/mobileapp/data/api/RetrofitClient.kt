@@ -19,7 +19,7 @@ object RetrofitClient {
         val requestBuilder = original.newBuilder()
         
         // Add token if available
-        val token = TokenManager.getToken()
+        val token = SessionManager.getAuthToken()
         if (token != null) {
             requestBuilder.addHeader("Authorization", token)
         }
@@ -46,18 +46,3 @@ object RetrofitClient {
     
     val apiService: ApiService = retrofit.create(ApiService::class.java)
 }
-
-object TokenManager {
-    private var token: String? = null
-    
-    fun setToken(newToken: String?) {
-        token = newToken
-    }
-    
-    fun getToken(): String? = token
-    
-    fun clearToken() {
-        token = null
-    }
-}
-
